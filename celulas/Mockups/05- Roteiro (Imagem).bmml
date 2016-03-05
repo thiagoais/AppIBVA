@@ -1,0 +1,27 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="801" measuredH="523" mockupW="282" mockupH="510">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="519" y="13" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Canvas" x="544" y="112" w="229" h="32" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="625" y="117" w="-1" h="-1" measuredW="67" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Roteiros</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Link" x="725" y="464" w="-1" h="-1" measuredW="25" measuredH="37" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>05-%20Roteiro%26bm%3B05-%20Roteiro.bmml%26bm%3B05-%20Roteiro.bmml%26bm%3B05-%20Roteiro.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22206%2C451%2C231%2C488%22%20href%3D%2205-%2520Roteiro.bmml%22%20alt%3D%2205-%20Roteiro%22%20id%3D%2234%22/%3E</map>
+        <size>28</size>
+        <text>%3C</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Image" x="552" y="147" w="217" h="289" measuredW="900" measuredH="1600" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./Imagens/roteiro%2520crise%2520lugar%2520de%2520crescimento.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

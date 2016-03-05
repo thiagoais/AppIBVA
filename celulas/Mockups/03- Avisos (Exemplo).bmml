@@ -1,0 +1,40 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="801" measuredH="523" mockupW="282" mockupH="510">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="519" y="13" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Canvas" x="544" y="112" w="229" h="32" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="627" y="117" w="-1" h="-1" measuredW="54" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Avisos</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Link" x="725" y="461" w="-1" h="-1" measuredW="23" measuredH="33" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>03-%20Avisos%26bm%3B03-%20Avisos.bmml%26bm%3B03-%20Avisos.bmml%26bm%3B03-%20Avisos.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22206%2C448%2C229%2C481%22%20href%3D%2203-%2520Avisos.bmml%22%20alt%3D%2203-%20Avisos%22%20id%3D%2240%22/%3E</map>
+        <size>24</size>
+        <text>%3C</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Tree" x="548" y="145" w="221" h="295" measuredW="300" measuredH="225" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>03-%20Avisos%20%28Exemplo%29%26bm%3B03-%20Avisos%20%28Exemplo%29.bmml%26bm%3B03-%20Avisos%20%28Exemplo%29.bmml%26bm%3B03-%20Avisos%20%28Exemplo%29.bmml%2C%2C%2C%2C</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2229%2C139%2C250%2C162%22%20href%3D%2203-%2520Avisos%2520%28Exemplo%29.bmml%22%20alt%3D%2203-%20Avisos%20%28Exemplo%29%22%20id%3D%2241_0%22/%3E%0A</map>
+        <text>%5B%5D%20Data%20C%E9lula%0A%5B%5D%20Aviso%202%0A%5B%5D%20Aviso%203%0A%5B%5D%20Aviso%204%0A%5B%5D%20Aviso%205</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Canvas" x="548" y="198" w="222" h="104" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Label" x="596" y="205" w="-1" h="-1" measuredW="129" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>C%E9lula%20de%20S%E1bado</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="554" y="242" w="212" h="47" measuredW="364" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nessa%20semana%20nossa%20c%E9lula%20ser%E1%20na%20casa%20do%20eduardo%20%E0s%2019%20hrs.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
