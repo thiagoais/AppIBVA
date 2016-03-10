@@ -73,5 +73,10 @@
         <text>%22E%20disse-lhes%3A%20Ide%20por%20todo%20omundo%2C%20pregai%20o%20evangelho%20a%20toda%20criatura.%22Marcos%2016%3A15</text>
       </controlProperties>
     </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::Label" x="643" y="290" w="158" h="21" measuredW="121" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>L%EDder%3A%20Lucas%20Barque</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>
