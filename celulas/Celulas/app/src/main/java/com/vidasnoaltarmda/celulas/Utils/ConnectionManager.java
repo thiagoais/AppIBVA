@@ -3,6 +3,7 @@ package com.vidasnoaltarmda.celulas.Utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by thiago on 06/03/2016.
@@ -14,15 +15,14 @@ public class ConnectionManager {
     private static String password = "1z2x3c4v";
     private static Connection con;
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName(driverName);
-            try {
-                con = DriverManager.getConnection(url, username, password);
-            } catch (SQLException ex) {
-                // log an exception. fro example:
-                System.out.println("Failed to create the database connection.");
-            }
+            DriverManager.setLoginTimeout(1);
+            String dbConnectionString = url+"?user="+username+"&password="+password;
+            Properties properties = new Properties();
+            properties.put("connectTimeout", "2000");
+            con = DriverManager.getConnection(dbConnectionString, properties);
         } catch (ClassNotFoundException ex) {
             // log an exception. for example:
             System.out.println("Driver not found.");

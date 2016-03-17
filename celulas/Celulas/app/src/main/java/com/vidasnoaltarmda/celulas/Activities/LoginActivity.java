@@ -1,6 +1,7 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.Utils;
+
+import java.sql.SQLException;
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
 
@@ -33,6 +37,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     // insere listeners em todos os componentes da tela
     private void insereListeners() {
         getButtonEntrar().setOnClickListener(this);
+        getButtonRegistrar().setOnClickListener(this);
     }
 
     //retorna referencia para o componente de tela
@@ -97,17 +102,33 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_entrar:
-                //pegar os dados login e senha
-                new LoginTask().execute(getEditTextLogin().getText().toString(), getEditTextSenha().getText().toString());
-                //entrar no sistema ou nao
+                if (verificaCamposLoginSenha())
+                    new LoginTask().execute(getEditTextLogin().getText().toString(), getEditTextSenha().getText().toString());
                 break;
             case R.id.button_registrar:
-                //TODO preciso fazer o metodo de registro
+                Intent intent = new Intent(this, RegistrarActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
-    private class LoginTask extends AsyncTask<String, Void, Boolean> {
+    private boolean verificaCamposLoginSenha() {
+        boolean camposPreenchidos = true;
+        if (getEditTextLogin().getText().length() <= 0) {
+            getEditTextLogin().setError("Por favor, digite seu login");
+            camposPreenchidos = false;
+        }
+        if (getEditTextSenha().getText().length() <= 0) {
+            getEditTextSenha().setError("Por favor, digite sua senha");
+            camposPreenchidos = false;
+        }
+        return camposPreenchidos;
+    }
+
+    private class LoginTask extends AsyncTask<String, Void, Integer> {
+        private final int LOGIN_SUCESSO = 0; // sucesso na operacao de login
+        private final int LOGIN_FALHOU = 1; // ocorreu uma falha na operacao de login. Provavelmente causada por erro de digitacao do usuario ou inexistencia de cadastro
+        private final int LOGIN_FALHA_SQLEXCEPTION = 2;
         ProgressDialog progressDialog;
 
         @Override
@@ -118,20 +139,33 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         }
 
         @Override
-        protected Boolean doInBackground(String... dadosUsuario) {
+        protected Integer doInBackground(String... dadosUsuario) {
             if (dadosUsuario.length >= 2) {
-                return verificaUsuario(dadosUsuario[0], dadosUsuario[1]) != null;
+                try {
+                    return ((verificaUsuario(dadosUsuario[0], dadosUsuario[1]) != null) ? LOGIN_SUCESSO : LOGIN_FALHOU);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    //TODO LOG ERRO
+                    return LOGIN_FALHA_SQLEXCEPTION;
+                }
+
             }
-            return false;
+            return LOGIN_FALHOU;
         }
 
         @Override
-        protected void onPostExecute(Boolean resultadoLogin) {
+        protected void onPostExecute(Integer resultadoLogin) {
             progressDialog.dismiss();
-            if (resultadoLogin) {
-                Toast.makeText(LoginActivity.this, "Login com sucesso", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(LoginActivity.this, "Login falhou", Toast.LENGTH_LONG).show();
+            switch (resultadoLogin) {
+                case LOGIN_SUCESSO:
+                    Toast.makeText(LoginActivity.this, "Login com sucesso", Toast.LENGTH_LONG).show();
+                    break;
+                case LOGIN_FALHOU:
+                    Utils.mostraMensagemDialog(LoginActivity.this, "Não foi possível efetuar login. Verifique usuário e senha e tente novamente. \n\nCaso ainda não possua um cadastro selecione o botão \"Registrar\"");
+                    break;
+                case LOGIN_FALHA_SQLEXCEPTION:
+                    Utils.mostraMensagemDialog(LoginActivity.this, "Não foi possível efetuar login. Verifique sua conexão com a internet e tente novamente.");
+                    break;
             }
             //TODO se enviado com sucesso limpa campos
             super.onPostExecute(resultadoLogin);
@@ -139,7 +173,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     }
 
     //Método usado para verificar se o usuário digitado é válido e se a senha do mesmo confere com a cadastrada
-    private Usuario verificaUsuario(String login, String senha){
+    private Usuario verificaUsuario(String login, String senha) throws SQLException{
         return new UsuarioDAO().retornaUsuarioLogin(login, senha);
     }
 
