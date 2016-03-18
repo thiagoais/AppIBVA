@@ -37,7 +37,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
-        String[] listaCelulas = {"Ágape","Célula1","Célula2","Célula3","Célula4"};
+        String[] listaCelulas = {"Ágape","Amigas de Deus","Ganhando Vidas","Geração Eleita","Guerreiros de Deus 1", "Guerreiros de Deus 2",
+        "Intimidade com Deus", "Kairós", "Novas Vidas", "Vale da Benção", "Vitória de Deus"};
         getCelulas().setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCelulas));
         insereListeners();
 

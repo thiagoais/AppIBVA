@@ -31,14 +31,14 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Campos com '*\' são obrigatórios" />
+                android:text="Todos os campos são OBRIGATÓRIOS!" />
 
             <TextView
                 android:id="@+id/lblnome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Nome: "
+                android:text="Nome: "
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Sobrenome:"
+                android:text="Sobrenome:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Data Nascimento:"
+                android:text="Data Nascimento:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Célula:"
+                android:text="Célula:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Login:"
+                android:text="Login:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Senha:"
+                android:text="Senha:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
@@ -135,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="*Confirmar Senha:"
+                android:text="Confirmar Senha:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#2d2d2d"
                 android:textSize="25dp" />
