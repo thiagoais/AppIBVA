@@ -75,4 +75,9 @@ public class Celula {
     public void setVersiculo(String versiculo) {
         this.versiculo = versiculo;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

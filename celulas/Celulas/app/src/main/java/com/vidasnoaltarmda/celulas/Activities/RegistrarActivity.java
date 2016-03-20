@@ -13,13 +13,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
+import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RegistrarActivity extends ActionBarActivity implements View.OnClickListener {
@@ -37,9 +40,9 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
-        String[] listaCelulas = {"Ágape","Amigas de Deus","Ganhando Vidas","Geração Eleita","Guerreiros de Deus 1", "Guerreiros de Deus 2",
-        "Intimidade com Deus", "Kairós", "Novas Vidas", "Vale da Benção", "Vitória de Deus"};
-        getCelulas().setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaCelulas));
+        //String[] listaCelulas = {"Ágape","Amigas de Deus","Ganhando Vidas","Geração Eleita","Guerreiros de Deus 1", "Guerreiros de Deus 2",
+        //"Intimidade com Deus", "Kairós", "Novas Vidas", "Vale da Benção", "Vitória de Deus"};
+        new PopulaCelulasTask().execute();
         insereListeners();
 
     }
@@ -106,7 +109,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     }
 
     private Usuario montaUsuario() {
-        Usuario usuario = montaUsuario();
+        Usuario usuario = new Usuario();
         usuario.setNome(getNome().getText().toString());
         usuario.setSobrenome(getSobrenome().getText().toString());
         usuario.setDataNascimento(getDataNascimento().getText().toString());
@@ -156,6 +159,47 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
                     Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    break;
+            }
+            super.onPostExecute(resultadoLogin);
+        }
+    }
+
+    private class PopulaCelulasTask extends AsyncTask<Usuario, Void, Integer> {
+        ArrayList<Celula> celulas;
+        ProgressDialog progressDialog;
+        private final int RETORNO_SUCESSO = 0; //
+        private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            celulas = new ArrayList<Celula>();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(RegistrarActivity.this, "Carregando", "Verificando dados...", true);
+        }
+
+        @Override
+        protected Integer doInBackground(Usuario... usuarios) {
+            try {
+                celulas = new CelulaDAO().retornaCelulas();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return FALHA_SQLEXCEPTION;
+                //TODO LOG ERRO
+            }
+            return RETORNO_SUCESSO;
+        }
+
+        @Override
+        protected void onPostExecute(Integer resultadoLogin) {
+            progressDialog.dismiss();
+            switch (resultadoLogin) {
+                case RETORNO_SUCESSO:
+                    getCelulas().setAdapter(new ArrayAdapter<Celula>(RegistrarActivity.this, android.R.layout.simple_list_item_1, celulas));
+                    break;
+                case FALHA_SQLEXCEPTION:
+                    Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível carregar as células.");
                     break;
             }
             super.onPostExecute(resultadoLogin);

@@ -15,4 +15,9 @@ public class Utils {
         AlertDialog alerta = builder.create();
         alerta.show();
     }
+
+    public static String coverteDataBanco(String data) {
+        String[] campos = data.split("/");
+        return campos[2] + "-" + campos[1] + "-" + campos[0];
+    }
 }

@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Dao;
 
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
+import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -75,7 +76,7 @@ public class UsuarioDAO {
                     " INSERT INTO usuario (nome, sobrenome, data_nascimento, login, senha, id_celula, permissao) values (?,?,?,?,?,?,?)");
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSobrenome());
-            statement.setString(3, usuario.getDataNascimento());
+            statement.setString(3, Utils.coverteDataBanco(usuario.getDataNascimento()));
             statement.setString(4, usuario.getLogin());
             statement.setString(5, usuario.getSenha());
             statement.setInt(6, usuario.getId());
