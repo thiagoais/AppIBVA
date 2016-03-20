@@ -1,5 +1,7 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -18,12 +20,12 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
 
     private LinearLayout aviso;
     private LinearLayout escala;
-    private ImageButton roteiro;
-    private ImageButton programacao;
-    private ImageButton aniversariante;
-    private ImageButton ge;
-    private ImageButton celula;
-    private ImageButton site;
+    private LinearLayout roteiro;
+    private LinearLayout programacao;
+    private LinearLayout aniversariante;
+    private LinearLayout ge;
+    private LinearLayout celula;
+    private LinearLayout site;
 
 
     @Override
@@ -32,6 +34,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         setContentView(R.layout.activity_principal);
 
         getAviso().setOnClickListener(this);
+        getSite().setOnClickListener(this);
 
     }
 
@@ -42,9 +45,13 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
             case R.id.aviso:
                 Toast.makeText(PrincipalActivity.this, "Funciona!", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.site:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltarmda.com/"));
+                startActivity(browserIntent);
+                break;
         }
     }
-
 
     private LinearLayout getAviso() {
         if (aviso == null) {
@@ -60,46 +67,48 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         return escala;
     }
 
-    private ImageButton getRoteiro() {
+    private LinearLayout getRoteiro() {
         if (roteiro == null) {
-            roteiro = (ImageButton) findViewById(R.id.roteiro);
+            roteiro = (LinearLayout) findViewById(R.id.roteiro);
         }
         return roteiro;
     }
 
 
-    private ImageButton getProgramacao() {
+    private LinearLayout getProgramacao() {
         if (programacao == null) {
-            programacao = (ImageButton) findViewById(R.id.programacao);
+            programacao = (LinearLayout) findViewById(R.id.programacao);
         }
         return programacao;
     }
 
-    private ImageButton getAniversariante() {
+    private LinearLayout getAniversariante() {
         if (aniversariante == null) {
-            aniversariante = (ImageButton) findViewById(R.id.aniversariante);
+            aniversariante = (LinearLayout) findViewById(R.id.aniversariante);
         }
         return aniversariante;
     }
 
-    private ImageButton getGe() {
+    private LinearLayout getGe() {
         if (ge == null) {
-            ge = (ImageButton) findViewById(R.id.ge);
+            ge = (LinearLayout) findViewById(R.id.ge);
         }
         return ge;
     }
 
-    private ImageButton getCelula() {
+    private LinearLayout getCelula() {
         if (celula == null) {
-            celula = (ImageButton) findViewById(R.id.celula);
+            celula = (LinearLayout) findViewById(R.id.celula);
         }
         return celula;
     }
 
-    private ImageButton getSite() {
-        if (site == null) {
-            site = (ImageButton) findViewById(R.id.site);
-        }
+    private LinearLayout getSite() {
+            if (site == null) {
+                site = (LinearLayout) findViewById(R.id.site);
+            }
+
+
         return site;
     }
 

@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class RegistrarActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -95,6 +96,12 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         }
         if (getDataNascimento().getText().length() <= 0) {
             getDataNascimento().setError("Por favor, selecione sua data de nascimento");
+        int dataAtual = new Date().getYear();
+        if(2017 > dataAtual){
+            Toast.makeText(RegistrarActivity.this, "Por favor, digite um ano de nascimento válido!", Toast.LENGTH_SHORT).show();
+        }
+
+
             camposPreenchidos = false;
         }
         if (getLogin().getText().length() <= 0) {
@@ -105,6 +112,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             getSenha().setError("Por favor, digite uma senha");
             camposPreenchidos = false;
         }
+
+
         return camposPreenchidos;
     }
 

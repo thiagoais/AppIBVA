@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="30dp"
+                        android:textSize="20dp"
                         android:text="Avisos" />
 
                 </LinearLayout>
@@ -64,59 +64,184 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="30dp"
+                        android:textSize="20dp"
                         android:text="Escala" />
 
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/roteiro"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Roteiros"
-                android:textSize="20dp" />
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/programacao"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Programações"
-                android:textSize="20dp" />
+                <LinearLayout
+                    android:id="@+id/roteiro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/aniversariante"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Aniversariantes"
-                android:textSize="20dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/roteiro" />
 
-            <ImageButton
-                android:id="@+id/ge"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="GE&apos;s"
-                android:textSize="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="Roteiros" />
 
-            <ImageButton
-                android:id="@+id/celula"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Célula"
-                android:textSize="20dp" />
+                </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/site"
+                <LinearLayout
+                    android:id="@+id/programacao"
+                    android:layout_width="0dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/programacao" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="Programações" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Site IBVA"
-                android:textSize="20dp" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/aniversariante"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/aniversariante" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="Aniversariantes" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ge"
+                    android:layout_width="0dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ge" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="GE's" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/celula"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/celula" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="Célula" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/site"
+                    android:layout_width="0dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/site" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="Site IBVA" />
+
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
