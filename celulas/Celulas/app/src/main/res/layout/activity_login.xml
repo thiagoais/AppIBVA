@@ -13,21 +13,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/logo_ibva" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"/>
-
     <EditText
         android:id="@+id/edittext_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Login"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Senha"/>
 
     <EditText
         android:id="@+id/edittext_senha"
