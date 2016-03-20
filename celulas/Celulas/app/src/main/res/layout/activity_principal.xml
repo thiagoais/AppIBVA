@@ -5,6 +5,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:padding="5dp"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -12,69 +13,110 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Avisos"
-        android:id="@+id/aviso"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Escalas"
-        android:id="@+id/escala"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                <LinearLayout
+                    android:id="@+id/aviso"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Roteiros"
-        android:id="@+id/roteiro"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/aviso" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Programações"
-        android:id="@+id/programacao"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="30dp"
+                        android:text="Avisos" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Aniversariantes"
-        android:id="@+id/aniversariante"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="GE&apos;s"
-        android:id="@+id/ge"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                <LinearLayout
+                    android:id="@+id/escala"
+                    android:layout_width="0dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Célula"
-        android:id="@+id/celula"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/escala" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Site IBVA"
-        android:id="@+id/site"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:gravity="center_vertical"
+                        android:textSize="30dp"
+                        android:text="Escala" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/roteiro"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Roteiros"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/programacao"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Programações"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/aniversariante"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Aniversariantes"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/ge"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="GE&apos;s"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/celula"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Célula"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/site"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Site IBVA"
+                android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
@@ -158,7 +157,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case LOGIN_SUCESSO:
-                    Toast.makeText(LoginActivity.this, "Login com sucesso", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
+                    startActivity(intent);
                     break;
                 case LOGIN_FALHOU:
                     Utils.mostraMensagemDialog(LoginActivity.this, "Não foi possível efetuar login. Verifique usuário e senha e tente novamente. \n\nCaso ainda não possua um cadastro selecione o botão \"Registrar\"");

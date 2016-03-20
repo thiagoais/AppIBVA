@@ -1,19 +1,13 @@
 package com.vidasnoaltarmda.celulas.Activities;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Usuario;
-import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
-
-import java.security.Principal;
 
 /**
  * Created by barque on 14/03/2016.
@@ -22,14 +16,14 @@ import java.security.Principal;
 
 public class PrincipalActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private Button aviso;
-    private Button escala;
-    private Button roteiro;
-    private Button programacao;
-    private Button aniversariante;
-    private Button ge;
-    private Button celula;
-    private Button site;
+    private LinearLayout aviso;
+    private LinearLayout escala;
+    private ImageButton roteiro;
+    private ImageButton programacao;
+    private ImageButton aniversariante;
+    private ImageButton ge;
+    private ImageButton celula;
+    private ImageButton site;
 
 
     @Override
@@ -37,70 +31,74 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-
+        getAviso().setOnClickListener(this);
 
     }
 
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.aviso:
+                Toast.makeText(PrincipalActivity.this, "Funciona!", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
 
-    private Button getAviso() {
+    private LinearLayout getAviso() {
         if (aviso == null) {
-            aviso = (Button) findViewById(R.id.aviso);
+            aviso = (LinearLayout) findViewById(R.id.aviso);
         }
         return aviso;
     }
 
-    private Button getEscala() {
+    private LinearLayout getEscala() {
         if (escala == null) {
-            escala = (Button) findViewById(R.id.escala);
+            escala = (LinearLayout) findViewById(R.id.escala);
         }
         return escala;
     }
 
-    private Button getRoteiro() {
+    private ImageButton getRoteiro() {
         if (roteiro == null) {
-            roteiro = (Button) findViewById(R.id.roteiro);
+            roteiro = (ImageButton) findViewById(R.id.roteiro);
         }
         return roteiro;
     }
 
 
-    private Button getProgramacao() {
+    private ImageButton getProgramacao() {
         if (programacao == null) {
-            programacao = (Button) findViewById(R.id.programacao);
+            programacao = (ImageButton) findViewById(R.id.programacao);
         }
         return programacao;
     }
 
-    private Button getAniversariante() {
+    private ImageButton getAniversariante() {
         if (aniversariante == null) {
-            aniversariante = (Button) findViewById(R.id.aniversariante);
+            aniversariante = (ImageButton) findViewById(R.id.aniversariante);
         }
         return aniversariante;
     }
 
-    private Button getGe() {
+    private ImageButton getGe() {
         if (ge == null) {
-            ge = (Button) findViewById(R.id.ge);
+            ge = (ImageButton) findViewById(R.id.ge);
         }
         return ge;
     }
 
-    private Button getCelula() {
+    private ImageButton getCelula() {
         if (celula == null) {
-            celula = (Button) findViewById(R.id.celula);
+            celula = (ImageButton) findViewById(R.id.celula);
         }
         return celula;
     }
 
-    private Button getSite() {
+    private ImageButton getSite() {
         if (site == null) {
-            site = (Button) findViewById(R.id.site);
+            site = (ImageButton) findViewById(R.id.site);
         }
         return site;
     }

@@ -23,6 +23,10 @@
             android:name=".Activities.RegistrarActivity"
             android:label="@string/title_activity_registrar" >
         </activity>
+        <activity
+            android:name=".Activities.PrincipalActivity"
+            android:label="@string/title_activity_principal" >
+        </activity>
     </application>
 
 </manifest>
