@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class RegistrarActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -79,6 +78,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 campoTexto.setText(new SimpleDateFormat("dd/MM/yyyy").format(newDate.getTime()));
+                campoTexto.setTag(newDate);
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -90,24 +90,31 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             getNome().setError("Por favor, digite seu nome");
             camposPreenchidos = false;
         }
+
         if (getSobrenome().getText().length() <= 0) {
-            getNome().setError("Por favor, digite seu sobrenome");
+            getSobrenome().setError("Por favor, digite seu sobrenome");
             camposPreenchidos = false;
         }
+
+        getDataNascimento().setError(null);
         if (getDataNascimento().getText().length() <= 0) {
             getDataNascimento().setError("Por favor, selecione sua data de nascimento");
-        int dataAtual = new Date().getYear();
-        if(2017 > dataAtual){
-            Toast.makeText(RegistrarActivity.this, "Por favor, digite um ano de nascimento válido!", Toast.LENGTH_SHORT).show();
-        }
-
-
             camposPreenchidos = false;
+        } else {
+            if (getDataNascimento().getTag() != null) {
+                if (((Calendar) getDataNascimento().getTag()).get(Calendar.YEAR) > Calendar.getInstance().get(Calendar.YEAR)) {
+                    Toast.makeText(this, "Digite uma data válida por favor.", Toast.LENGTH_LONG).show();
+                    getDataNascimento().setError("Por favor, digite uma data válida.");
+                    camposPreenchidos = false;
+                }
+            }
         }
+
         if (getLogin().getText().length() <= 0) {
             getLogin().setError("Por favor, digite um nome para seu login");
             camposPreenchidos = false;
         }
+
         if (getSenha().getText().length() <= 0) {
             getSenha().setError("Por favor, digite uma senha");
             camposPreenchidos = false;
@@ -235,7 +242,6 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         }
         return data_nascimento;
     }
-
 
     private Spinner getCelulas() {
         if (celulas == null) {
