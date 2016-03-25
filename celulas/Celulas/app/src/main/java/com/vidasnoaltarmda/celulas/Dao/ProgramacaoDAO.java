@@ -4,6 +4,7 @@ import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by thiago on 24/03/2016.
  */
+//TODO filtrar por celula
 public class ProgramacaoDAO {
     public ArrayList<Programacao> retornaProgramacoes() throws SQLException {
         ArrayList<Programacao> programacoes = new ArrayList<>();
@@ -63,5 +65,52 @@ public class ProgramacaoDAO {
             }
         }
         return programacoes;
+    }
+
+    //metodo que retorna a imagem da programacao passada por parametro e salva no caminho especificado
+    //TODO verificar possibilidade de implementacao de um cache de imagens
+    public boolean retornaProgramacaoImagem(Programacao programacao, String caminhoArquivo, String nomeArquivo) throws SQLException {
+        InputStream isProgramacao = null;
+        ResultSet rs = null;
+        PreparedStatement statement = null;
+        Connection conexao = null;
+
+        conexao = ConnectionManager.getConnection();
+        try {
+            statement = conexao.prepareStatement(
+                    " SELECT imagem            " +
+                    "   FROM programacao       " +
+                    "  WHERE id_programacao = ? ");
+
+            statement.setInt(1, programacao.getId_programacao());
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                isProgramacao = rs.getBinaryStream(1);
+            }
+
+            Utils.downloadImagemBanco(caminhoArquivo, isProgramacao, nomeArquivo);
+
+            return true;
+        } catch (Exception e) {
+            //TODO LOG ERRO
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                //TODO LOG ERRO
+                mysqlEx.printStackTrace();
+            }
+        }
+        return false;
     }
 }

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.R;
 
@@ -31,11 +30,12 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
+        //TODO implementar selector para efeito de click botoes tela principal
         getAviso().setOnClickListener(this);
         getSite().setOnClickListener(this);
         getRoteiro().setOnClickListener(this);
         getProgramacao().setOnClickListener(this);
+        getAniversariante().setOnClickListener(this);
     }
 
 
@@ -43,7 +43,8 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.aviso:
-                Toast.makeText(PrincipalActivity.this, "Funciona!", Toast.LENGTH_SHORT).show();
+                Intent intentAviso = new Intent(this, AvisoActivity.class);
+                startActivity(intentAviso);
                 break;
 
             case R.id.roteiro:
@@ -54,6 +55,11 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
             case R.id.programacao:
                 Intent intentProgramacao = new Intent(this, ProgramacaoActivity.class);
                 startActivity(intentProgramacao);
+                break;
+
+            case R.id.aniversariante:
+                Intent intentAniversariante = new Intent(this, AniversariantesActivity.class);
+                startActivity(intentAniversariante);
                 break;
 
             case R.id.site:

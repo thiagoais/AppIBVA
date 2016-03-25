@@ -2,10 +2,7 @@ package com.vidasnoaltarmda.celulas.Dao;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
-import com.vidasnoaltarmda.celulas.Dados.Programacao;
-import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
-import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +32,7 @@ public class AvisoDAO {
                             "   FROM aviso                                          " +
                             " WHERE id_celula = ? ORDER BY id_aviso desc;            ");
 
+            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
             while (rs.next()) {
                 aviso = new Aviso();

@@ -16,6 +16,7 @@
     <EditText
         android:id="@+id/edittext_login"
         android:layout_width="match_parent"
+        android:singleLine="true"
         android:layout_height="wrap_content"
         android:hint="Login"/>
 
@@ -23,6 +24,7 @@
         android:id="@+id/edittext_senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:password="true"
         android:hint="Senha"/>
 

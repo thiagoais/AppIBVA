@@ -1,11 +1,16 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
-import java.sql.Blob;
+import android.graphics.Bitmap;
+
+import java.io.Serializable;
 
 /**
  * Created by barque on 20/03/2016.
  */
-public class Programacao {
+public class Programacao implements Serializable {
+
+    public static String DIRETORIO_IMAGENS_PROGRAMACAO = "/programacao";
+    public static String NOME_PADRAO_IMAGEM_PROGRAMACAO = "progImg.jpg";
 
     private int id_programacao;
     private int id_celula;
@@ -15,7 +20,7 @@ public class Programacao {
     private String local_prog;
     private String telefone;
     private String valor;
-    private Blob imagem;
+    private Bitmap imagem;
 
     public int getId_programacao() {
         return id_programacao;
@@ -81,11 +86,11 @@ public class Programacao {
         this.valor = valor;
     }
 
-    public Blob getImagem() {
+    public Bitmap getImagem() {
         return imagem;
     }
 
-    public void setImagem(Blob imagem) {
+    public void setImagem(Bitmap imagem) {
         this.imagem = imagem;
     }
 

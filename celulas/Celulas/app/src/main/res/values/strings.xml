@@ -7,4 +7,7 @@
     <string name="roteiroactivity_selecionar_roteiro">Selecione um roteiro:</string>
     <string name="title_activity_programacao">Programações</string>
     <string name="programacao_selecionar_programacao">Selecione a programação:</string>
+    <string name="title_activity_programacao_selecionada">Programação</string>
+    <string name="title_activity_aniversariantes">Aniversariantes</string>
+    <string name="tittle_activity_aviso">Avisos</string>
 </resources>

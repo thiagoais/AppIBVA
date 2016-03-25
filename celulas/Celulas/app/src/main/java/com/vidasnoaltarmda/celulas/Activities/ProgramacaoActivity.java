@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class ProgramacaoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
+    public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;
 
     @Override
@@ -97,8 +99,11 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
         switch (adapterView.getId()) {
-            case R.id.listview_roteiros:
-                //TODO
+            case R.id.listview_programacoes:
+                Programacao programacao = (Programacao) adapterView.getItemAtPosition(pos);
+                Intent intent = new Intent(this, ProgramacaoSelecionadaActivity.class);
+                intent.putExtra(PROGRAMACAO_SELECIONADA, programacao);
+                startActivity(intent);
                 break;
         }
     }

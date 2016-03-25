@@ -83,4 +83,9 @@ public class Usuario {
     public void setPermissao(int permissao) {
         this.permissao = permissao;
     }
+
+    @Override
+    public String toString() {
+        return getNome() + " - " + getDataNascimento();
+    }
 }

@@ -127,9 +127,9 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
         //metodo executado apos finalizacao do metodo doInBackground. Sendo assim ja e possivel usar a lista de roteiros
         // retornada
         @Override
-        protected void onPostExecute(Integer resultadoLogin) {
+        protected void onPostExecute(Integer resultado) {
             progressDialog.dismiss();
-            switch (resultadoLogin) {
+            switch (resultado) {
                 case RETORNO_SUCESSO:
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
@@ -141,7 +141,7 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
                     Utils.mostraMensagemDialog(RoteiroActivity.this, "Não foi possível carregar a imagem. Verifique sua conexão e tente novamente.");
                     break;
             }
-            super.onPostExecute(resultadoLogin);
+            super.onPostExecute(resultado);
         }
     }
 

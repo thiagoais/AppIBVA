@@ -12,9 +12,7 @@ import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
-import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
-import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
@@ -33,13 +31,20 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviso);
 
-        new PopulaAvisosTask().execute();
+        //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
+        //teste
+        Celula celula = new Celula();
+        celula.setId_celula(9);
+
+        //teste
+        new PopulaAvisosTask().execute(celula);
         insereListeners();
     }
 
     private void insereListeners() {
         getListViewAviso().setOnItemClickListener(this);
     }
+
     private ListView getListViewAviso() {
         if (listview_avisos == null) {
             listview_avisos = (ListView) findViewById(R.id.avisoslist);
@@ -47,16 +52,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         return listview_avisos;
     }
 
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-
-
-    private class PopulaAvisosTask extends AsyncTask<Void, Void, Integer> implements AdapterView.OnItemClickListener {//desisto kkkk ja fiz bastante arruma ai pra nois
+    private class PopulaAvisosTask extends AsyncTask<Celula, Void, Integer> {//desisto kkkk ja fiz bastante arruma ai pra nois //kkkkk blz
         ArrayList<Aviso> avisos;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
@@ -76,9 +72,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             return RETORNO_SUCESSO;
         }
 
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -86,10 +79,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(AvisoActivity.this, "Carregando avisos", "Aguarde por favor...", true);
         }
-
-
-
-
 
         //metodo executado apos finalizacao do metodo doInBackground. Sendo assim ja e possivel usar a lista de avisos
         // retornada
@@ -114,22 +103,17 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             }
             super.onPostExecute(resultadoAviso);
         }
-
-       
-
-
-
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-            switch (adapterView.getId()) {
-                case R.id.avisoslist:
-                    //TODO
-                    break;
-            }
-        }
-
-
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+        switch (adapterView.getId()) {
+            case R.id.avisoslist:
+                //TODO
+                break;
+        }
+    }
+
 }
 
 

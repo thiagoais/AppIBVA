@@ -37,6 +37,18 @@
             android:name=".Activities.ProgramacaoActivity"
             android:label="@string/title_activity_programacao" >
         </activity>
+        <activity
+            android:name=".Activities.ProgramacaoSelecionadaActivity"
+            android:label="@string/title_activity_programacao_selecionada" >
+        </activity>
+        <activity
+            android:name=".Activities.AniversariantesActivity"
+            android:label="@string/title_activity_aniversariantes" >
+        </activity>
+        <activity
+            android:name=".Activities.AvisoActivity"
+            android:label="@string/tittle_activity_aviso" >
+        </activity>
     </application>
 
 </manifest>

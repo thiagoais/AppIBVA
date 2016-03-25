@@ -23,14 +23,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+android:padding="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/aviso" />
 
                     <TextView
@@ -46,8 +45,7 @@
                 <LinearLayout
                     android:id="@+id/escala"
                     android:layout_width="0dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -55,8 +53,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/escala" />
 
                     <TextView
@@ -80,14 +78,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/roteiro" />
 
                     <TextView
@@ -103,8 +100,7 @@
                 <LinearLayout
                     android:id="@+id/programacao"
                     android:layout_width="0dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -112,8 +108,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/programacao" />
 
                     <TextView
@@ -137,14 +133,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/aniversariante" />
 
                     <TextView
@@ -160,8 +155,7 @@
                 <LinearLayout
                     android:id="@+id/ge"
                     android:layout_width="0dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -169,8 +163,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/ge" />
 
                     <TextView
@@ -194,14 +188,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/celula" />
 
                     <TextView
@@ -217,8 +210,7 @@
                 <LinearLayout
                     android:id="@+id/site"
                     android:layout_width="0dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -226,8 +218,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/site" />
 
                     <TextView

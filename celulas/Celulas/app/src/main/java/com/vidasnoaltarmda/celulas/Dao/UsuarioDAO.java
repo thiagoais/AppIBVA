@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by thiago on 06/03/2016.
@@ -37,7 +38,7 @@ public class UsuarioDAO {
 
             if (rs.next()) {
                 usuario = new Usuario();
-                usuario.setId(rs.getInt(0));
+                usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
                 usuario.setDataNascimento(rs.getString(5));
@@ -64,6 +65,55 @@ public class UsuarioDAO {
             }
         }
         return usuario;
+    }
+
+    public ArrayList<Usuario> retornaAniversariantes() throws SQLException{
+        Usuario usuario = null;
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        ResultSet rs = null;
+        PreparedStatement statement = null;
+        Connection conexao = null;
+
+        conexao = ConnectionManager.getConnection();
+        try {
+            statement = conexao.prepareStatement(
+                    " SELECT   id_usuario, id_escala, id_celula, nome,      " +
+                    "          sobrenome, data_nascimento, login, permissao " +
+                    "   FROM usuario                                        " +
+                    "   ORDER BY data_nascimento                            ");
+
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(rs.getInt(1));
+                usuario.setNome(rs.getString(4));
+                usuario.setSobrenome(rs.getString(5));
+                usuario.setDataNascimento(Utils.coverteDataApp(rs.getString(6)));
+                usuario.setLogin(rs.getString(7));
+                usuario.setPermissao(rs.getInt(8));
+                usuarios.add(usuario);
+            }
+        } catch (Exception e) {
+            //TODO LOG ERRO
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                //TODO LOG ERRO
+                mysqlEx.printStackTrace();
+            }
+        }
+        return usuarios;
     }
 
     public boolean insereUsuario(Usuario usuario) throws SQLException{
