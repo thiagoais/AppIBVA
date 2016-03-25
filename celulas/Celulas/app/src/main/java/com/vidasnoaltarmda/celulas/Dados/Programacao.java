@@ -88,4 +88,9 @@ public class Programacao {
     public void setImagem(Blob imagem) {
         this.imagem = imagem;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

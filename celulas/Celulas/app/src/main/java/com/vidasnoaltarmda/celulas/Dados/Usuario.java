@@ -4,15 +4,21 @@ package com.vidasnoaltarmda.celulas.Dados;
  * Created by thiago on 06/03/2016.
  */
 public class Usuario {
+    public static final int PERMISSAO_BASICA = 1;
+
     private int id;
     private String nome;
     private String senha;
     private String sobrenome;
     private String dataNascimento;
-    //private Celula celula;
-    //private Escala escala;
+    private Celula celula;
+    //private Escala escala; //TODO
     private String login;
     private int permissao;
+
+    public Usuario() {
+        permissao = PERMISSAO_BASICA;
+    }
 
     public int getId() {
         return id;
@@ -52,6 +58,14 @@ public class Usuario {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Celula getCelula() {
+        return celula;
+    }
+
+    public void setCelula(Celula celula) {
+        this.celula = celula;
     }
 
     public String getLogin() {

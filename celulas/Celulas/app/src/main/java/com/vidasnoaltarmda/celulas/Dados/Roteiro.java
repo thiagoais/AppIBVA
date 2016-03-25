@@ -42,4 +42,9 @@ public class Roteiro {
     public void setRoteiro(Blob roteiro) {
         this.roteiro = roteiro;
     }
+
+    @Override
+    public String toString() {
+        return getTitulo() + " - " + getData_roteiro();
+    }
 }

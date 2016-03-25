@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_registrar">Registrar</string>
     <string name="title_activity_principal">Principal</string>
+    <string name="title_activity_roteiro">Roteiros</string>
+    <string name="roteiroactivity_selecionar_roteiro">Selecione um roteiro:</string>
+    <string name="title_activity_programacao">Programações</string>
+    <string name="programacao_selecionar_programacao">Selecione a programação:</string>
 </resources>

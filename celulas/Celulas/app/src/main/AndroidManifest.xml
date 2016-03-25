@@ -3,6 +3,8 @@
     package="com.vidasnoaltarmda.celulas" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,14 @@
         <activity
             android:name=".Activities.PrincipalActivity"
             android:label="@string/title_activity_principal" >
+        </activity>
+        <activity
+            android:name=".Activities.RoteiroActivity"
+            android:label="@string/title_activity_roteiro" >
+        </activity>
+        <activity
+            android:name=".Activities.ProgramacaoActivity"
+            android:label="@string/title_activity_programacao" >
         </activity>
     </application>
 

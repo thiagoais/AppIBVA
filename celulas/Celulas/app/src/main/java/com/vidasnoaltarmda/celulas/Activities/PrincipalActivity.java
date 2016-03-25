@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -35,7 +34,8 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
 
         getAviso().setOnClickListener(this);
         getSite().setOnClickListener(this);
-
+        getRoteiro().setOnClickListener(this);
+        getProgramacao().setOnClickListener(this);
     }
 
 
@@ -44,6 +44,16 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.aviso:
                 Toast.makeText(PrincipalActivity.this, "Funciona!", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.roteiro:
+                Intent intentRoteiro = new Intent(this, RoteiroActivity.class);
+                startActivity(intentRoteiro);
+                break;
+
+            case R.id.programacao:
+                Intent intentProgramacao = new Intent(this, ProgramacaoActivity.class);
+                startActivity(intentProgramacao);
                 break;
 
             case R.id.site:

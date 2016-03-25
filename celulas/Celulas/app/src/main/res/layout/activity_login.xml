@@ -32,12 +32,15 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
             android:layout_weight="1"
+            android:layout_marginRight="5dp"
             android:id="@+id/button_registrar"
             android:text="Registrar"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
             android:layout_weight="1"
             android:id="@+id/button_entrar"
             android:text="Entrar"/>

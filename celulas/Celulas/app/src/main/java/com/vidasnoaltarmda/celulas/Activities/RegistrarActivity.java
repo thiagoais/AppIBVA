@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -31,8 +32,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     private EditText sobrenome;
     private EditText data_nascimento;
     private Spinner celulas;
-    private EditText login;
-    private EditText senha;
+    private EditText login; //TODO definir padrao de login
+    private EditText senha; //TODO definir padrao de senha
     private EditText confirma_senha;
     private Button registrar;
 
@@ -40,8 +41,6 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
-        //String[] listaCelulas = {"Ágape","Amigas de Deus","Ganhando Vidas","Geração Eleita","Guerreiros de Deus 1", "Guerreiros de Deus 2",
-        //"Intimidade com Deus", "Kairós", "Novas Vidas", "Vale da Benção", "Vitória de Deus"};
         new PopulaCelulasTask().execute();
         insereListeners();
 
@@ -72,7 +71,15 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void mostraDatePickerDialog(final EditText campoTexto) {
-        final Calendar newCalendar = Calendar.getInstance();
+        final Calendar calendar;
+        //Prepara data anterior caso ja tenha sido selecionada
+        if (campoTexto.getTag() != null) {
+            calendar = ((Calendar) campoTexto.getTag());
+        } else {
+            calendar = Calendar.getInstance();
+        }
+        //----
+
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -81,7 +88,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                 campoTexto.setTag(newDate);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private boolean verificaDadosUsuario() {
@@ -118,8 +125,12 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         if (getSenha().getText().length() <= 0) {
             getSenha().setError("Por favor, digite uma senha");
             camposPreenchidos = false;
+        } else {
+            if (!getSenha().getText().toString().equals(getConfirmaSenha().getText().toString())) {
+                getConfirmaSenha().setError("Campo confirmação de senha não confere com a senha digitada");
+                camposPreenchidos = false;
+            }
         }
-
 
         return camposPreenchidos;
     }
@@ -129,6 +140,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         usuario.setNome(getNome().getText().toString());
         usuario.setSobrenome(getSobrenome().getText().toString());
         usuario.setDataNascimento(getDataNascimento().getText().toString());
+        if (getCelulas().getSelectedItem() != null)
+            usuario.setCelula((Celula) getCelulas().getSelectedItem());
         usuario.setLogin(getLogin().getText().toString());
         usuario.setSenha(getSenha().getText().toString());
         return usuario;
@@ -181,12 +194,16 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         }
     }
 
+    //metodo responsável por buscar os dados das celulas no banco (acesso remoto) e popular o spinner de celulas.
+    //seguindo a boa pratica de separar a interecao externa da thread principal
     private class PopulaCelulasTask extends AsyncTask<Usuario, Void, Integer> {
         ArrayList<Celula> celulas;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
         private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
 
+        //metodo executado pela thread principal antes de qualquer outro processamento. Nesse caso utilizado para
+        // inicializar a lista de celulas e mostrar o dialog de progresso para o usuario
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -195,6 +212,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             progressDialog = ProgressDialog.show(RegistrarActivity.this, "Carregando", "Verificando dados...", true);
         }
 
+        //metodo que executa as tarefas de acesso a banco e retorno das celulas em uma thread separada.
+        // Como o proprio nome do metodo diz em background (ou em segundo plano)
         @Override
         protected Integer doInBackground(Usuario... usuarios) {
             try {
@@ -207,6 +226,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             return RETORNO_SUCESSO;
         }
 
+        //metodo executado apos finalizacao do metodo doInBackground. Sendo assim ja e possivel usar a lista de celulas
+        // retornada
         @Override
         protected void onPostExecute(Integer resultadoLogin) {
             progressDialog.dismiss();
@@ -215,7 +236,14 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                     getCelulas().setAdapter(new ArrayAdapter<Celula>(RegistrarActivity.this, android.R.layout.simple_list_item_1, celulas));
                     break;
                 case FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível carregar as células.");
+                    //nao foi possivel carregar as celulas, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
+                    Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível carregar as células. Verifique sua conexão e tente novamente.",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
                     break;
             }
             super.onPostExecute(resultadoLogin);

@@ -17,6 +17,7 @@ public class ConnectionManager {
 
     public static Connection getConnection() throws SQLException {
         try {
+            //TODO adicionar mais tentativas de conexao para minimizar erros
             Class.forName(driverName);
             DriverManager.setLoginTimeout(1);
             String dbConnectionString = url+"?user="+username+"&password="+password;
