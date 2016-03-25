@@ -1,5 +1,7 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
+import android.widget.ListView;
+
 /**
  * Created by barque on 20/03/2016.
  */
@@ -8,6 +10,9 @@ public class Aviso {
     private int id_celula;
     private String titulo;
     private String conteudo;
+    private ListView avisoslist;
+
+
 
     public int getId_aviso() {
         return id_aviso;
@@ -39,5 +44,13 @@ public class Aviso {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    public ListView getAvisoslist() {
+        return avisoslist;
+    }
+
+    public void setAvisoslist(ListView avisoslist) {
+        this.avisoslist = avisoslist;
     }
 }
