@@ -8,15 +8,17 @@
 
     <TextView
         android:padding="15dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Parabéns!!!"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textAlignment="center" />
 
     <ListView
         android:layout_marginTop="10dp"
         android:id="@+id/listview_aniversariantes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
 </LinearLayout>
