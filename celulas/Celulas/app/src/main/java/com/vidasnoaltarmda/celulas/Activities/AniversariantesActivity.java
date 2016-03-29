@@ -14,7 +14,9 @@ import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AniversariantesActivity extends ActionBarActivity {
 
@@ -58,7 +60,9 @@ public class AniversariantesActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultado) {
                 case RETORNO_SUCESSO:
+
                     getListViewAniversariantes().setAdapter(new ArrayAdapter<Usuario>(AniversariantesActivity.this, android.R.layout.simple_list_item_1, aniversariantes));
+
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar os aniversariantes, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

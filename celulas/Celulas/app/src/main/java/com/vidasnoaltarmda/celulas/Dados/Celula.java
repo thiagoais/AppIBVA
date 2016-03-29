@@ -1,6 +1,8 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
 
+import java.sql.Blob;
+
 public class Celula {
     private int id_celula;
     private String nome;
@@ -9,8 +11,18 @@ public class Celula {
     private String horario;
     private String local_celula;
     private int dia_jejum;
+    private Enum periodo;
     private String versiculo;
+    private Blob imagem;
 
+
+    public Blob getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Blob imagem) {
+        this.imagem = imagem;
+    }
 
     public int getId_celula() {
         return id_celula;
@@ -68,16 +80,19 @@ public class Celula {
         this.dia_jejum = dia_jejum;
     }
 
+    public Enum getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Enum periodo) {
+        this.periodo = periodo;
+    }
+
     public String getVersiculo() {
         return versiculo;
     }
 
     public void setVersiculo(String versiculo) {
         this.versiculo = versiculo;
-    }
-
-    @Override
-    public String toString() {
-        return getNome();
     }
 }

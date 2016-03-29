@@ -15,18 +15,21 @@ import com.vidasnoaltarmda.celulas.R;
 
 public class CelulaActivity extends ActionBarActivity implements View.OnClickListener {
 
+    private TextView nome;
+    private TextView lider;
     private ImageView foto;
     private TextView dia;
     private TextView horario;
     private TextView local;
-    private TextView jejum;
+    private TextView semana;
+    private TextView periodo;
     private TextView versiculo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_escala);
+
 
 
     }
@@ -51,6 +54,27 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         return dia;
     }
 
+    private TextView getLider() {
+        if (lider == null) {
+            lider = (TextView) findViewById(R.id.lider);
+        }
+        return lider;
+    }
+
+    private TextView getPeriodo() {
+        if (periodo == null) {
+            periodo = (TextView) findViewById(R.id.periodo);
+        }
+        return periodo;
+    }
+
+    private TextView getNome() {
+        if (nome == null) {
+            nome = (TextView) findViewById(R.id.nome);
+        }
+        return nome;
+    }
+
     private TextView getHorario() {
         if (horario == null) {
             horario = (TextView) findViewById(R.id.horario);
@@ -65,11 +89,11 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         return local;
     }
 
-    private TextView getJejum() {
-        if (jejum == null) {
-            jejum = (TextView) findViewById(R.id.jejum);
+    private TextView getSemana() {
+        if (semana == null) {
+            semana = (TextView) findViewById(R.id.semana);
         }
-        return jejum;
+        return semana;
     }
 
     private TextView getVersiculo() {
