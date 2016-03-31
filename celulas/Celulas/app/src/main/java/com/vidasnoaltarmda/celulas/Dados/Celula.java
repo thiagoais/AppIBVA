@@ -11,18 +11,9 @@ public class Celula {
     private String horario;
     private String local_celula;
     private int dia_jejum;
-    private Enum periodo;
+    private String periodo;
     private String versiculo;
     private Blob imagem;
-
-
-    public Blob getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Blob imagem) {
-        this.imagem = imagem;
-    }
 
     public int getId_celula() {
         return id_celula;
@@ -80,11 +71,11 @@ public class Celula {
         this.dia_jejum = dia_jejum;
     }
 
-    public Enum getPeriodo() {
+    public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(Enum periodo) {
+    public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
 
@@ -94,5 +85,13 @@ public class Celula {
 
     public void setVersiculo(String versiculo) {
         this.versiculo = versiculo;
+    }
+
+    public Blob getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Blob imagem) {
+        this.imagem = imagem;
     }
 }

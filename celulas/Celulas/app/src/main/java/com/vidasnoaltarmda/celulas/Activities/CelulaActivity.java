@@ -1,11 +1,14 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.R;
 
 /**
@@ -29,8 +32,37 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_celula);
+        montaTelaCelula(celula);
 
+    }
 
+    private void montaTelaCelula(Celula celula){
+        getNome().setText(celula.getNome());
+        getLider().setText(celula.getLider());
+        getFoto().setImageResource(celula.getImagem());//TODO tem que ver como vai trazer essa imagem
+        getDia().setText(celula.getDia());
+        getHorario().setText(celula.getHorario());
+        getLocal().setText(celula.getLocal_celula());
+        getSemana().setText(celula.getDia_jejum());
+        getPeriodo().setText(celula.getPeriodo());
+        getVersiculo().setText(celula.getVersiculo());
+        new mostraImagemCelulaTask().execute(celula);
+    }
+
+    //método que vai buscar a imagem da célula
+    //TODO descobrir como mostra essa imagem ABENÇOADA
+    private class mostraImagemCelulaTask extends AsyncTask<Celula, Void,  Integer>{
+    String caminhoImagem;
+    ProgressDialog  progressDialog;
+        private final int RETORNO_SUCESSO = 0;
+        private final int FALHA_SQLEXCEPTION = 1;
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;//parei aqui depois continuo
+        }
 
     }
 

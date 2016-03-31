@@ -26,7 +26,7 @@ public class CelulaDAO {
         try {
             //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
-                    " SELECT id_celula, nome, lider, dia, horario, local_celula, dia_jejum, versiculo  " +
+                    " SELECT id_celula, nome, lider, dia, horario, local_celula, dia_jejum, periodo, versiculo, imagem  " +
                     "   FROM celula                                                                    " +
                     "  ORDER BY nome                                                                   ");
 
@@ -41,7 +41,9 @@ public class CelulaDAO {
                 celula.setHorario(rs.getString(5));
                 celula.setLocal_celula(rs.getString(6));
                 celula.setDia_jejum(rs.getInt(7));
-                celula.setVersiculo(rs.getString(8));
+                celula.setPeriodo(rs.getString(8));
+                celula.setVersiculo(rs.getString(9));
+                celula.setImagem(rs.getBlob(10));
                 celulas.add(celula);
             }
         } catch (Exception e) {
