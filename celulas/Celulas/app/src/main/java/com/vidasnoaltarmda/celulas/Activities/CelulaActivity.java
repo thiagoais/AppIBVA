@@ -1,8 +1,6 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,11 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
-import com.vidasnoaltarmda.celulas.Dados.Programacao;
-import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.R;
-
-import java.sql.SQLException;
 
 /**
  * Created by barque on 14/03/2016.
@@ -39,6 +33,18 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_celula);
+        //TODO retorna celula - sugestao carregar sempre ao abrir o programa caso haja conexao e guardar na sessao
+        //teste
+        Celula celula = new Celula();
+        celula.setNome("Teste");
+        celula.setLider("Lider Teste");
+        celula.setDia("Sexta");
+        celula.setHorario("21:00");
+        celula.setLocal_celula("Casa Teste");
+        celula.setDia_jejum(10);
+        celula.setPeriodo("Semanal");
+        celula.setVersiculo("Filipenses 4.13 - Tudo posso naquele que me fortalece");
+        //--teste
         montaTelaCelula(celula);
 
     }
@@ -46,11 +52,11 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
     private void montaTelaCelula(Celula celula){
         getNome().setText(celula.getNome());
         getLider().setText(celula.getLider());
-        getFoto().setImageResource(celula.getImagem());//TODO tem que ver como vai trazer essa imagem
+        //getFoto().setImageResource(celula.getImagem());//TODO tem que ver como vai trazer essa imagem
         getDia().setText(celula.getDia());
         getHorario().setText(celula.getHorario());
         getLocal().setText(celula.getLocal_celula());
-        getSemana().setText(celula.getDia_jejum());
+        getSemana().setText(Integer.toString(celula.getDia_jejum()));
         getPeriodo().setText(celula.getPeriodo());
         getVersiculo().setText(celula.getVersiculo());
         new mostraImagemCelulaTask().execute(celula);
@@ -68,23 +74,23 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;
+            //caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(CelulaActivity.this, "Carregando", "Aguarde por favor...", true);
         }
 
         @Override
         protected  Integer doInBackground(Celula... celula){
-            try{
+            /*try{
                 if(celula.length > 0){
-                    new CelulaDAO().retornaCelulas(celula[0], caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA);
+                    new CelulaDAO().retornaCelulas(celula[0], caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA); TODO carregar a imagem
                 }
             }
             catch(SQLException e){
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
 
-            }
+            }*/
             return RETORNO_SUCESSO;
         }
 
@@ -94,7 +100,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    getFoto().setImageBitmap(BitmapFactory.decodeFile(caminhoImagem + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO));
+                    //getFoto().setImageBitmap(BitmapFactory.decodeFile(caminhoImagem + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO));TODO
                     break;
                 case FALHA_SQLEXCEPTION:
                     break;

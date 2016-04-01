@@ -46,8 +46,12 @@
             android:label="@string/title_activity_aniversariantes" >
         </activity>
         <activity
-            android:name=".Activities.AvisoActivity"
-            android:label="@string/tittle_activity_aviso" >
+        android:name=".Activities.AvisoActivity"
+        android:label="@string/tittle_activity_aviso" >
+    </activity>
+        <activity
+            android:name=".Activities.CelulaActivity"
+            android:label="@string/tittle_activity_celula" >
         </activity>
     </application>
 

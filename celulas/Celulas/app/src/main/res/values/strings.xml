@@ -10,4 +10,5 @@
     <string name="title_activity_programacao_selecionada">Programação</string>
     <string name="title_activity_aniversariantes">Aniversariantes</string>
     <string name="tittle_activity_aviso">Avisos</string>
+    <string name="tittle_activity_celula">Célula</string>
 </resources>

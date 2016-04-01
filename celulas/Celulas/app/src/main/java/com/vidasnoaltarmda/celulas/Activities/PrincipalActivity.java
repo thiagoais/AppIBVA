@@ -36,6 +36,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         getRoteiro().setOnClickListener(this);
         getProgramacao().setOnClickListener(this);
         getAniversariante().setOnClickListener(this);
+        getCelula().setOnClickListener(this);
     }
 
 
