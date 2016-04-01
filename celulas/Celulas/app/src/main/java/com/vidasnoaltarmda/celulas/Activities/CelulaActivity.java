@@ -1,6 +1,8 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
+import com.vidasnoaltarmda.celulas.Dados.Programacao;
+import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.R;
+
+import java.sql.SQLException;
 
 /**
  * Created by barque on 14/03/2016.
@@ -48,6 +54,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         getPeriodo().setText(celula.getPeriodo());
         getVersiculo().setText(celula.getVersiculo());
         new mostraImagemCelulaTask().execute(celula);
+
     }
 
     //método que vai buscar a imagem da célula
@@ -61,7 +68,38 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;//parei aqui depois continuo
+            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(CelulaActivity.this, "Carregando", "Aguarde por favor...", true);
+        }
+
+        @Override
+        protected  Integer doInBackground(Celula... celula){
+            try{
+                if(celula.length > 0){
+                    new CelulaDAO().retornaCelulas(celula[0], caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA);
+                }
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+                return FALHA_SQLEXCEPTION;
+
+            }
+            return RETORNO_SUCESSO;
+        }
+
+
+        @Override
+        protected void onPostExecute(Integer resultadoLogin) {
+            progressDialog.dismiss();
+            switch (resultadoLogin) {
+                case RETORNO_SUCESSO:
+                    getFoto().setImageBitmap(BitmapFactory.decodeFile(caminhoImagem + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO));
+                    break;
+                case FALHA_SQLEXCEPTION:
+                    break;
+            }
+            super.onPostExecute(resultadoLogin);
         }
 
     }

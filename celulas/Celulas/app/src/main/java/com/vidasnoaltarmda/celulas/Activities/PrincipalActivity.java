@@ -62,6 +62,11 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
                 startActivity(intentAniversariante);
                 break;
 
+            case R.id.celula:
+                Intent intentCelula = new Intent(this, CelulaActivity.class);
+                startActivity(intentCelula);
+                break;
+
             case R.id.site:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltarmda.com/"));
                 startActivity(browserIntent);
