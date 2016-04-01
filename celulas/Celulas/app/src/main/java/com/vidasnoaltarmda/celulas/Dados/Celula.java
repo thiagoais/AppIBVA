@@ -10,7 +10,7 @@ public class Celula {
     private String dia;
     private String horario;
     private String local_celula;
-    private int dia_jejum;
+    private String dia_jejum;
     private String periodo;
     private String versiculo;
     private Blob imagem;
@@ -63,11 +63,11 @@ public class Celula {
         this.local_celula = local_celula;
     }
 
-    public int getDia_jejum() {
+    public String getDia_jejum() {
         return dia_jejum;
     }
 
-    public void setDia_jejum(int dia_jejum) {
+    public void setDia_jejum(String dia_jejum) {
         this.dia_jejum = dia_jejum;
     }
 

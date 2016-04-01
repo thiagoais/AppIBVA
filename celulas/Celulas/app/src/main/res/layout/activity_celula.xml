@@ -3,7 +3,19 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="CÉLULA"
+        android:id="@+id/textView"
+        android:textAlignment="center"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="#147dd9"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_weight="1"
@@ -15,26 +27,20 @@
             android:orientation="vertical">
 
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Seja Bem-Vindo"
                 android:id="@+id/bemVindo"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="5dp" />
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Célula "
-                    android:id="@+id/lblCelula"
-                    android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,20 +191,23 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="(versículo base da célula)"
                 android:id="@+id/versiculo"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:paddingTop="25dp"
+                android:textSize="17dp" />
 
         </LinearLayout>
     </ScrollView>
     <TextView
         android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:gravity="center"
-        android:background="@android:color/holo_blue_dark"
+        android:background="#147dd9"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
         android:padding="5dp"
         android:textStyle="bold"
-        android:text="Ganhar e Cuidar é a Batida do Nosso Coração"
+        android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
         android:id="@+id/footer"/>
 </LinearLayout>

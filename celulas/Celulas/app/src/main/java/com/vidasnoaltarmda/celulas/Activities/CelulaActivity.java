@@ -36,14 +36,15 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         //TODO retorna celula - sugestao carregar sempre ao abrir o programa caso haja conexao e guardar na sessao
         //teste
         Celula celula = new Celula();
-        celula.setNome("Teste");
-        celula.setLider("Lider Teste");
-        celula.setDia("Sexta");
-        celula.setHorario("21:00");
-        celula.setLocal_celula("Casa Teste");
-        celula.setDia_jejum(10);
-        celula.setPeriodo("Semanal");
-        celula.setVersiculo("Filipenses 4.13 - Tudo posso naquele que me fortalece");
+        celula.setNome("Guerreiros de Deus 1");
+        celula.setLider("Omar Júnior");
+        celula.setDia("Sábado");
+        celula.setHorario("18:00");
+        celula.setLocal_celula("Na igreja");
+        celula.setDia_jejum("Quarta-feira");
+        celula.setPeriodo("(manhã)");
+        celula.setVersiculo("Portanto ide, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo.\n" +
+                "(Mateus 28:19)");
         //--teste
         montaTelaCelula(celula);
 
@@ -56,7 +57,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         getDia().setText(celula.getDia());
         getHorario().setText(celula.getHorario());
         getLocal().setText(celula.getLocal_celula());
-        getSemana().setText(Integer.toString(celula.getDia_jejum()));
+        getSemana().setText(celula.getDia_jejum());
         getPeriodo().setText(celula.getPeriodo());
         getVersiculo().setText(celula.getVersiculo());
         new mostraImagemCelulaTask().execute(celula);

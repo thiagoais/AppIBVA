@@ -5,7 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.ProgramacaoSelecionadaActivity">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PROGRAMAÇÃO"
+        android:id="@+id/textView"
+        android:textAlignment="center"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="#e0f705"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:singleLine="false"
+        android:phoneNumber="false"
+        android:password="false" />
     <TextView
         android:id="@+id/textview_nome_programacao"
         android:layout_width="match_parent"

@@ -40,7 +40,7 @@ public class CelulaDAO {
                 celula.setDia(rs.getString(4));
                 celula.setHorario(rs.getString(5));
                 celula.setLocal_celula(rs.getString(6));
-                celula.setDia_jejum(rs.getInt(7));
+                celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
                 celula.setImagem(rs.getBlob(10));
