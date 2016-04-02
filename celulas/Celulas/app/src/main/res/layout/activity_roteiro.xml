@@ -33,6 +33,19 @@
         android:layout_marginTop="10dp"
         android:id="@+id/listview_roteiros"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:autoText="false"
+        android:background="#41a11b"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 </LinearLayout>
