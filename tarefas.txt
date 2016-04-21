@@ -1,0 +1,25 @@
+Tarefas a fazer:
+- Contextualizar funcionamento e dados da aplicação por célula;
+- Avisos
+OK - Dialog apresentação informações do aviso 
+ - tela de cadastro <CRUD Add Delete Edit>(por controle de usuario)
+- Escala
+ - *apagar do banco após a célula (banco)
+ - tela de cadastro <CRUD Add Delete Edit>(por controle de usuario)
+- Roteiro
+ - arrumar imagem e erros ao clicar
+- Programação
+ - tratar recebimento da imagem
+ - tela de cadastro <CRUD Add Delete Edit>
+- Aniversariante
+ - trazer aniversariantes do mês de acordo com cadastro de data de nascimento do usuario e a celula
+- GE
+OK - Falta fazer a lista - nome do GE e a quantidade de dias 
+FALTA BARQUE TERMINAR - nome e qtd dias centralizado + imagem do perfil sombreada 
+ - tela de cadastro <CRUD Add Delete Edit>
+- Célula
+ - trazer a imagem
+ - clicar na imagem abrir em tela cheia
+ - trazer informações do banco
+ - tela de cadastro <CRUD Add Delete Edit>
+ 
