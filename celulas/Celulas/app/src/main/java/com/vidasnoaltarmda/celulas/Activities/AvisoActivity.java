@@ -87,24 +87,24 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         @Override
         protected void onPostExecute(Integer resultadoAviso) {
             progressDialog.dismiss();
-            switch (resultadoAviso) {
-                case RETORNO_SUCESSO:
-                    //TODO colocar mensagem quando não houverem avisos
-                    getListViewAviso().setAdapter(new ArrayAdapter<Aviso>(AvisoActivity.this, android.R.layout.simple_list_item_1, avisos));
-                    break;
-                case FALHA_SQLEXCEPTION:
-                    //nao foi possivel carregar os avisos, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível carregar os avisos. Verifique sua conexão e tente novamente.",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
-                    break;
-            }
-            super.onPostExecute(resultadoAviso);
+        switch (resultadoAviso) {
+            case RETORNO_SUCESSO:
+                //TODO colocar mensagem quando não houverem avisos
+                getListViewAviso().setAdapter(new ArrayAdapter<Aviso>(AvisoActivity.this, android.R.layout.simple_list_item_1, avisos));
+                break;
+            case FALHA_SQLEXCEPTION:
+                //nao foi possivel carregar os avisos, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
+                Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível carregar os avisos. Verifique sua conexão e tente novamente.",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+                break;
         }
+        super.onPostExecute(resultadoAviso);
+    }
     }
 
     @Override

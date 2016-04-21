@@ -24,7 +24,7 @@ public class EscalaDAO {
 
         conexao = ConnectionManager.getConnection();
         try {
-            //Garantir no banco que o login será único
+
             statement = conexao.prepareStatement(
                     " SELECT id_escala, data_celula, hora_celula, local_celula, membro, item_responsavel  " +
                             "   FROM escala            ");

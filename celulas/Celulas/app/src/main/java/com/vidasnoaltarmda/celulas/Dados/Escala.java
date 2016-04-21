@@ -1,18 +1,18 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
 public class Escala {
-    private int id_escala;
+    private Integer id_escala;
     private String data_celula;
     private String hora_celula;
     private String local_celula;
     private String membro;
     private String item_responsavel;
 
-    public int getId_escala() {
+    public Integer getId_escala() {
         return id_escala;
     }
 
-    public void setId_escala(int id_escala) {
+    public void setId_escala(Integer id_escala) {
         this.id_escala = id_escala;
     }
 
@@ -54,5 +54,10 @@ public class Escala {
 
     public void setItem_responsavel(String item_responsavel) {
         this.item_responsavel = item_responsavel;
+    }
+
+    @Override
+    public String toString() {
+        return getMembro() + " (" + (getItem_responsavel()) + " )";
     }
 }

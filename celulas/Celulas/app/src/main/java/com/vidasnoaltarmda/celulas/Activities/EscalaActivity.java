@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
@@ -29,12 +30,14 @@ import java.util.ArrayList;
  */
 
 
-public class EscalaActivity extends ActionBarActivity implements View.OnClickListener {
+public class EscalaActivity extends ActionBarActivity {
 
     private TextView data;
     private TextView horario;
     private TextView local;
     private ListView listview_escala;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,31 +58,37 @@ public class EscalaActivity extends ActionBarActivity implements View.OnClickLis
         getData().setText(escala.getData_celula());
         getHorario().setText(escala.getHora_celula());
         getLocal().setText(escala.getLocal_celula());
-        new mostraTelaTask().execute((Runnable) escala);
+        new mostraTelaTask(escala);
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     //metodo responsável por buscar imagem da programacao
     //TODO problema mostrar imagem
-    private class mostraTelaTask extends AsyncTask<Programacao, Void, Integer> {
+    private class mostraTelaTask extends AsyncTask<Escala, Void, Integer> {
         ArrayList<Escala> escalas;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
         private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
 
+        public mostraTelaTask(Escala escala) {
+            data.setText((CharSequence) getData());
+            horario.setText((CharSequence) getHorario());
+            local.setText((CharSequence) getLocal());
+
+        }
+
+
         @Override
-        protected Integer doInBackground(Programacao... params) {
+        protected Integer doInBackground(Escala... params) {
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(EscalaActivity.this, "Carregando Escala", "Aguarde por favor...", true);
+            escalas = new ArrayList<Escala>();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(EscalaActivity.this, "Carregando escala", "Aguarde por favor...", true);
         }
 
 
@@ -94,17 +103,13 @@ public class EscalaActivity extends ActionBarActivity implements View.OnClickLis
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar a escala, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.mostraMensagemDialog(EscalaActivity.this, "Não foi possível carregar a escala. Verifique sua conexão e tente novamente.",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
+                    Utils.mostraMensagemDialog(EscalaActivity.this, "Não foi possível carregar a escala. Verifique sua conexão e tente novamente.");
                     break;
             }
             super.onPostExecute(resultadoEscala);
         }
+
+
     }
 
     public TextView getData() {
