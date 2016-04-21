@@ -94,4 +94,9 @@ public class Celula {
     public void setImagem(Blob imagem) {
         this.imagem = imagem;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

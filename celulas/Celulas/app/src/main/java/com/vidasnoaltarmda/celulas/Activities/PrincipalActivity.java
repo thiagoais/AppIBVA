@@ -36,6 +36,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         getRoteiro().setOnClickListener(this);
         getProgramacao().setOnClickListener(this);
         getAniversariante().setOnClickListener(this);
+        getGe().setOnClickListener(this);
         getCelula().setOnClickListener(this);
     }
 
@@ -61,6 +62,11 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
             case R.id.aniversariante:
                 Intent intentAniversariante = new Intent(this, AniversariantesActivity.class);
                 startActivity(intentAniversariante);
+                break;
+
+            case R.id.ge:
+                Intent intentGE = new Intent(this, GEActivity.class);
+                startActivity(intentGE);
                 break;
 
             case R.id.celula:

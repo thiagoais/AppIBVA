@@ -46,6 +46,10 @@
             android:label="@string/title_activity_aniversariantes" >
         </activity>
         <activity
+            android:name=".Activities.GEActivity"
+            android:label="@string/title_activity_ge" >
+        </activity>
+        <activity
         android:name=".Activities.AvisoActivity"
         android:label="@string/tittle_activity_aviso" >
     </activity>

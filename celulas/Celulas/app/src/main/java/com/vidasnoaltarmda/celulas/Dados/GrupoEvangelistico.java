@@ -8,7 +8,7 @@ public class GrupoEvangelistico {
     private int id_ge;
     private int id_celula;
     private String nome;
-    private String dias;
+    private int dias;
 
     public int getId_ge() {
         return id_ge;
@@ -34,11 +34,16 @@ public class GrupoEvangelistico {
         this.nome = nome;
     }
 
-    public String getDias() {
+    public int getDias() {
         return dias;
     }
 
-    public void setDias(String dias) {
+    public void setDias(int dias) {
         this.dias = dias;
+    }
+
+    @Override
+    public String toString() {
+        return getNome() + " - " + Integer.toString(getDias()) + " Dias" ;
     }
 }
