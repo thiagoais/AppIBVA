@@ -123,7 +123,7 @@
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/escala" />
+                android:id="@+id/listview_escala" />
 
         </LinearLayout>
     </ScrollView>

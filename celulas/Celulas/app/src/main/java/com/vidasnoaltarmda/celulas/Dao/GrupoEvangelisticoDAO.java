@@ -30,7 +30,7 @@ public class GrupoEvangelisticoDAO {
             statement = conexao.prepareStatement(
                     " SELECT id_ge, id_celula, nome, datediff(now(), data_cadastro) as dias "+
                     "   FROM grupo_evangelistico                                            " +
-                    " WHERE id_celula = ? ;                                                 ");
+                    " WHERE id_celula = ?  ORDER BY data_cadastro DESC ;                           ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();

@@ -32,6 +32,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         setContentView(R.layout.activity_principal);
         //TODO implementar selector para efeito de click botoes tela principal
         getAviso().setOnClickListener(this);
+        getEscala().setOnClickListener(this);
         getSite().setOnClickListener(this);
         getRoteiro().setOnClickListener(this);
         getProgramacao().setOnClickListener(this);
@@ -48,7 +49,10 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
                 Intent intentAviso = new Intent(this, AvisoActivity.class);
                 startActivity(intentAviso);
                 break;
-
+            case R.id.escala:
+                Intent intentEscala = new Intent(this, EscalaActivity.class);
+                startActivity(intentEscala);
+                break;
             case R.id.roteiro:
                 Intent intentRoteiro = new Intent(this, RoteiroActivity.class);
                 startActivity(intentRoteiro);

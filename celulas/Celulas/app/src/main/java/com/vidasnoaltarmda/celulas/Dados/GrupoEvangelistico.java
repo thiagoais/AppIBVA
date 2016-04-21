@@ -44,6 +44,6 @@ public class GrupoEvangelistico {
 
     @Override
     public String toString() {
-        return getNome() + " - " + Integer.toString(getDias()) + " Dias" ;
+        return getNome() + " (" + Integer.toString(getDias()) + " dias)" ;
     }
 }

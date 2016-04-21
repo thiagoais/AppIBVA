@@ -1,15 +1,12 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
-/**
- * Created by barque on 20/03/2016.
- */
 public class Escala {
     private int id_escala;
     private String data_celula;
     private String hora_celula;
     private String local_celula;
     private String membro;
-    private int item_responsavel;
+    private String item_responsavel;
 
     public int getId_escala() {
         return id_escala;
@@ -51,11 +48,11 @@ public class Escala {
         this.membro = membro;
     }
 
-    public int getItem_responsavel() {
+    public String getItem_responsavel() {
         return item_responsavel;
     }
 
-    public void setItem_responsavel(int item_responsavel) {
+    public void setItem_responsavel(String item_responsavel) {
         this.item_responsavel = item_responsavel;
     }
 }
