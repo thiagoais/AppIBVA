@@ -17,27 +17,27 @@
         android:background="#e32b0f"
         android:textColor="#ffffff"
         android:textStyle="bold" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
 
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:id="@+id/avisoslist"
                 android:layout_gravity="center_horizontal" />
 
 
+
         </LinearLayout>
-    </ScrollView>
+
     <TextView
         android:id="@+id/footer"
         android:layout_width="match_parent"

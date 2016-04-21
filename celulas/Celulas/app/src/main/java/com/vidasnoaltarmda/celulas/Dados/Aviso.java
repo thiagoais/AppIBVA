@@ -50,6 +50,11 @@ public class Aviso {
         return avisoslist;
     }
 
+    @Override
+    public String toString() {
+        return getTitulo();
+    }
+
     public void setAvisoslist(ListView avisoslist) {
         this.avisoslist = avisoslist;
     }

@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
@@ -34,7 +36,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
         //teste
         Celula celula = new Celula();
-        celula.setId_celula(9);
+        celula.setId_celula(8);
 
         //teste
         new PopulaAvisosTask().execute(celula);
@@ -107,12 +109,20 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+        Aviso avisoSelecionado = (Aviso) adapterView.getItemAtPosition(pos);
         switch (adapterView.getId()) {
             case R.id.avisoslist:
-                //TODO
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                        .setTitle(avisoSelecionado.getTitulo())
+                        .setMessage(avisoSelecionado.getConteudo())
+                        .setPositiveButton("OK", null);
+                AlertDialog alerta = builder.create();
+                alerta.show();
                 break;
         }
     }
+
+
 
 }
 
