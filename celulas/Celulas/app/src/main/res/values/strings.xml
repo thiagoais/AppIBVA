@@ -12,4 +12,5 @@
     <string name="title_activity_ge">Grupos Evangelísticos</string>
     <string name="tittle_activity_aviso">Avisos</string>
     <string name="tittle_activity_celula">Célula</string>
+    <string name="tittle_activity_escala">Escala</string>
 </resources>
