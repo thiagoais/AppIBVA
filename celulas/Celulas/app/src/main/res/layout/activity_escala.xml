@@ -5,126 +5,140 @@
     android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="#147dd9"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ESCALA"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#bed7f1"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:stretchColumns="0,1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/lbl_Celula"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Célula:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/nome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:paddingLeft="15dp"
+                    android:text="nome"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/lbl_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Data:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:paddingLeft="15dp"
+                    android:text="data"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/lbl_horario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horário:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/horario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:paddingLeft="15dp"
+                    android:text="horario"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/lbl_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Local:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:paddingLeft="15dp"
+                    android:text="local"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+        </TableLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#147dd9" />
+
+        <ListView
+            android:id="@+id/listview_escala"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="ESCALA"
-                android:id="@+id/textView"
-                android:textAlignment="center"
-                android:layout_gravity="top"
-                android:gravity="center"
-                android:padding="10dp"
-                android:background="#147dd9"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingLeft="20dp">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Célula:"
-                        android:id="@+id/lbl_Celula"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="nome"
-                        android:id="@+id/nome"
-                        android:layout_column="1" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Data:"
-                android:id="@+id/lbl_data" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="data"
-                        android:id="@+id/data"
-                        android:layout_column="1" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Horário:"
-                        android:id="@+id/lbl_horario" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="horario"
-                        android:id="@+id/horario"
-                        android:layout_column="1" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Local:"
-                        android:id="@+id/lbl_local" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="local"
-                        android:id="@+id/local"
-                        android:layout_column="1" />
-                </TableRow>
-            </TableLayout>
-
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="249dp"
-                android:layout_weight="1"
-                android:id="@+id/listview_escala" />
-
-        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/footer"
@@ -136,7 +150,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#ffffff"
         android:textStyle="bold" />
 </LinearLayout>

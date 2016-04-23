@@ -1,8 +1,9 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
+import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 public class EscalaDAO {
     private final String TABELA = "escala";
-        public ArrayList<Escala> retornaEscalas() throws SQLException {
+        public ArrayList<Escala> retornaEscalas(Celula celula) throws SQLException {
             ArrayList<Escala> escalas = new ArrayList<>();
             Escala escala = null;
             ResultSet rs = null;
@@ -27,19 +28,22 @@ public class EscalaDAO {
         try {
 
             statement = conexao.prepareStatement(
-                    " SELECT id_escala, data_celula, hora_celula, local_celula, membro, item_responsavel  " +
-                            "   FROM escala            ");
+                    " SELECT id_escala, id_celula, data_celula, hora_celula, local_celula, membro, item_responsavel  " +
+                            "   FROM escala " +
+                            "   WHERE id_celula = ?          ");
 
+            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
                 escala = new Escala();
                 escala.setId_escala(rs.getInt(1));
-                escala.setData_celula(rs.getString(2));
-                escala.setHora_celula(rs.getString(3));
-                escala.setLocal_celula(rs.getString(4));
-                escala.setMembro(rs.getString(5));
-                escala.setItem_responsavel(rs.getString(6));
+                escala.setId_escala(rs.getInt(2));
+                escala.setData_celula(Utils.coverteDataApp(rs.getString(3)));
+                escala.setHora_celula(Utils.coverteHoraApp(rs.getString(4)));
+                escala.setLocal_celula(rs.getString(5));
+                escala.setMembro(rs.getString(6));
+                escala.setItem_responsavel(rs.getString(7));
                 escalas.add(escala);
             }
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Dados;
 
 public class Escala {
     private Integer id_escala;
+    private Integer id_celula;
     private String data_celula;
     private String hora_celula;
     private String local_celula;
@@ -14,6 +15,14 @@ public class Escala {
 
     public void setId_escala(Integer id_escala) {
         this.id_escala = id_escala;
+    }
+
+    public Integer getId_celula() {
+        return id_celula;
+    }
+
+    public void setId_celula(Integer id_celula) {
+        this.id_celula = id_celula;
     }
 
     public String getData_celula() {

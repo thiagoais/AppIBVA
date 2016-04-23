@@ -1,25 +1,15 @@
 package com.vidasnoaltarmda.celulas.Activities;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
-import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
-import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
-import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
-import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
-import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
@@ -42,6 +32,13 @@ public class EscalaActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escala);
+
+        //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
+        //teste
+        Celula celula = new Celula();
+        celula.setId_celula(8);
+        new MontaTelaEscalasTask().execute(celula);
+
     }
 
     private ListView getListViewEscala() {
@@ -51,16 +48,7 @@ public class EscalaActivity extends ActionBarActivity {
         return listview_escala;
     }
 
-
-
-    private void montaTelaEscala(Escala escala){
-        getLocal().setText(escala.getLocal_celula());
-        getHorario().setText(escala.getHora_celula());
-        getData().setText(escala.getData_celula());
-    }
-
-
-      private class mostraTelaTask extends AsyncTask<Escala, Void, Integer> {
+    private class  MontaTelaEscalasTask extends AsyncTask<Celula, Void, Integer> {
         ArrayList<Escala> escalas;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0;
@@ -68,9 +56,9 @@ public class EscalaActivity extends ActionBarActivity {
 
 
         @Override
-        protected Integer doInBackground(Escala... params) {
+        protected Integer doInBackground(Celula... celulas) {
             try {
-                escalas = new EscalaDAO().retornaEscalas();
+                escalas = new EscalaDAO().retornaEscalas(celulas[0]);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -96,8 +84,16 @@ public class EscalaActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultadoEscala) {
                 case RETORNO_SUCESSO:
-                    //TODO colocar mensagem quando não houverem avisos
-                    getListViewEscala().setAdapter(new ArrayAdapter<Escala>(EscalaActivity.this, R.layout.custom_list_item, escalas));
+                    if (escalas.size() > 0) {
+                        //preenche dados padrao da escala
+                        Escala escala = escalas.get(0);
+                        getData().setText(escala.getData_celula());
+                        getHorario().setText(escala.getHora_celula());
+                        getLocal().setText(escala.getLocal_celula());
+                        //--preenche dados padrao da escala
+                        //TODO colocar mensagem quando não houverem avisos
+                        getListViewEscala().setAdapter(new ArrayAdapter<Escala>(EscalaActivity.this, R.layout.custom_list_item_2, escalas));
+                    }
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar a escala, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

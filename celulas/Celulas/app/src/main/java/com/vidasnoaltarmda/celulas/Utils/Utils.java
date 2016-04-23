@@ -45,6 +45,12 @@ public class Utils {
         return campos[2] + "/" + campos[1] + "/" + campos[0];
     }
 
+    //converte a hora do banco para poder ser usada no programa
+    public static String coverteHoraApp(String hora) {
+        String[] campos = hora.split(":");
+        return campos[0] + ":" + campos[1];
+    }
+
     public static void downloadImagemBanco(String diretorioImagem, InputStream isImagem, String nomeImagem) throws IOException {
         File dirImagem = new File(diretorioImagem);
         if (!dirImagem.exists()) {
