@@ -33,9 +33,11 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_celula);
+        Celula celula = new Celula();
+        celula.setId_celula(8);
         //TODO retorna celula - sugestao carregar sempre ao abrir o programa caso haja conexao e guardar na sessao
         //teste
-        Celula celula = new Celula();
+       /*Celula celula = new Celula();
         celula.setNome("Guerreiros de Deus 1");
         celula.setLider("Omar Júnior");
         celula.setDia("Sábado");
@@ -46,9 +48,10 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         celula.setVersiculo("Portanto ide, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo.\n" +
                 "(Mateus 28:19)");
         //--teste
+        montaTelaCelula(celula);*/
         montaTelaCelula(celula);
-
     }
+
 
     private void montaTelaCelula(Celula celula){
         getNome().setText(celula.getNome());

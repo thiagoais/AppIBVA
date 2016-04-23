@@ -12,7 +12,8 @@ OK - Dialog apresentação informações do aviso
  - tratar recebimento da imagem
  - tela de cadastro <CRUD Add Delete Edit>
 - Aniversariante
- - trazer aniversariantes do mês de acordo com cadastro de data de nascimento do usuario e a celula
+ OK- trazer aniversariantes do mês de acordo com cadastro de data de nascimento do usuario e a celula
+Falta tambem fazer a conta (Ano atual - Data nascimento) e informar a idade do aniversariante
 - GE
 OK - Falta fazer a lista - nome do GE e a quantidade de dias 
 FALTA BARQUE TERMINAR - nome e qtd dias centralizado + imagem do perfil sombreada 
