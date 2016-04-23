@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
 
@@ -15,14 +16,14 @@ import java.util.ArrayList;
  */
 public class EscalaDAO {
     private final String TABELA = "escala";
-    public ArrayList<Escala> retornaEscala() throws SQLException {
-        ArrayList<Escala> escalas = new ArrayList<>();
-        Escala escala = null;
-        ResultSet rs = null;
-        PreparedStatement statement = null;
-        Connection conexao = null;
+        public ArrayList<Escala> retornaEscalas() throws SQLException {
+            ArrayList<Escala> escalas = new ArrayList<>();
+            Escala escala = null;
+            ResultSet rs = null;
+            PreparedStatement statement = null;
+            Connection conexao = null;
+            conexao = ConnectionManager.getConnection();
 
-        conexao = ConnectionManager.getConnection();
         try {
 
             statement = conexao.prepareStatement(

@@ -19,6 +19,7 @@ import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
+import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
@@ -37,8 +38,6 @@ public class EscalaActivity extends ActionBarActivity {
     private TextView local;
     private ListView listview_escala;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,36 +53,35 @@ public class EscalaActivity extends ActionBarActivity {
 
 
 
-    private void montaTelaEscala(Escala escala) {
-        getData().setText(escala.getData_celula());
-        getHorario().setText(escala.getHora_celula());
+    private void montaTelaEscala(Escala escala){
         getLocal().setText(escala.getLocal_celula());
-        new mostraTelaTask(escala);
+        getHorario().setText(escala.getHora_celula());
+        getData().setText(escala.getData_celula());
     }
 
 
-    //metodo responsável por buscar imagem da programacao
-    //TODO problema mostrar imagem
-    private class mostraTelaTask extends AsyncTask<Escala, Void, Integer> {
+      private class mostraTelaTask extends AsyncTask<Escala, Void, Integer> {
         ArrayList<Escala> escalas;
         ProgressDialog progressDialog;
-        private final int RETORNO_SUCESSO = 0; //
-        private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
-
-        public mostraTelaTask(Escala escala) {
-            data.setText((CharSequence) getData());
-            horario.setText((CharSequence) getHorario());
-            local.setText((CharSequence) getLocal());
-
-        }
+        private final int RETORNO_SUCESSO = 0;
+        private final int FALHA_SQLEXCEPTION = 1;
 
 
         @Override
         protected Integer doInBackground(Escala... params) {
-            return null;
+            try {
+                escalas = new EscalaDAO().retornaEscalas();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return FALHA_SQLEXCEPTION;
+                //TODO LOG ERRO
+            }
+            return RETORNO_SUCESSO;
         }
 
-        @Override
+
+
+          @Override
         protected void onPreExecute() {
             super.onPreExecute();
             escalas = new ArrayList<Escala>();
