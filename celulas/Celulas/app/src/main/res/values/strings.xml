@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Celulas IBVA</string>
     <string name="action_settings">Settings</string>
+    <string name="action_sair">Sair</string>
     <string name="title_activity_registrar">Registrar</string>
     <string name="title_activity_principal">Principal</string>
     <string name="title_activity_roteiro">Roteiros</string>
@@ -13,5 +14,5 @@
     <string name="tittle_activity_aviso">Avisos</string>
     <string name="tittle_activity_celula">Célula</string>
     <string name="tittle_activity_escala">Escala</string>
-    <string name="title_activity_roteiro_visualizacao">RoteiroVisualizacaoActivity</string>
+    <string name="title_activity_roteiro_visualizacao">Roteiro</string>
 </resources>

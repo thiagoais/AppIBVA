@@ -73,7 +73,7 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    getListViewRoteiros().setAdapter(new ArrayAdapter<Roteiro>(RoteiroActivity.this, android.R.layout.simple_list_item_1, roteiros));
+                    getListViewRoteiros().setAdapter(new ArrayAdapter<Roteiro>(RoteiroActivity.this, R.layout.custom_list_item_3, roteiros));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar os roteiros, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
