@@ -84,7 +84,7 @@ public class RoteiroDAO {
                 isRoteiro = rs.getBinaryStream(1);
             }
 
-            OutputStream outputStream = new FileOutputStream(new File(caminhoSalvaArquivo + "/teste.png"));
+            OutputStream outputStream = new FileOutputStream(new File(caminhoSalvaArquivo + "/teste.jpg"));
             int read = 0;
             byte[] bytes = new byte[1024];
 

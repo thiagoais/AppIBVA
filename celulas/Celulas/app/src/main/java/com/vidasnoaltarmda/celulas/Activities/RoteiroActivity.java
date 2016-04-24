@@ -3,7 +3,6 @@ package com.vidasnoaltarmda.celulas.Activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -131,9 +130,8 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             progressDialog.dismiss();
             switch (resultado) {
                 case RETORNO_SUCESSO:
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(caminhoImagem + "/teste.png"), "");
+                    Intent intent = new Intent(RoteiroActivity.this, RoteiroVisualizacaoActivity.class);
+                    intent.putExtra(RoteiroVisualizacaoActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
                     startActivity(intent);
                     break;
                 case FALHA_SQLEXCEPTION:
