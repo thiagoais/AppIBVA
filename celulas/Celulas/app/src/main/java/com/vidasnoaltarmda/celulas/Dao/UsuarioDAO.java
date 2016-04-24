@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
@@ -16,34 +17,65 @@ import java.util.ArrayList;
 public class UsuarioDAO {
     private final String TABELA = "usuario";
 
+    // retorna o usuario correspondente ao login
+    public Usuario retornaUsuarioLogin(String login) throws SQLException{
+        return retornaUsuarioLogin(login, null);
+    }
+
+    // retorna o usuario correspondente aos dados login e senha
     public Usuario retornaUsuarioLogin(String login, String senha) throws SQLException{
         Usuario usuario = null;
+        Celula celula = null;
         ResultSet rs = null;
         PreparedStatement statement = null;
         Connection conexao = null;
 
         conexao = ConnectionManager.getConnection();
         try {
-            //Garantir no banco que o login será único
-            statement = conexao.prepareStatement(
-                    "SELECT   id_usuario, id_escala, id_celula, nome    " +
-                    "         sobrenome, data_nascimento, login, permissao " +
-                    "  FROM usuario                                     " +
-                    "  WHERE login = ? and senha = ?                    ");
+            String stmt =
+                    " SELECT  u.id_usuario, u.id_escala, u.id_celula, u.nome,           " +
+                    "         u.sobrenome, u.data_nascimento, u.login, u.permissao,     " +
+                    "         c.nome, c.lider, c.dia, c.horario, c.local_celula,        " +
+                    "         c.dia_jejum, c.periodo, c.versiculo, c.imagem             " +
+                    "  FROM usuario u left join celula c on (u.id_celula = c.id_celula) " +
+                    "  WHERE login = ?                                                  ";
+
+            if (senha != null) {
+                stmt = stmt.concat(" and senha = ?");
+            }
+
+            //TODO Garantir no banco que o login será único
+            statement = conexao.prepareStatement(stmt);
 
             //TODO tratar sqlinjection
             statement.setString(1, login);
-            statement.setString(2, senha);
+
+            if (senha != null)
+                statement.setString(2, senha);
+
             rs = statement.executeQuery();
 
             if (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt(1));
-                usuario.setNome(rs.getString(3));
-                usuario.setSobrenome(rs.getString(4));
-                usuario.setDataNascimento(rs.getString(5));
-                usuario.setLogin(rs.getString(6));
-                usuario.setPermissao(rs.getInt(7));
+                usuario.setNome(rs.getString(4));
+                usuario.setSobrenome(rs.getString(5));
+                usuario.setDataNascimento(rs.getString(6));
+                usuario.setLogin(rs.getString(7));
+                usuario.setPermissao(rs.getInt(8));
+
+                celula = new Celula();
+                celula.setId_celula(rs.getInt(9));
+                celula.setNome(rs.getString(10));
+                celula.setLider(rs.getString(11));
+                celula.setDia(rs.getString(12));
+                celula.setHorario(rs.getString(13));
+                celula.setLocal_celula(rs.getString(14));
+                celula.setDia_jejum(rs.getString(15));
+                celula.setPeriodo(rs.getString(16));
+                celula.setVersiculo(rs.getString(17));
+                celula.setImagem(rs.getBlob(18));
+                usuario.setCelula(celula);
             }
         } catch (Exception e) {
             //TODO LOG ERRO

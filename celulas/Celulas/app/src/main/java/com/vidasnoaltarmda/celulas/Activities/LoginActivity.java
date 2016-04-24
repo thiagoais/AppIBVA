@@ -20,6 +20,12 @@ import java.sql.SQLException;
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
 
+    public static final String MINHAS_PREFERENCIAS = "MyPrefs" ;
+    public static final String CELULA_SP = "CELULA";
+    public static final String LOGIN_SP = "LOGIN";
+    public static final String NOME_SP = "NOME";
+    public static final String SOBRENOME_SP = "SOBRENOME";
+
     private EditText edittext_login;
     private EditText edittext_senha;
     private Button button_registrar;
@@ -30,6 +36,11 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         insereListeners();
+
+        //verifica se já foi realizado login anteriormente
+        if (Utils.retornaSharedPreference(this, LOGIN_SP, null) != null) {
+            new VerificaUsuarioTask(VerificaUsuarioTask.TIPO_VERIFICACAO_ATUALIZACAO).execute(Utils.retornaSharedPreference(this, LOGIN_SP, null));
+        }
 
     }
 
@@ -96,13 +107,13 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
-    //Executa operações de click (usado para gerenciar cliques nos botôes da tela de login)
+    //Executa operacoes de click (usado para gerenciar cliques nos botoes da tela de login)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_entrar:
                 if (verificaCamposLoginSenha())
-                    new LoginTask().execute(getEditTextLogin().getText().toString(), getEditTextSenha().getText().toString());
+                    new VerificaUsuarioTask(VerificaUsuarioTask.TIPO_VERIFICACAO_LOGIN).execute(getEditTextLogin().getText().toString(), getEditTextSenha().getText().toString());
                 break;
             case R.id.button_registrar:
                 Intent intent = new Intent(this, RegistrarActivity.class);
@@ -124,12 +135,20 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         return camposPreenchidos;
     }
 
-    private class LoginTask extends AsyncTask<String, Void, Integer> {
+    private class VerificaUsuarioTask extends AsyncTask<String, Void, Integer> {
+        public static final int TIPO_VERIFICACAO_LOGIN = 1; //verifica os dados de login e senha para primeira conexao
+        public static final int TIPO_VERIFICACAO_ATUALIZACAO = 2; //verifica o login para atualizacao dos dados armazenados do usuario
+
         private final int LOGIN_SUCESSO = 0; // sucesso na operacao de login
         private final int LOGIN_FALHOU = 1; // ocorreu uma falha na operacao de login. Provavelmente causada por erro de digitacao do usuario ou inexistencia de cadastro
         private final int LOGIN_FALHA_SQLEXCEPTION = 2;
-        ProgressDialog progressDialog;
 
+        private ProgressDialog progressDialog;
+        private int tipoVerificacao;
+
+        public VerificaUsuarioTask(int tipoVerificacao) {
+            this.tipoVerificacao = tipoVerificacao;
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -139,17 +158,27 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
         @Override
         protected Integer doInBackground(String... dadosUsuario) {
-            if (dadosUsuario.length >= 2) {
-                try {
-                    return ((verificaUsuario(dadosUsuario[0], dadosUsuario[1]) != null) ? LOGIN_SUCESSO : LOGIN_FALHOU);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    //TODO LOG ERRO
-                    return LOGIN_FALHA_SQLEXCEPTION;
-                }
 
+            try {
+                Usuario usuario;
+                if (tipoVerificacao == TIPO_VERIFICACAO_LOGIN)
+                    usuario = verificaUsuario(dadosUsuario[0], dadosUsuario[1]);
+                else
+                    usuario = verificaUsuario(dadosUsuario[0]);
+
+                if (usuario != null) {
+                    //TODO tratar o caso onde a celula do usuario nao eh encontrada
+                    Utils.salvaSharedPreference(getApplicationContext(), LOGIN_SP, usuario.getLogin());
+                    Utils.salvaSharedPreference(getApplicationContext(), CELULA_SP, (usuario.getCelula() != null) ? Integer.toString(usuario.getCelula().getId_celula()) : null);
+                    Utils.salvaSharedPreference(getApplicationContext(), NOME_SP, usuario.getNome());
+                    return LOGIN_SUCESSO;
+                }
+                return LOGIN_FALHOU;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                //TODO LOG ERRO
+                return LOGIN_FALHA_SQLEXCEPTION;
             }
-            return LOGIN_FALHOU;
         }
 
         @Override
@@ -159,9 +188,11 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                 case LOGIN_SUCESSO:
                     Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                 case LOGIN_FALHOU:
                     Utils.mostraMensagemDialog(LoginActivity.this, "Não foi possível efetuar login. Verifique usuário e senha e tente novamente. \n\nCaso ainda não possua um cadastro selecione o botão \"Registrar\"");
+                    Utils.limpaSharedPreferences(LoginActivity.this);
                     break;
                 case LOGIN_FALHA_SQLEXCEPTION:
                     Utils.mostraMensagemDialog(LoginActivity.this, "Não foi possível efetuar login. Verifique sua conexão com a internet e tente novamente.");
@@ -175,6 +206,11 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     //Método usado para verificar se o usuário digitado é válido e se a senha do mesmo confere com a cadastrada
     private Usuario verificaUsuario(String login, String senha) throws SQLException{
         return new UsuarioDAO().retornaUsuarioLogin(login, senha);
+    }
+
+    //Método usado para retornar informacoes atualizadas do usuário
+    private Usuario verificaUsuario(String login) throws SQLException{
+        return new UsuarioDAO().retornaUsuarioLogin(login);
     }
 
 

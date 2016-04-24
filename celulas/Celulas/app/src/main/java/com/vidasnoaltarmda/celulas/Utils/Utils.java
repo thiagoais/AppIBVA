@@ -3,6 +3,8 @@ package com.vidasnoaltarmda.celulas.Utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -68,4 +70,24 @@ public class Utils {
         isImagem.close();
     }
 
+    //Salva string "data" nas Shared Preferences com a chave "variable"
+    public static void salvaSharedPreference(Context con, String variable, String data)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        prefs.edit().putString(variable, data).commit();
+    }
+
+    //Retorna string nas Shared Preferences com a chave "variable"
+    public static String retornaSharedPreference(Context con, String variable, String defaultValue)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        String data = prefs.getString(variable, defaultValue);
+        return data;
+    }
+
+    //limpar dados armazenados nas Shared Preferences
+    public static void limpaSharedPreferences(Context con) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        prefs.edit().clear().commit();
+    }
 }

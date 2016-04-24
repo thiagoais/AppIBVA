@@ -63,7 +63,8 @@ public class RoteiroDAO {
         return roteiros;
     }
 
-    //TODO terminar metodo com retorno que indique se a imagem foi retornada com sucesso
+    //TODO terminar metodo com retorno que indique se a imagem foi retornada com sucesso e inserir em classe
+    // separada tratamento de armazenamento de cache
     public int retornaRoteiroImagem(Roteiro roteiro, String caminhoSalvaArquivo) throws SQLException {
         InputStream isRoteiro = null;
         ResultSet rs = null;
