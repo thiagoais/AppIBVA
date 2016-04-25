@@ -21,10 +21,9 @@ import java.sql.SQLException;
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
 
     public static final String MINHAS_PREFERENCIAS = "MyPrefs" ;
-    public static final String CELULA_SP = "CELULA";
-    public static final String LOGIN_SP = "LOGIN";
-    public static final String NOME_SP = "NOME";
-    public static final String SOBRENOME_SP = "SOBRENOME";
+    public static final String LOGIN_SP = "LOGIN"; //TODO passar constante para classe correspondente (usuario)
+    public static final String NOME_SP = "NOME"; //TODO passar constante para classe correspondente (usuario)
+    public static final String SOBRENOME_SP = "SOBRENOME"; //TODO passar constante para classe correspondente (usuario)
 
     private EditText edittext_login;
     private EditText edittext_senha;
@@ -169,8 +168,10 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                 if (usuario != null) {
                     //TODO tratar o caso onde a celula do usuario nao eh encontrada
                     Utils.salvaSharedPreference(getApplicationContext(), LOGIN_SP, usuario.getLogin());
-                    Utils.salvaSharedPreference(getApplicationContext(), CELULA_SP, (usuario.getCelula() != null) ? Integer.toString(usuario.getCelula().getId_celula()) : null);
                     Utils.salvaSharedPreference(getApplicationContext(), NOME_SP, usuario.getNome());
+                    if (usuario.getCelula() != null) {
+                        Utils.salvaCelulaSharedPreference(getApplicationContext(), usuario.getCelula());
+                    }
                     return LOGIN_SUCESSO;
                 }
                 return LOGIN_FALHOU;

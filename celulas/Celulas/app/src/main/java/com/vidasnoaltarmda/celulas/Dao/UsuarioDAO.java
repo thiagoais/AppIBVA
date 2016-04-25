@@ -65,16 +65,16 @@ public class UsuarioDAO {
                 usuario.setPermissao(rs.getInt(8));
 
                 celula = new Celula();
-                celula.setId_celula(rs.getInt(9));
-                celula.setNome(rs.getString(10));
-                celula.setLider(rs.getString(11));
-                celula.setDia(rs.getString(12));
-                celula.setHorario(rs.getString(13));
-                celula.setLocal_celula(rs.getString(14));
-                celula.setDia_jejum(rs.getString(15));
-                celula.setPeriodo(rs.getString(16));
-                celula.setVersiculo(rs.getString(17));
-                celula.setImagem(rs.getBlob(18));
+                celula.setId_celula(rs.getInt(3));
+                celula.setNome(rs.getString(9));
+                celula.setLider(rs.getString(10));
+                celula.setDia(rs.getString(11));
+                celula.setHorario(Utils.coverteHoraApp(rs.getString(12)));
+                celula.setLocal_celula(rs.getString(13));
+                celula.setDia_jejum(rs.getString(14));
+                celula.setPeriodo(rs.getString(15));
+                celula.setVersiculo(rs.getString(16));
+                celula.setImagem(rs.getBlob(17));
                 usuario.setCelula(celula);
             }
         } catch (Exception e) {

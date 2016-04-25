@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
@@ -24,11 +25,14 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
     public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;
 
+    private Celula celula;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programacao);
 
+        celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaProgramacoesTask().execute();
         insereListeners();
     }
@@ -51,7 +55,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                programacoes = new ProgramacaoDAO().retornaProgramacoes();
+                programacoes = new ProgramacaoDAO().retornaProgramacoes(celula);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -68,7 +72,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
                     //TODO colocar mensagem quando não houverem programacoes
-                    getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, android.R.layout.simple_list_item_1, programacoes));
+                    getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, programacoes));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as programacoes, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

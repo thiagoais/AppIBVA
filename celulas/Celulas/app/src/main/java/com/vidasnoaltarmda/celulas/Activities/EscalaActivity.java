@@ -23,21 +23,22 @@ import java.util.ArrayList;
 
 public class EscalaActivity extends ActionBarActivity {
 
+    private TextView nome;
     private TextView data;
     private TextView horario;
     private TextView local;
     private ListView listview_escala;
+
+    private Celula celula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escala);
 
-        //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
-        //teste
-        Celula celula = new Celula();
-        celula.setId_celula(8);
-        new MontaTelaEscalasTask().execute(celula);
+        //TODO verificar se existe a necessidade de buscar a celula ao abrir cada tela ou se carregar ao abrir o programa é suficiente
+        celula = Utils.retornaCelulaSharedPreferences(this);
+        new MontaTelaEscalasTask().execute();
 
     }
 
@@ -48,7 +49,7 @@ public class EscalaActivity extends ActionBarActivity {
         return listview_escala;
     }
 
-    private class  MontaTelaEscalasTask extends AsyncTask<Celula, Void, Integer> {
+    private class  MontaTelaEscalasTask extends AsyncTask<Void, Void, Integer> {
         ArrayList<Escala> escalas;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0;
@@ -56,9 +57,9 @@ public class EscalaActivity extends ActionBarActivity {
 
 
         @Override
-        protected Integer doInBackground(Celula... celulas) {
+        protected Integer doInBackground(Void... params) {
             try {
-                escalas = new EscalaDAO().retornaEscalas(celulas[0]);
+                escalas = new EscalaDAO().retornaEscalas(celula);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -84,15 +85,15 @@ public class EscalaActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultadoEscala) {
                 case RETORNO_SUCESSO:
-                    if (escalas.size() > 0) {
+                    if (celula != null) {
                         //preenche dados padrao da escala
                         Escala escala = escalas.get(0);
-                        getData().setText(escala.getData_celula());
-                        getHorario().setText(escala.getHora_celula());
+                        getNome().setText(celula.getNome());
+                        getData().setText(escala.getData_celula() + " - " + escala.getHora_celula());
                         getLocal().setText(escala.getLocal_celula());
                         //--preenche dados padrao da escala
                         //TODO colocar mensagem quando não houverem avisos
-                        getListViewEscala().setAdapter(new ArrayAdapter<Escala>(EscalaActivity.this, R.layout.custom_list_item_2, escalas));
+                        getListViewEscala().setAdapter(new ArrayAdapter<Escala>(EscalaActivity.this, R.layout.custom_list_item_3, escalas));
                     }
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -113,18 +114,18 @@ public class EscalaActivity extends ActionBarActivity {
         return data;
     }
 
+    public TextView getNome() {
+        if (nome == null) {
+            nome = (TextView) findViewById(R.id.nome);
+        }
+        return nome;
+    }
+
     public TextView getLocal() {
         if (local == null) {
             local = (TextView) findViewById(R.id.local);
         }
         return local;
-    }
-
-    public TextView getHorario() {
-        if (horario == null) {
-            horario = (TextView) findViewById(R.id.horario);
-        }
-        return horario;
     }
 
 

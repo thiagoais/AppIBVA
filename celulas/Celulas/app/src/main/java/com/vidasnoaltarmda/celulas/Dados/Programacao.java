@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Programacao implements Serializable {
 
     public static String DIRETORIO_IMAGENS_PROGRAMACAO = "/programacao";
-    public static String NOME_PADRAO_IMAGEM_PROGRAMACAO = "progImg.jpg";
+    public static String NOME_PADRAO_IMAGEM_PROGRAMACAO = "progImg.png";
 
     private int id_programacao;
     private int id_celula;

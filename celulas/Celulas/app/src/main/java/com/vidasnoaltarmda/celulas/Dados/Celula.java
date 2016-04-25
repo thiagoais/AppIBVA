@@ -4,6 +4,28 @@ package com.vidasnoaltarmda.celulas.Dados;
 import java.sql.Blob;
 
 public class Celula {
+    public static final String ID_CELULA_SP             = "ID_CELULA_SP";
+    public static final String NOME_CELULA_SP           = "NOME_CELULA_SP";
+    public static final String LIDER_CELULA_SP          = "LIDER_CELULA_SP";
+    public static final String DIA_CELULA_SP            = "DIA_CELULA_SP";
+    public static final String HORARIO_CELULA_SP        = "HORARIO_CELULA_SP";
+    public static final String LOCAL_CELULA_SP          = "LOCAL_CELULA_SP";
+    public static final String DIA_JEJUM_CELULA_SP      = "DIA_JEJUM_CELULA_SP";
+    public static final String PERIODO_CELULA_SP        = "PERIODO_CELULA_SP";
+    public static final String VERSICULO_CELULA_SP      = "VERSICULO_CELULA_SP";
+    public static final String CAMINHO_IMAGEM_CELULA_SP = "CAMINHO_IMAGEM_CELULA_SP";
+
+    public static final int DIA_SEMANA_DOMINGO = 1;
+    public static final int DIA_SEMANA_SEGUNDA = 2;
+    public static final int DIA_SEMANA_TERCA = 3;
+    public static final int DIA_SEMANA_QUARTA = 4;
+    public static final int DIA_SEMANA_QUINTA = 5;
+    public static final int DIA_SEMANA_SEXTA = 6;
+    public static final int DIA_SEMANA_SABADO = 7;
+
+    public static String DIRETORIO_IMAGENS_CELULA = "/celula";
+    public static String NOME_PADRAO_IMAGEM_CELULA = "celImg.png";
+
     private int id_celula;
     private String nome;
     private String lider;
@@ -98,5 +120,47 @@ public class Celula {
     @Override
     public String toString() {
         return getNome();
+    }
+
+    public String converteDiaCelula() {
+        if (getDia() != null) {
+            try {
+                return converteDiaSemana(Integer.parseInt(getDia()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public String converteDiaJejum() {
+        if (getDia_jejum() != null) {
+            try {
+                return converteDiaSemana(Integer.parseInt(getDia_jejum()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private String converteDiaSemana(int diaSemana) {
+        switch (diaSemana) {
+            case DIA_SEMANA_DOMINGO:
+                return "Domingo";
+            case DIA_SEMANA_SEGUNDA:
+                return "Segunda";
+            case DIA_SEMANA_TERCA:
+                return "Terça";
+            case DIA_SEMANA_QUARTA:
+                return "Quarta";
+            case DIA_SEMANA_QUINTA:
+                return "Quinta";
+            case DIA_SEMANA_SEXTA:
+                return "Sexta";
+            case DIA_SEMANA_SABADO:
+                return "Sábado";
+        }
+        return null;
     }
 }

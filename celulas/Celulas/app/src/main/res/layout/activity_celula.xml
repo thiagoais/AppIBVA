@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="CÉLULA"
-        android:id="@+id/textView"
-        android:textAlignment="center"
         android:layout_gravity="top"
+        android:background="#147dd9"
         android:gravity="center"
         android:padding="10dp"
-        android:background="#147dd9"
+        android:text="CÉLULA"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff"
         android:textStyle="bold" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,187 +29,177 @@
             android:orientation="vertical">
 
 
-
             <TextView
+                android:id="@+id/bemVindo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Seja Bem-Vindo"
-                android:id="@+id/bemVindo"
                 android:layout_gravity="center_horizontal"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"
+                android:text="Seja Bem-Vindo"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Nome"
-                    android:id="@+id/nome"
-                    android:layout_gravity="center_horizontal" />
-            </TableRow>
+            <TextView
+                android:id="@+id/nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Nome"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageView
+                android:id="@+id/foto"
+                android:layout_marginTop="15dp"
                 android:layout_width="250dp"
                 android:layout_height="180dp"
-                android:id="@+id/foto"
-                android:src="@drawable/logo_ibva"
                 android:layout_gravity="center_horizontal" />
 
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:stretchColumns="0,1">
+
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="20dp">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Líder:"
                         android:id="@+id/lblLider"
-                        android:textColor="#000000"
-                        android:layout_column="8" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="nome lider"
+                        android:text="Líder:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
                         android:id="@+id/lider"
-                        android:layout_column="9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:textSize="15dp" />
+                        android:textColor="#000000"
+                        android:text="nome lider"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="20dp">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Dia:"
                         android:id="@+id/lblDia"
-                        android:textColor="#000000"
-                        android:layout_column="8" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="dia"
+                        android:text="Dia:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
                         android:id="@+id/dia"
-                        android:layout_column="9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
-                        android:textSize="15dp" />
+                        android:textColor="#000000"
+                        android:text="dia"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblHorario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horário:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/horario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:textColor="#000000"
+                        android:text="horario"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Local:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/local"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:textColor="#000000"
+                        android:text="Local"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblDiaJejum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dia do Jejum:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/semana"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:textColor="#000000"
+                        android:text="quarta-feira"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </TableRow>
             </TableLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Horário:"
-                    android:id="@+id/lblHorario"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="horario"
-                    android:id="@+id/horario"
-                    android:paddingLeft="5dp"
-                    android:textSize="15dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Local:"
-                    android:id="@+id/lblLocal"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Local"
-                    android:id="@+id/local"
-                    android:paddingLeft="5dp"
-                    android:textSize="15dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Dia do Jejum:"
-                    android:id="@+id/lblDiaJejum"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="quarta-feira"
-                    android:id="@+id/semana"
-                    android:paddingLeft="5dp"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" (manhã)"
-                    android:id="@+id/periodo"
-                    android:textSize="15dp" />
-            </TableRow>
-
             <TextView
+                android:id="@+id/versiculo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="(versículo base da célula)"
-                android:id="@+id/versiculo"
                 android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
+                android:gravity="center"
                 android:paddingTop="25dp"
+                android:text="(versículo base da célula)"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="17dp" />
 
         </LinearLayout>
     </ScrollView>
+
     <TextView
-        android:layout_gravity="bottom"
+        android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:background="#147dd9"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#147dd9"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
-        android:padding="5dp"
-        android:textStyle="bold"
-        android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
-        android:id="@+id/footer"/>
+        android:textStyle="bold" />
 </LinearLayout>

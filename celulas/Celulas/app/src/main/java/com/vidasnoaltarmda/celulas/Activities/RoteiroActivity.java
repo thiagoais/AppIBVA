@@ -130,8 +130,8 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             progressDialog.dismiss();
             switch (resultado) {
                 case RETORNO_SUCESSO:
-                    Intent intent = new Intent(RoteiroActivity.this, RoteiroVisualizacaoActivity.class);
-                    intent.putExtra(RoteiroVisualizacaoActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
+                    Intent intent = new Intent(RoteiroActivity.this, ImagemAmpliadaActivity.class);
+                    intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
                     startActivity(intent);
                     break;
                 case FALHA_SQLEXCEPTION:

@@ -52,8 +52,8 @@
             android:name=".Activities.EscalaActivity"
             android:label="@string/tittle_activity_escala" />
         <activity
-            android:name=".Activities.RoteiroVisualizacaoActivity"
-            android:label="@string/title_activity_roteiro_visualizacao" >
+            android:name=".Activities.ImagemAmpliadaActivity"
+            android:label="@string/title_activity_imagem_ampliada" >
         </activity>
     </application>
 

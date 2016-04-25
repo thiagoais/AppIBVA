@@ -26,7 +26,9 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:cacheColorHint="#00000000"
+            android:divider="#000000"
+            android:dividerHeight="2dp"
             android:id="@+id/listview_ge" />
     </LinearLayout>
 

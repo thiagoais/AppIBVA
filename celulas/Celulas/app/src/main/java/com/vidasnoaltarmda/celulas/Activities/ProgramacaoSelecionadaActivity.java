@@ -2,10 +2,12 @@ package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
 
-public class ProgramacaoSelecionadaActivity extends ActionBarActivity {
+public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements View.OnClickListener {
 
     private TextView textview_nome_programacao;
     private TextView textview_data;
@@ -34,6 +36,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity {
         if (getIntent().getSerializableExtra(ProgramacaoActivity.PROGRAMACAO_SELECIONADA) != null) {
             Programacao programacao = (Programacao) getIntent().getSerializableExtra(ProgramacaoActivity.PROGRAMACAO_SELECIONADA);
             montaTelaProgramacao(programacao);
+            insereListeners();
         } else {
             Utils.mostraMensagemDialog(this, "Erro ao abrir programação.", new DialogInterface.OnClickListener() {
                 @Override
@@ -44,6 +47,10 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity {
         }
     }
 
+    private void insereListeners() {
+        getImageview_imagem().setOnClickListener(this);
+    }
+
     private void montaTelaProgramacao(Programacao programacao) {
         getTextview_nome_programacao().setText(programacao.getNome());
         getTextview_data().setText(programacao.getData_prog());
@@ -52,6 +59,17 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity {
         getTextview_valor().setText(programacao.getValor());
         getTextview_mapa().setText(programacao.getLocal_prog());
         new mostraImagemProgramacaoTask().execute(programacao);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imageview_imagem:
+                Intent intent = new Intent(this, ImagemAmpliadaActivity.class);
+                intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() + Programacao.DIRETORIO_IMAGENS_PROGRAMACAO + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO); //TODO arrumar caminhos das imagens
+                startActivity(intent);
+                break;
+        }
     }
 
     //metodo responsável por buscar imagem da programacao

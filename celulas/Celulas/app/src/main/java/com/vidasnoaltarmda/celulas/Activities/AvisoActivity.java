@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
@@ -90,7 +89,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         switch (resultadoAviso) {
             case RETORNO_SUCESSO:
                 //TODO colocar mensagem quando não houverem avisos
-                getListViewAviso().setAdapter(new ArrayAdapter<Aviso>(AvisoActivity.this, android.R.layout.simple_list_item_1, avisos));
+                getListViewAviso().setAdapter(new ArrayAdapter<Aviso>(AvisoActivity.this, R.layout.custom_list_item_3, avisos));
                 break;
             case FALHA_SQLEXCEPTION:
                 //nao foi possivel carregar os avisos, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

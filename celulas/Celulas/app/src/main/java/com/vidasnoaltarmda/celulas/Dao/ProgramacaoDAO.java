@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 /**
  * Created by thiago on 24/03/2016.
  */
-//TODO filtrar por celula
+//Retorna as programacoes do banco filtrando por celula
 public class ProgramacaoDAO {
-    public ArrayList<Programacao> retornaProgramacoes() throws SQLException {
+    public ArrayList<Programacao> retornaProgramacoes(Celula celula) throws SQLException {
         ArrayList<Programacao> programacoes = new ArrayList<>();
         Programacao programacao = null;
         ResultSet rs = null;
@@ -29,8 +30,10 @@ public class ProgramacaoDAO {
                     " SELECT id_programacao, id_celula, nome, data_prog, horario, " +
                     "        local_prog, telefone, valor, imagem                  " +
                     "   FROM programacao                                          " +
+                    "  WHERE id_celula = ?                                        " +
                     " ORDER BY data_prog desc;                                    ");
 
+            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -39,7 +42,7 @@ public class ProgramacaoDAO {
                 programacao.setId_celula(rs.getInt(2));
                 programacao.setNome(rs.getString(3));
                 programacao.setData_prog(Utils.coverteDataApp(rs.getString(4)));
-                programacao.setHorario(rs.getString(5));
+                programacao.setHorario(Utils.coverteHoraApp(rs.getString(5)));
                 programacao.setLocal_prog(rs.getString(6));
                 programacao.setTelefone(rs.getString(7));
                 programacao.setValor(rs.getString(8));

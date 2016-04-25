@@ -14,5 +14,5 @@
     <string name="tittle_activity_aviso">Avisos</string>
     <string name="tittle_activity_celula">Célula</string>
     <string name="tittle_activity_escala">Escala</string>
-    <string name="title_activity_roteiro_visualizacao">Roteiro</string>
+    <string name="title_activity_imagem_ampliada">Imagem</string>
 </resources>
