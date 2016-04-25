@@ -1,13 +1,18 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
+import java.util.ArrayList;
+
 public class Escala {
     private Integer id_escala;
     private Integer id_celula;
     private String data_celula;
     private String hora_celula;
     private String local_celula;
-    private String membro;
-    private String item_responsavel;
+    private ArrayList<Escalacao> escalacoes;
+
+    public Escala() {
+        escalacoes = new ArrayList<Escalacao>();
+    }
 
     public Integer getId_escala() {
         return id_escala;
@@ -49,24 +54,12 @@ public class Escala {
         this.local_celula = local_celula;
     }
 
-    public String getMembro() {
-        return membro;
+    public ArrayList<Escalacao> getEscalacoes() {
+        return escalacoes;
     }
 
-    public void setMembro(String membro) {
-        this.membro = membro;
+    public void setEscalacoes(ArrayList<Escalacao> escalacoes) {
+        this.escalacoes = escalacoes;
     }
 
-    public String getItem_responsavel() {
-        return item_responsavel;
-    }
-
-    public void setItem_responsavel(String item_responsavel) {
-        this.item_responsavel = item_responsavel;
-    }
-
-    @Override
-    public String toString() {
-        return getMembro() + " (" + (getItem_responsavel()) + " )";
-    }
 }

@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Dao;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
+import com.vidasnoaltarmda.celulas.Dados.Escalacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
@@ -17,9 +18,11 @@ import java.util.ArrayList;
  */
 public class EscalaDAO {
     private final String TABELA = "escala";
-        public ArrayList<Escala> retornaEscalas(Celula celula) throws SQLException {
-            ArrayList<Escala> escalas = new ArrayList<>();
+        public Escala retornaEscala(Celula celula) throws SQLException {
+            boolean escalaPreenchida = false;
             Escala escala = null;
+            ArrayList<Escalacao> escalacoes = new ArrayList<>();
+            Escalacao escalacao;
             ResultSet rs = null;
             PreparedStatement statement = null;
             Connection conexao = null;
@@ -28,27 +31,30 @@ public class EscalaDAO {
         try {
 
             statement = conexao.prepareStatement(
-                    " SELECT id_escala, id_celula, data_celula, hora_celula, local_celula " +
-                            "   FROM escala " +
-                            "   WHERE id_celula = ?          ");
-           /* statement = conexao.prepareStatement(
-                    " SELECT id_escalacao, id_escala, membro, tarefa " +
-                            "   FROM escalacao " +
-                            "   WHERE id_escala = ?          ");*/
+                    " SELECT e.id_escala, e.id_celula, e.data_celula, e.hora_celula, e.local_celula, " +
+                    "        ec.id_escalacao, ec.membro, ec.tarefa                                   " +
+                    "   FROM escala e INNER JOIN escalacao ec on (e.id_escala = ec.id_escala)        " +
+                    "  WHERE id_celula = ?                                                           ");
+
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
-                escala = new Escala();
-                escala.setId_escala(rs.getInt(1));
-                escala.setId_escala(rs.getInt(2));
-                escala.setData_celula(Utils.coverteDataApp(rs.getString(3)));
-                escala.setHora_celula(Utils.coverteHoraApp(rs.getString(4)));
-                escala.setLocal_celula(rs.getString(5));
-                escala.setMembro(rs.getString(6));
-                escala.setItem_responsavel(rs.getString(7));
-                escalas.add(escala);
+                if (!escalaPreenchida) {
+                    escala = new Escala();
+                    escala.setId_escala(rs.getInt(1));
+                    escala.setId_escala(rs.getInt(2));
+                    escala.setData_celula(Utils.coverteDataApp(rs.getString(3)));
+                    escala.setHora_celula(Utils.coverteHoraApp(rs.getString(4)));
+                    escala.setLocal_celula(rs.getString(5));
+                }
+
+                escalacao = new Escalacao();
+                escalacao.setMembro(rs.getString(7));
+                escalacao.setTarefa(rs.getString(8));
+                escalacoes.add(escalacao);
             }
+            escala.setEscalacoes(escalacoes);
         } catch (Exception e) {
             //TODO LOG ERRO
             e.printStackTrace();
@@ -68,7 +74,7 @@ public class EscalaDAO {
                 mysqlEx.printStackTrace();
             }
         }
-        return escalas;
+        return escala;
     }
 
 

@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
+import com.vidasnoaltarmda.celulas.Dados.Escalacao;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by barque on 14/03/2016.
@@ -36,6 +36,7 @@ public class EscalaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escala);
 
+        //TODO verificar necessidade de entrar na tela caso não hajam escalas (ou mostrar mensagem que nao existem escalas)
         //TODO verificar se existe a necessidade de buscar a celula ao abrir cada tela ou se carregar ao abrir o programa é suficiente
         celula = Utils.retornaCelulaSharedPreferences(this);
         new MontaTelaEscalasTask().execute();
@@ -50,7 +51,7 @@ public class EscalaActivity extends ActionBarActivity {
     }
 
     private class  MontaTelaEscalasTask extends AsyncTask<Void, Void, Integer> {
-        ArrayList<Escala> escalas;
+        Escala escala;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0;
         private final int FALHA_SQLEXCEPTION = 1;
@@ -59,7 +60,7 @@ public class EscalaActivity extends ActionBarActivity {
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                escalas = new EscalaDAO().retornaEscalas(celula);
+                escala = new EscalaDAO().retornaEscala(celula);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -73,7 +74,7 @@ public class EscalaActivity extends ActionBarActivity {
           @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            escalas = new ArrayList<Escala>();
+            escala = new Escala();
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(EscalaActivity.this, "Carregando escala", "Aguarde por favor...", true);
         }
@@ -85,15 +86,14 @@ public class EscalaActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultadoEscala) {
                 case RETORNO_SUCESSO:
-                    if (celula != null) {
+                    if (celula != null && escala != null) {
                         //preenche dados padrao da escala
-                        Escala escala = escalas.get(0);
                         getNome().setText(celula.getNome());
                         getData().setText(escala.getData_celula() + " - " + escala.getHora_celula());
                         getLocal().setText(escala.getLocal_celula());
                         //--preenche dados padrao da escala
                         //TODO colocar mensagem quando não houverem avisos
-                        getListViewEscala().setAdapter(new ArrayAdapter<Escala>(EscalaActivity.this, R.layout.custom_list_item_3, escalas));
+                        getListViewEscala().setAdapter(new ArrayAdapter<Escalacao>(EscalaActivity.this, R.layout.custom_list_item_3, escala.getEscalacoes()));
                     }
                     break;
                 case FALHA_SQLEXCEPTION:
