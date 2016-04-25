@@ -28,10 +28,13 @@ public class EscalaDAO {
         try {
 
             statement = conexao.prepareStatement(
-                    " SELECT id_escala, id_celula, data_celula, hora_celula, local_celula, membro, item_responsavel  " +
+                    " SELECT id_escala, id_celula, data_celula, hora_celula, local_celula " +
                             "   FROM escala " +
                             "   WHERE id_celula = ?          ");
-
+           /* statement = conexao.prepareStatement(
+                    " SELECT id_escalacao, id_escala, membro, tarefa " +
+                            "   FROM escalacao " +
+                            "   WHERE id_escala = ?          ");*/
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:background="#e0f705"
+        android:background="#fff704"
         android:gravity="center"
         android:padding="10dp"
         android:password="false"
@@ -31,7 +31,9 @@
         android:gravity="center"
         android:text="Teste"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:background="#fffa6b" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -146,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:autoText="false"
-        android:background="#e0f705"
+        android:background="#fff704"
         android:gravity="center"
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"

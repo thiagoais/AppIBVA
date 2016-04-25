@@ -86,6 +86,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return getNome() +  " "+getSobrenome() + " - " + getDataNascimento();
+        return getNome() +  " "+getSobrenome() + " - Dia " + getDataNascimento();
     }
 }

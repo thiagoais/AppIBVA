@@ -29,7 +29,7 @@
         android:gravity="center"
         android:background="#92cf7b"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#1b4d07"
+        android:textColor="#071900"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:cacheColorHint="#00000000"
-        android:divider="#000000"
+        android:divider="#979797"
         android:dividerHeight="2dp" />
 
     <TextView

@@ -122,7 +122,7 @@ public class UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(4));
                 usuario.setSobrenome(rs.getString(5));
-                usuario.setDataNascimento(Utils.coverteDataApp(rs.getString(6)));
+                usuario.setDataNascimento(Utils.coverteDataNiver(rs.getString(6)));
                 usuario.setLogin(rs.getString(7));
                 usuario.setPermissao(rs.getInt(8));
                 usuarios.add(usuario);

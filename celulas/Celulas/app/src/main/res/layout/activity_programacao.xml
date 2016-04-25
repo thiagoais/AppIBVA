@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         android:gravity="center"
         android:padding="10dp"
-        android:background="#e0f705"
+        android:background="#fff704"
         android:textColor="#000000"
         android:textStyle="bold"
         android:textIsSelectable="false"/>
@@ -27,7 +27,8 @@
         android:textColor="#000000"
         android:gravity="center"
         android:textAlignment="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="#fffa6c" />
 
     <ListView
         android:layout_marginTop="10dp"
@@ -35,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="#00000000"
-        android:divider="#000000"
+        android:divider="#979797"
         android:dividerHeight="2dp"
         android:textFilterEnabled="false"
         android:layout_weight="1" />
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:autoText="false"
-        android:background="#e0f705"
+        android:background="#fff704"
         android:gravity="center"
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"

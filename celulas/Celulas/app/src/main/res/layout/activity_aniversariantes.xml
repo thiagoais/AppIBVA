@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.vidasnoaltarmda.celulas.Activities.AniversariantesActivity">
+    tools:context="com.vidasnoaltarmda.celulas.Activities.AniversariantesActivity"
+    android:divider="#979797">
 
 
 
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:background="#e0f705"
+                android:background="#fff704"
                 android:gravity="center"
                 android:padding="10dp"
                 android:password="false"
@@ -40,7 +41,8 @@
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="#fff95d" />
 
             <ListView
                 android:id="@+id/listview_aniversariantes"
@@ -48,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:cacheColorHint="#00000000"
-                android:divider="#000000"
+                android:divider="#979797"
                 android:layout_weight="1"
                 android:dividerHeight="2dp"
                 android:textAlignment="center" />
@@ -62,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:autoText="false"
-        android:background="#e0f705"
+        android:background="#fff704"
         android:gravity="center"
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"

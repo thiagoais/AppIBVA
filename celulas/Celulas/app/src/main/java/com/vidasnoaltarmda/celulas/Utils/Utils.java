@@ -46,13 +46,19 @@ public class Utils {
     //converte a data do banco para poder ser usada no programa
     public static String coverteDataApp(String data) {
         String[] campos = data.split("-");
-        return campos[2] + "/" + campos[1] + "/" + campos[0];
+        return campos[0] + "/" + campos[1] + "/" + campos[0];
     }
 
     //converte a hora do banco para poder ser usada no programa
     public static String coverteHoraApp(String hora) {
         String[] campos = hora.split(":");
         return campos[0] + ":" + campos[1];
+    }
+
+    //converte data aniversário, prevalecendo somente o dia
+    public static String coverteDataNiver(String dia) {
+        String[] campo = dia.split("-");
+        return campo[2];
     }
 
     public static void downloadImagemBanco(String diretorioImagem, InputStream isImagem, String nomeImagem) throws IOException {
