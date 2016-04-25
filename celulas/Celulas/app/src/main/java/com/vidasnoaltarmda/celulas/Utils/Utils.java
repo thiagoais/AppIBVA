@@ -46,7 +46,7 @@ public class Utils {
     //converte a data do banco para poder ser usada no programa
     public static String coverteDataApp(String data) {
         String[] campos = data.split("-");
-        return campos[0] + "/" + campos[1] + "/" + campos[0];
+        return campos[2] + "/" + campos[1] + "/" + campos[0];
     }
 
     //converte a hora do banco para poder ser usada no programa

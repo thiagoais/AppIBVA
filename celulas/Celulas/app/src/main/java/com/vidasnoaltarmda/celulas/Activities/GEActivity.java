@@ -30,7 +30,7 @@ public class GEActivity extends ActionBarActivity{
         setContentView(R.layout.activity_ge);
 
         //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
-        //teste
+
         Celula celula = new Celula();
         celula.setId_celula(9);
 

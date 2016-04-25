@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
     private ListView listview_avisos;
-
+    private Celula celula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_aviso);
 
         //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
-        //teste
-        Celula celula = new Celula();
-        celula.setId_celula(8);
-
-        //teste
+        celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaAvisosTask().execute(celula);
         insereListeners();
     }
@@ -62,7 +58,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         @Override
         protected Integer doInBackground(Celula... celulas) {
             try {
-                if(celulas.length > 0){
+                if( celula!= null){
                     avisos = new AvisoDAO().retornaAvisos(celulas[0]);
                 }
             } catch (SQLException e) {
