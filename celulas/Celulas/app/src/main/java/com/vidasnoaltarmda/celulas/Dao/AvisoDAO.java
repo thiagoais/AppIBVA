@@ -23,10 +23,8 @@ public class AvisoDAO {
         ResultSet rs = null;
         PreparedStatement statement = null;
         Connection conexao = null;
-
         conexao = ConnectionManager.getConnection();
-        statement.setInt(1, celula.getId_celula());
-        rs = statement.executeQuery();
+
         try {
             statement = conexao.prepareStatement(
                     " SELECT id_aviso, id_celula, titulo, conteudo "+
