@@ -62,5 +62,41 @@ public class AvisoDAO {
         }
         return avisos;
     }
+
+    public boolean insereAviso(Aviso aviso) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean inserido = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+            statement = conexao.prepareStatement(
+                    " INSERT INTO aviso (id_celula, titulo, conteudo) values (?,?,?)");
+            statement.setInt   (1, aviso.getId_celula());
+            statement.setString(2, aviso.getTitulo());
+            statement.setString(3, aviso.getConteudo());
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                inserido = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return inserido;
+    }
 }
 

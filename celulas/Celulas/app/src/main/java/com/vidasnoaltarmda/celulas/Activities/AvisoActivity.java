@@ -3,9 +3,12 @@ package com.vidasnoaltarmda.celulas.Activities;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +16,7 @@ import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
+import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
@@ -24,6 +28,8 @@ import java.util.ArrayList;
  * Created by barque on 24/03/2016.
  */
 public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
+    public static final int REQUEST_SALVAR = 1;
+
     private ListView listview_avisos;
     private Celula celula;
 
@@ -32,10 +38,43 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviso);
 
-        //TODO receber a celula como parametro, verificar possibilidade de ser guardada na sessao
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaAvisosTask().execute(celula);
         insereListeners();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
+            new PopulaAvisosTask().execute(celula);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        int permissaoUsuario = 0;
+        try {
+            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            getMenuInflater().inflate(R.menu.menu_avisos, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_adicionar) {
+            Intent intent = new Intent(this, FormAvisoActivity.class);
+            startActivityForResult(intent, REQUEST_SALVAR);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void insereListeners() {

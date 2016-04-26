@@ -24,6 +24,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     public static final String LOGIN_SP = "LOGIN"; //TODO passar constante para classe correspondente (usuario)
     public static final String NOME_SP = "NOME"; //TODO passar constante para classe correspondente (usuario)
     public static final String SOBRENOME_SP = "SOBRENOME"; //TODO passar constante para classe correspondente (usuario)
+    public static final String PERMISSAO_SP = "PERMISSAO;"; //TODO passar constante para classe correspondente (usuario)
 
     private EditText edittext_login;
     private EditText edittext_senha;
@@ -169,6 +170,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                     //TODO tratar o caso onde a celula do usuario nao eh encontrada
                     Utils.salvaSharedPreference(getApplicationContext(), LOGIN_SP, usuario.getLogin());
                     Utils.salvaSharedPreference(getApplicationContext(), NOME_SP, usuario.getNome());
+                    Utils.salvaSharedPreference(getApplicationContext(), PERMISSAO_SP, Integer.toString(usuario.getPermissao()));
                     if (usuario.getCelula() != null) {
                         Utils.salvaCelulaSharedPreference(getApplicationContext(), usuario.getCelula());
                     }

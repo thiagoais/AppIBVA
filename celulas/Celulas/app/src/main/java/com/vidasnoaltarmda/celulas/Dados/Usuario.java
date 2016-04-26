@@ -4,7 +4,9 @@ package com.vidasnoaltarmda.celulas.Dados;
  * Created by thiago on 06/03/2016.
  */
 public class Usuario {
-    public static final int PERMISSAO_BASICA = 1;
+    public static final int PERMISSAO_BASICA = 0;
+    public static final int PERMISSAO_LIDER  = 1;
+    public static final int PERMISSAO_PASTOR = 2;
 
     private int id;
     private String nome;

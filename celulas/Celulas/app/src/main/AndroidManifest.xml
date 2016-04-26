@@ -55,6 +55,10 @@
             android:name=".Activities.ImagemAmpliadaActivity"
             android:label="@string/title_activity_imagem_ampliada" >
         </activity>
+        <activity
+            android:name=".Activities.FormAvisoActivity"
+            android:label="@string/title_activity_form_aviso" >
+        </activity>
     </application>
 
 </manifest>
