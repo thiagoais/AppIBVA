@@ -8,53 +8,51 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
+import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
+import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
 
-public class FormAvisoActivity extends ActionBarActivity implements View.OnClickListener{
+/**
+ * Created by barque on 26/04/2016.
+ */
+public class FormGEActivity extends ActionBarActivity implements View.OnClickListener {
+        private Celula celula;
+        private EditText edittextNome;
+        private Button buttonSalvar;
 
-    private Celula celula;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_form_ge);
 
-    private EditText editTextTitulo;
-    private EditText editTextConteudo;
-    private Button   buttonSalvar;
+            celula = Utils.retornaCelulaSharedPreferences(this);
+            insereListener();
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_aviso);
-
-        celula = Utils.retornaCelulaSharedPreferences(this);
-        insereListener();
-    }
-
-    private void insereListener() {
-        getButtonSalvar().setOnClickListener(this);
-    }
+        private void insereListener() {
+            getButtonSalvar().setOnClickListener(this);
+        }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_salvar:
                 if (verificaCampos()) {
-                    Aviso aviso = new Aviso();
-                    aviso.setId_celula(celula.getId_celula());
-                    aviso.setTitulo(getEditTextTitulo().getText().toString());
-                    aviso.setConteudo(getEditTextConteudo().getText().toString());
+                    GrupoEvangelistico grupoEvangelistico = new GrupoEvangelistico();
+                    grupoEvangelistico.setId_celula(celula.getId_celula());
+                    grupoEvangelistico.setNome(getEdittextNome().getText().toString());
 
-                    new InsereTask().execute(aviso);
+                    new InsereTask().execute(grupoEvangelistico);
                 }
                 break;
         }
     }
 
-    private class InsereTask extends AsyncTask<Aviso, Void, Integer> {
+    private class InsereTask extends AsyncTask<GrupoEvangelistico, Void, Integer> {
         ProgressDialog progressDialog;
         private final int INSERCAO_SUCESSO = 0;
         private final int INSERCAO_FALHOU = 1;
@@ -64,14 +62,14 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
         protected void onPreExecute() {
             super.onPreExecute();
             //mostra janela de progresso
-            progressDialog = ProgressDialog.show(FormAvisoActivity.this, "Aguarde por favor", "Verificando dados...", true);
+            progressDialog = ProgressDialog.show(FormGEActivity.this, "Aguarde por favor", "Verificando dados...", true);
         }
 
         @Override
-        protected Integer doInBackground(Aviso... avisos) {
-            if (avisos.length > 0) {
+        protected Integer doInBackground(GrupoEvangelistico... grupoEvangelisticos) {
+            if (grupoEvangelisticos.length > 0) {
                 try {
-                    if (new AvisoDAO().insereAviso(avisos[0])) {
+                    if (new GrupoEvangelisticoDAO().insereGE(grupoEvangelisticos[0])) {
                         return INSERCAO_SUCESSO;
                     }
                 } catch (SQLException e) {
@@ -90,13 +88,13 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(FormAvisoActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FormGEActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK, getIntent());
                     finish();
                     //TODO terminar tela e voltar pra tela de login
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(FormAvisoActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.mostraMensagemDialog(FormGEActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
                     break;
             }
             super.onPostExecute(resultadoInsercao);
@@ -105,30 +103,19 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
 
     private boolean verificaCampos() {
         boolean camposPreenchidos = true;
-        if (getEditTextTitulo().getText().length() <= 0) {
-            getEditTextTitulo().setError("Por favor, digite o título");
+        if (getEdittextNome().getText().length() <= 0) {
+            getEdittextNome().setError("Por favor, digite o Nome do GE");
             camposPreenchidos = false;
         }
 
-        if (getEditTextConteudo().getText().length() <= 0) {
-            getEditTextConteudo().setError("Por favor, digite o conteúdo");
-            camposPreenchidos = false;
-        }
         return camposPreenchidos;
     }
 
-    public EditText getEditTextTitulo() {
-        if (editTextTitulo == null) {
-            editTextTitulo = (EditText) findViewById(R.id.edittext_titulo);
+    public EditText getEdittextNome() {
+        if (edittextNome == null) {
+            edittextNome = (EditText) findViewById(R.id.edittext_nome);
         }
-        return editTextTitulo;
-    }
-
-    public EditText getEditTextConteudo() {
-        if (editTextConteudo == null) {
-            editTextConteudo = (EditText) findViewById(R.id.edittext_conteudo);
-        }
-        return editTextConteudo;
+        return edittextNome;
     }
 
     public Button getButtonSalvar() {

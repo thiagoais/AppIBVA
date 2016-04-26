@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
@@ -115,5 +116,47 @@ public class ProgramacaoDAO {
             }
         }
         return false;
+    }
+
+    public boolean insereProgramacao(Programacao programacao) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean inserido = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+            statement = conexao.prepareStatement(
+                    " INSERT INTO programacao (id_celula, nome, data_prog, horario, local_prog, telefone, valor, imagem) " +
+                            "values (?,?,?,?,?,?,?,?)");
+            statement.setInt   (1, programacao.getId_celula());
+            statement.setString(2, programacao.getNome());
+            statement.setString(3, programacao.getData_prog());
+            statement.setString(4, programacao.getHorario());
+            statement.setString(5, programacao.getLocal_prog());
+            statement.setString(6, programacao.getTelefone());
+            statement.setString(7, programacao.getValor());
+           // statement.setBlob(8, programacao.getImagem()); TODO Como vai setar o Blob
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                inserido = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return inserido;
     }
 }

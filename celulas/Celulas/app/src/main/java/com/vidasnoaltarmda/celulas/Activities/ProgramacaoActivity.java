@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,7 @@ import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
+import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
@@ -21,7 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProgramacaoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-
+    public static final int REQUEST_SALVAR = 1;
     public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;
 
@@ -35,6 +38,40 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaProgramacoesTask().execute();
         insereListeners();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
+            new PopulaProgramacoesTask().execute((Runnable) celula);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        int permissaoUsuario = 0;
+        try {
+            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            getMenuInflater().inflate(R.menu.menu_programacao, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_adicionar) {
+            Intent intent = new Intent(this, FormProgramacaoActivity.class);
+            startActivityForResult(intent, REQUEST_SALVAR);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     //metodo responsável por buscar os dados das programacoes no banco (acesso remoto) e popular a lista de programacoes.

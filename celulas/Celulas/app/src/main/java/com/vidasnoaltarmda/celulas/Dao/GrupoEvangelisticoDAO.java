@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
@@ -62,6 +63,41 @@ public class GrupoEvangelisticoDAO {
             }
         }
         return gruposEvangelisticos;
+    }
+
+    public boolean insereGE(GrupoEvangelistico grupoEvangelistico) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean inserido = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+            statement = conexao.prepareStatement(
+                    " INSERT INTO grupo_evangelistico (id_celula, nome, data_cadastro) values (?,?,NOW())");
+            statement.setInt   (1, grupoEvangelistico.getId_celula());
+            statement.setString(2, grupoEvangelistico.getNome());
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                inserido = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return inserido;
     }
 }
 

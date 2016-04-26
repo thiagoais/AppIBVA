@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.Escalacao;
@@ -76,6 +77,8 @@ public class EscalaDAO {
         }
         return escala;
     }
+
+
 
 
 }

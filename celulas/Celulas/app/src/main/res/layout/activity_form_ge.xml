@@ -7,23 +7,15 @@
     android:padding="15dp"
     android:orientation="vertical">
     <TextView
-        android:text="Título:"
+        android:text="Nome do GE:"
         android:layout_width="wrap_content"
         android:textColor="#000000"
         android:layout_height="wrap_content" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_titulo"/>
-    <TextView
-        android:text="Conteudo:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext_conteudo"/>
+        android:id="@+id/edittext_nome"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
