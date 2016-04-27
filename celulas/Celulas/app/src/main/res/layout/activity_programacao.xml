@@ -4,20 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.ProgramacaoActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="PROGRAMAÇÕES"
-        android:id="@+id/textView"
-        android:textAlignment="center"
-        android:layout_gravity="top"
-        android:gravity="center"
-        android:padding="10dp"
-        android:background="#fff704"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textIsSelectable="false"/>
+
     <TextView
         android:padding="15dp"
         android:layout_width="match_parent"

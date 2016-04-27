@@ -15,23 +15,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="#fff704"
-                android:gravity="center"
-                android:padding="10dp"
-                android:password="false"
-                android:phoneNumber="false"
-                android:singleLine="false"
-                android:text="ANIVERSARIANTES"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#000000"
-                android:textIsSelectable="false"
-                android:textStyle="bold" />
+
 
             <TextView
                 android:layout_width="match_parent"

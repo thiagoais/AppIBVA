@@ -6,23 +6,16 @@
     android:orientation="vertical"
 
     >
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/th_main"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="#41a11b"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="CÉLULAS IBVA"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffff"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
 

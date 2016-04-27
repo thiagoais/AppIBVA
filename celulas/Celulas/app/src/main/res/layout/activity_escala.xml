@@ -11,19 +11,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="#147dd9"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="ESCALA"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
+
 
         <TableLayout
             android:layout_width="match_parent"
