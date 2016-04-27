@@ -17,4 +17,5 @@
     <string name="tittle_activity_escala">Escala</string>
     <string name="title_activity_imagem_ampliada">Imagem</string>
     <string name="title_activity_form_aviso">Formulário Avisos</string>
+    <string name="action_deletar">Deletar</string>
 </resources>

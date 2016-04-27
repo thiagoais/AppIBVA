@@ -7,18 +7,22 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -79,6 +83,67 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
     private void insereListeners() {
         getListViewAviso().setOnItemClickListener(this);
+        //getListViewAviso().setAdapter(adapter);
+        getListViewAviso().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        getListViewAviso().setSelected(true);
+        //TODO somente permitir caso o usuario tenha permissao
+        getListViewAviso().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            int selectionCounter;
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                ((AdapterDelete)getListViewAviso().getAdapter()).limpaItensSelecionados();
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // TODO Auto-generated method stub
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu_delete, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                // TODO Auto-generated method stub
+                switch (item.getItemId()) {
+                    case R.id.action_deletar:
+                        selectionCounter = 0;
+                        //TODO if (itensDeletadosComSucesso)
+                        ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode,
+                                                  int position, long id, boolean checked) {
+                if (checked) {
+                    selectionCounter++;
+                    ((AdapterDelete)getListViewAviso().getAdapter()).selectedItem(position, position);
+                    Toast.makeText(getApplicationContext(),"checked", Toast.LENGTH_LONG).show();
+
+                } else {
+                    selectionCounter--;
+                    ((AdapterDelete)getListViewAviso().getAdapter()).removeSelection(position);
+                    Toast.makeText(getApplicationContext(),"unchecked", Toast.LENGTH_LONG).show();
+                }
+                mode.setTitle(selectionCounter + " Selecionado(s)");
+
+            }
+        });
     }
 
     private ListView getListViewAviso() {
@@ -124,7 +189,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         switch (resultadoAviso) {
             case RETORNO_SUCESSO:
                 //TODO colocar mensagem quando não houverem avisos
-                getListViewAviso().setAdapter(new ArrayAdapter<Aviso>(AvisoActivity.this, R.layout.custom_list_item_3, avisos));
+                getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), avisos));
                 break;
             case FALHA_SQLEXCEPTION:
                 //nao foi possivel carregar os avisos, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
