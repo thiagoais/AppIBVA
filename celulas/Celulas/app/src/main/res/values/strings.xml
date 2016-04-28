@@ -19,5 +19,6 @@
     <string name="title_activity_form_aviso">Formulário Avisos</string>
     <string name="title_activity_form_ge">Formulário GE</string>
     <string name="title_activity_form_programacao">Formulário Programação</string>
+    <string name="title_activity_form_escala">Formulário Escala</string>
     <string name="action_deletar">Deletar</string>
 </resources>

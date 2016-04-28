@@ -78,6 +78,42 @@ public class EscalaDAO {
         return escala;
     }
 
+    public boolean insereEscala(Escala escala) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean inserido = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+           // statement = conexao.prepareStatement(
+                  //  " INSERT INTO escala (id_celula, titulo, conteudo) values (?,?,?)");//TODO Arrumar esse select
+           // statement.setInt   (1, escala.getId_celula());
+         //   statement.setString(2, escala.getTitulo());//TODO arrumar select la em cima pra ver como que vai salvar
+         //   statement.setString(3, escala.getConteudo());//TODO arrumar select la em cima pra ver como que vai salvar
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                inserido = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return inserido;
+    }
+
 
 
 
