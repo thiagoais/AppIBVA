@@ -7,7 +7,13 @@
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.RoteiroActivity">
 
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/th_roteiro"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/roteirosPrimary"
+        />
 
     <TextView
         android:layout_width="match_parent"

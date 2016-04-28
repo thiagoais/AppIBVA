@@ -3,17 +3,22 @@
     <!-- Base application theme. -->
     <style name="Theme.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/principalPrimary</item>
+
 
         <!-- colorPrimaryDark is used for the status bar -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/principalPrimaryDark</item>
 
         <!-- colorAccent is used as the default value for colorControlActivated,
              which is used to tint widgets -->
-        <item name="colorAccent">@color/colorPrimaryAccent</item>
+        <item name="colorAccent">@color/principalPrimaryAccent</item>
+
 
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight, and colorSwitchThumbNormal. -->
+
+
+
 
     </style>
 </resources>

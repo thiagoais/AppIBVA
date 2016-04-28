@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,7 @@ public class GEActivity extends ActionBarActivity{
     public static final int REQUEST_SALVAR = 1;
     private ListView listview_ge;
     private Celula celula;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -38,6 +40,10 @@ public class GEActivity extends ActionBarActivity{
 
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaGruposEvangelisticosTask().execute(celula);
+
+        mToolbar = (Toolbar) findViewById(R.id.th_ge);
+        mToolbar.setTitle("Grupo Evangelístico");
+        setSupportActionBar(mToolbar);
     }
 
     @Override

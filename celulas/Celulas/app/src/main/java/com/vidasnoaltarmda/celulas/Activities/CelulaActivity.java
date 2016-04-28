@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
     private TextView versiculo;
 
     private Celula celula;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -47,6 +49,10 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
             montaTelaCelula(celula);
             insereListeners();
         }
+
+        mToolbar = (Toolbar) findViewById(R.id.th_celula);
+        mToolbar.setTitle("Célula");
+        setSupportActionBar(mToolbar);
     }
 
     private void insereListeners() {

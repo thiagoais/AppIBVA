@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class RoteiroActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     ListView listview_roteiros;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,10 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
 
         new PopulaRoteirosTask().execute();
         insereListeners();
+
+        mToolbar = (Toolbar) findViewById(R.id.th_roteiro);
+        mToolbar.setTitle("Roteiros");
+        setSupportActionBar(mToolbar);
     }
 
     //metodo responsável por buscar os dados dos Roteiros no banco (acesso remoto) e popular a lista de roteiros.

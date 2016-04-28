@@ -59,6 +59,16 @@
             android:name=".Activities.FormAvisoActivity"
             android:label="@string/title_activity_form_aviso" >
         </activity>
+
+        <activity
+            android:name=".Activities.FormGEActivity"
+            android:label="@string/title_activity_form_ge" >
+        </activity>
+
+        <activity
+            android:name=".Activities.FormProgramacaoActivity"
+            android:label="@string/title_activity_form_programacao" >
+        </activity>
     </application>
 
 </manifest>

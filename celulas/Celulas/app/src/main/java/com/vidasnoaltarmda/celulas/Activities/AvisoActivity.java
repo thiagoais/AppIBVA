@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +37,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
     private ListView listview_avisos;
     private Celula celula;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaAvisosTask().execute(celula);
         insereListeners();
+        mToolbar = (Toolbar) findViewById(R.id.th_aviso);
+        mToolbar.setTitle("Avisos");
+        setSupportActionBar(mToolbar);
     }
 
     @Override

@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.ProgramacaoActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/th_programacao"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/programacoesPrimary"
+        />
 
     <TextView
         android:padding="15dp"

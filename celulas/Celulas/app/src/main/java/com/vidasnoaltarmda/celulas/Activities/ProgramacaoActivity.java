@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
     private ListView listview_programacoes;
 
     private Celula celula;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,10 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaProgramacoesTask().execute();
         insereListeners();
+
+        mToolbar = (Toolbar) findViewById(R.id.th_programacao);
+        mToolbar.setTitle("Programações");
+        setSupportActionBar(mToolbar);
     }
 
     @Override

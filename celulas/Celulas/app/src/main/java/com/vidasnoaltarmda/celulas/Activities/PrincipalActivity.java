@@ -48,8 +48,6 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
 
         mToolbar = (Toolbar) findViewById(R.id.th_main);
         mToolbar.setTitle("Células IBVA");
-        mToolbar.setSubtitle("Ganhar e Cuidar é a Batida do Nosso Coração");
-        mToolbar.setLogo(R.drawable.logo);
         setSupportActionBar(mToolbar);
     }
 

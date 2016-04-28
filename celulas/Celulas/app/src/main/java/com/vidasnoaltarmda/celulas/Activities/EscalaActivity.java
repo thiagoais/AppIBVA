@@ -3,6 +3,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class EscalaActivity extends ActionBarActivity {
     private TextView horario;
     private TextView local;
     private ListView listview_escala;
+    private Toolbar mToolbar;
 
     private Celula celula;
 
@@ -40,6 +42,10 @@ public class EscalaActivity extends ActionBarActivity {
         //TODO verificar se existe a necessidade de buscar a celula ao abrir cada tela ou se carregar ao abrir o programa é suficiente
         celula = Utils.retornaCelulaSharedPreferences(this);
         new MontaTelaEscalasTask().execute();
+
+        mToolbar = (Toolbar) findViewById(R.id.th_escala);
+        mToolbar.setTitle("Escala");
+        setSupportActionBar(mToolbar);
 
     }
 
