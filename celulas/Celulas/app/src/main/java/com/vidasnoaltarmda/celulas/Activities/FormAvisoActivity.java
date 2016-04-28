@@ -93,7 +93,6 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
                     Toast.makeText(FormAvisoActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK, getIntent());
                     finish();
-                    //TODO terminar tela e voltar pra tela de login
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
                     Utils.mostraMensagemDialog(FormAvisoActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");

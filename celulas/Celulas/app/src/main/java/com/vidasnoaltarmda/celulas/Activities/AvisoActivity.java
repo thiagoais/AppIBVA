@@ -112,14 +112,20 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             }
 
             @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
                 // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
-                        selectionCounter = 0;
-                        //TODO if (itensDeletadosComSucesso)
-                        ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
-                        mode.finish();
+                        new RemoveAvisoTask(
+                                ((AdapterDelete<Aviso>) getListViewAviso().getAdapter()).getItensSelecionados(),
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        selectionCounter = 0;
+                                        mode.finish();
+                                    }
+                                }
+                        ).execute();
                         return true;
                     default:
                         return false;
@@ -133,12 +139,10 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                 if (checked) {
                     selectionCounter++;
                     ((AdapterDelete)getListViewAviso().getAdapter()).selectedItem(position, position);
-                    Toast.makeText(getApplicationContext(),"checked", Toast.LENGTH_LONG).show();
 
                 } else {
                     selectionCounter--;
                     ((AdapterDelete)getListViewAviso().getAdapter()).removeSelection(position);
-                    Toast.makeText(getApplicationContext(),"unchecked", Toast.LENGTH_LONG).show();
                 }
                 mode.setTitle(selectionCounter + " Selecionado(s)");
 
@@ -204,6 +208,63 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         }
         super.onPostExecute(resultadoAviso);
     }
+    }
+
+    //responsavel pela remocao dos avisos selecionados do banco e atualizacao da tela
+    private class RemoveAvisoTask extends AsyncTask<Void, Void, Integer> {
+        ProgressDialog progressDialog;
+        private final int DELETE_SUCESSO = 0;
+        private final int DELETE_FALHOU = 1;
+        private final int DELETE_FALHA_SQLEXCEPTION = 2;
+
+        private ArrayList<Aviso> avisosRemover;
+        private Runnable tarefa;
+
+        public RemoveAvisoTask(ArrayList<Aviso> avisosRemover, Runnable tarefa) {
+            this.avisosRemover = avisosRemover;
+            this.tarefa = tarefa;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(AvisoActivity.this, "Aguarde por favor", "Removendo dados...", true);
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            if (avisosRemover.size() > 0) {
+                try {
+                    if (new AvisoDAO().deletaAvisos(avisosRemover)) {
+                        return DELETE_SUCESSO;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return DELETE_FALHA_SQLEXCEPTION;
+                    //TODO LOG ERRO
+                }
+            } else {
+                return DELETE_FALHOU;
+            }
+            return DELETE_FALHOU;
+        }
+
+        @Override
+        protected void onPostExecute(Integer resultadoInsercao) {
+            progressDialog.dismiss();
+            switch (resultadoInsercao) {
+                case DELETE_SUCESSO:
+                    Toast.makeText(AvisoActivity.this, "Aviso(s) removido(s) com sucesso.", Toast.LENGTH_LONG).show();
+                    ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
+                    tarefa.run();
+                    break;
+                case DELETE_FALHA_SQLEXCEPTION:
+                    Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    break;
+            }
+            super.onPostExecute(resultadoInsercao);
+        }
     }
 
     @Override

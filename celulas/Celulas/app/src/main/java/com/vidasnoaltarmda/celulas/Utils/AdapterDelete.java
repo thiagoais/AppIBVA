@@ -83,6 +83,7 @@ public class AdapterDelete<Object> extends BaseAdapter {
         }
         Collections.sort(listaPosicoesSelecionadas);
         int posicaoSelec = 0;
+        //deleta em ordem inversa pois a remoção de um item no começo da lista influencia nas posições posteriores, o que pode causar erros
         for (int i = listaPosicoesSelecionadas.size() - 1; i >= 0; i--) {
             posicaoSelec = listaPosicoesSelecionadas.get(i);
             dataValueList.remove(posicaoSelec);

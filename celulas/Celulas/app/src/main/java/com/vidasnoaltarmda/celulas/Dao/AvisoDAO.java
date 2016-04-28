@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by barque on 24/03/2016.
@@ -97,6 +98,49 @@ public class AvisoDAO {
             }
         }
         return inserido;
+    }
+
+    public boolean deletaAvisos(List<Aviso> avisos) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean sucesso = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+
+            String delCommand = " DELETE FROM aviso WHERE id_aviso IN (";
+            for (int i = 0; i < avisos.size() - 1; i++) {
+                delCommand = delCommand.concat("?,");
+            }
+            delCommand = delCommand.concat("?)");
+
+            statement = conexao.prepareStatement(delCommand);
+
+            for (int i = 1; i <= avisos.size(); i++) {
+                statement.setInt(i, avisos.get(i-1).getId_aviso());
+            }
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                sucesso = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return sucesso;
     }
 }
 
