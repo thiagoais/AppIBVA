@@ -104,6 +104,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete)getListViewAviso().getAdapter()).limpaItensSelecionados();
+                selectionCounter = 0;
                 // TODO Auto-generated method stub
 
             }
@@ -126,7 +127,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                                 new Runnable() {
                                     @Override
                                     public void run() {
-                                        selectionCounter = 0;
                                         mode.finish();
                                     }
                                 }
