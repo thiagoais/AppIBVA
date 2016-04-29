@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#147dd9"
+        android:background="#2196F3"
         android:gravity="center"
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"

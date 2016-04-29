@@ -170,7 +170,11 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                     selectionCounter--;
                     ((AdapterDelete)getListViewAviso().getAdapter()).removeSelection(position);
                 }
-                mode.setTitle(selectionCounter + " Selecionado(s)");
+                if (selectionCounter > 1){
+                    mode.setTitle(selectionCounter + " Selecionados");
+                }else{
+                    mode.setTitle(selectionCounter + " Selecionado");
+                }
 
             }
         });

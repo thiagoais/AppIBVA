@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by barque on 24/03/2016.
@@ -98,6 +99,49 @@ public class GrupoEvangelisticoDAO {
             }
         }
         return inserido;
+    }
+
+    public boolean deletaGe(List<GrupoEvangelistico> grupoEvangelisticos) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean sucesso = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+
+            String delCommand = " DELETE FROM grupo_evangelistico WHERE id_ge IN (";
+            for (int i = 0; i < grupoEvangelisticos.size() - 1; i++) {
+                delCommand = delCommand.concat("?,");
+            }
+            delCommand = delCommand.concat("?)");
+
+            statement = conexao.prepareStatement(delCommand);
+
+            for (int i = 1; i <= grupoEvangelisticos.size(); i++) {
+                statement.setInt(i, grupoEvangelisticos.get(i-1).getId_ge());
+            }
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                sucesso = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return sucesso;
     }
 }
 

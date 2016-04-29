@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,12 +20,17 @@ import java.util.ArrayList;
 public class AniversariantesActivity extends ActionBarActivity {
 
     private ListView listview_aniversariantes;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniversariantes);
         new PopulaAniversariantesTask().execute();
+
+        mToolbar = (Toolbar) findViewById(R.id.th_aniversariante);
+        mToolbar.setTitle("Aniversariantes");
+        setSupportActionBar(mToolbar);
     }
 
     private class PopulaAniversariantesTask extends AsyncTask<Void, Void, Integer> {
