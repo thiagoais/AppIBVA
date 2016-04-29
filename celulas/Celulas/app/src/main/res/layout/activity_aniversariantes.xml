@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.AniversariantesActivity"
     android:divider="#979797">
@@ -11,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/aniversariantesPrimary"
+        android:background="@color/aniversariantesPrimaryDark"
+
         />
 
 
@@ -32,7 +34,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:background="#fff95d" />
+                android:background="@color/aniversariantesPrimary" />
 
             <ListView
                 android:id="@+id/listview_aniversariantes"
