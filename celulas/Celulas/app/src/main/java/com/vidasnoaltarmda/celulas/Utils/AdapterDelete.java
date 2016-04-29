@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import java.util.Set;
 /**
  * Created by thiago on 26/04/2016.
  */
-public class AdapterDelete<Object> extends BaseAdapter {
+public class AdapterDelete<Object> extends BaseAdapter implements Serializable {
     HashMap<Integer,Integer> selectionValueMap = new HashMap<Integer,Integer>();
     Context vContext;
     ArrayList<Object> dataValueList = new ArrayList<Object>();

@@ -35,28 +35,48 @@ import java.util.ArrayList;
 public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
     public static final int REQUEST_SALVAR = 1;
 
+    private static final String STATE_LISTA_AVISOS = "STATE_LISTA_AVISOS";
+
     private ListView listview_avisos;
-    private Celula celula;
     private Toolbar mToolbar;
+
+    private ArrayList<Aviso> mListaAvisos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviso);
 
-        celula = Utils.retornaCelulaSharedPreferences(this);
-        new PopulaAvisosTask().execute(celula);
+        if (savedInstanceState == null) {
+            new PopulaAvisosTask().execute(getSPCelula()); //TODO verificar necessidade de recarregar a lista ao girar a tela
+        } else {
+            if (savedInstanceState.get(STATE_LISTA_AVISOS) != null) {
+                mListaAvisos = (ArrayList<Aviso>) savedInstanceState.get(STATE_LISTA_AVISOS);
+                getListViewAviso().setAdapter(new AdapterDelete<Aviso>(this, mListaAvisos));
+            }
+        }
         insereListeners();
         mToolbar = (Toolbar) findViewById(R.id.th_aviso);
         mToolbar.setTitle("Avisos");
         setSupportActionBar(mToolbar);
     }
 
+    private Celula getSPCelula() {
+        return Utils.retornaCelulaSharedPreferences(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle estadoDeSaida) {
+        super.onSaveInstanceState(estadoDeSaida);
+        if (getListViewAviso().getAdapter() != null)
+            estadoDeSaida.putSerializable(STATE_LISTA_AVISOS, mListaAvisos);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new PopulaAvisosTask().execute(celula);
+            new PopulaAvisosTask().execute(getSPCelula());
         }
     }
 
@@ -80,6 +100,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         if (item.getItemId() == R.id.action_adicionar) {
             Intent intent = new Intent(this, FormAvisoActivity.class);
             startActivityForResult(intent, REQUEST_SALVAR);
+            getListViewAviso().setChoiceMode(getListViewAviso().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de avisos
             return true;
         }
 
@@ -103,7 +124,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-                ((AdapterDelete)getListViewAviso().getAdapter()).limpaItensSelecionados();
+                ((AdapterDelete) getListViewAviso().getAdapter()).limpaItensSelecionados();
                 selectionCounter = 0;
                 // TODO Auto-generated method stub
 
@@ -143,7 +164,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                                                   int position, long id, boolean checked) {
                 if (checked) {
                     selectionCounter++;
-                    ((AdapterDelete)getListViewAviso().getAdapter()).selectedItem(position, position);
+                    ((AdapterDelete) getListViewAviso().getAdapter()).selectedItem(position, position);
 
                 } else {
                     selectionCounter--;
@@ -163,16 +184,19 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
     }
 
     private class PopulaAvisosTask extends AsyncTask<Celula, Void, Integer> {//desisto kkkk ja fiz bastante arruma ai pra nois //kkkkk blz
-        ArrayList<Aviso> avisos;
-        ProgressDialog progressDialog;
+        private ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
         private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+
+        public PopulaAvisosTask() {
+            mListaAvisos = new ArrayList<Aviso>();
+        }
 
         @Override
         protected Integer doInBackground(Celula... celulas) {
             try {
-                if( celula!= null){
-                    avisos = new AvisoDAO().retornaAvisos(celulas[0]);
+                if( getSPCelula() != null){
+                    mListaAvisos = new AvisoDAO().retornaAvisos(celulas[0]);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -185,7 +209,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            avisos = new ArrayList<Aviso>();
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(AvisoActivity.this, "Carregando avisos", "Aguarde por favor...", true);
         }
@@ -198,7 +221,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         switch (resultadoAviso) {
             case RETORNO_SUCESSO:
                 //TODO colocar mensagem quando não houverem avisos
-                getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), avisos));
+                getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), mListaAvisos));
                 break;
             case FALHA_SQLEXCEPTION:
                 //nao foi possivel carregar os avisos, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

@@ -2,10 +2,12 @@ package com.vidasnoaltarmda.celulas.Dados;
 
 import android.widget.ListView;
 
+import java.io.Serializable;
+
 /**
  * Created by barque on 20/03/2016.
  */
-public class Aviso {
+public class Aviso implements Serializable {
     private int id_aviso;
     private int id_celula;
     private String titulo;
