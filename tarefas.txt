@@ -1,26 +1,49 @@
+APLICATIVO CÉLULAS IBVA (VERSÃO 1.0)
+
 Tarefas a fazer:
-- Contextualizar funcionamento e dados da aplicação por célula;
-- Avisos
-OK - Dialog apresentação informações do aviso 
- - tela de cadastro <CRUD Add Delete Edit>(por controle de usuario)
+
+- Login
+   -Arrumar sessão
+
+
+- Avisos (FINALIZADA)
+
+
+	
 - Escala
  - *apagar do banco após a célula (banco)
- - tela de cadastro <CRUD Add Delete Edit>(por controle de usuario)
-- Roteiro
- - arrumar imagem e erros ao clicar
+ - tela de cadastro <CRUD Add Delete Edit> (por controle de usuario)
+
+
+
+
+- Roteiro (FINALIZADA)
+
+
+
+
 - Programação
- - tratar recebimento da imagem
- - tela de cadastro <CRUD Add Delete Edit>
-- Aniversariante
- OK- trazer aniversariantes do mês de acordo com cadastro de data de nascimento do usuario e a celula
-Falta tambem fazer a conta (Ano atual - Data nascimento) e informar a idade do aniversariante
-- GE
-OK - Falta fazer a lista - nome do GE e a quantidade de dias 
-FALTA BARQUE TERMINAR - nome e qtd dias centralizado + imagem do perfil sombreada 
- - tela de cadastro <CRUD Add Delete Edit>
+  - tela de cadastro <CRUD Add Delete Edit>
+
+
+
+
+- Aniversariante (FINALIZADA)
+ 
+
+
+
+- GE (FINALIZADA)
+
+
+
+
 - Célula
- - trazer a imagem
- - clicar na imagem abrir em tela cheia
- - trazer informações do banco
- - tela de cadastro <CRUD Add Delete Edit>
+
+ - tela de cadastro <CRUD Add Delete Edit> (SOMENTE PARA PERMISSÃO == PASTOR)
+
+
+
+- GERAL 
+   -Setar as mensagens quando não tem dado cadastrado no banco, por exemplo: "Não existem avisos, GE, Escalas, Programações, Aniversariantes"
  
