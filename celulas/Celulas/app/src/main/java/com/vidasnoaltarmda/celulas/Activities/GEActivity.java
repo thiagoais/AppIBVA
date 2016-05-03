@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -99,20 +100,27 @@ public class GEActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_adicionar) {
-            android.content.Intent intent = new Intent(this, FormGEActivity.class);
-            startActivityForResult(intent, REQUEST_SALVAR);
-            getListViewGE().setChoiceMode(getListViewGE().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de ge
-            return true;
+        int permissaoUsuario = 0;
+        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            if (item.getItemId() == R.id.action_adicionar) {
+                android.content.Intent intent = new Intent(this, FormGEActivity.class);
+                startActivityForResult(intent, REQUEST_SALVAR);
+                getListViewGE().setChoiceMode(getListViewGE().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de ge
+                return true;
+            }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private void insereListeners() {
-        getListViewGE().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        getListViewGE().setSelected(true);
-        //TODO somente permitir caso o usuario tenha permissao
+        int permissaoUsuario = 0;
+        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            getListViewGE().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            getListViewGE().setSelected(true);
+        }
+
         getListViewGE().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             int selectionCounter;
 
@@ -144,6 +152,7 @@ public class GEActivity extends ActionBarActivity{
                 // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
+
                         new RemoveGETask(
                                 ((AdapterDelete<GrupoEvangelistico>) getListViewGE().getAdapter()).getItensSelecionados(),
                                 new Runnable() {
@@ -159,6 +168,7 @@ public class GEActivity extends ActionBarActivity{
                 }
 
             }
+
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode,
@@ -279,7 +289,7 @@ public class GEActivity extends ActionBarActivity{
             progressDialog.dismiss();
             switch (resultadoAviso) {
                 case RETORNO_SUCESSO:
-                    //TODO colocar mensagem quando não houverem avisos
+                    //TODO colocar mensagem quando não houverem GE
                     getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(GEActivity.this, mListaGE, R.layout.custom_list_item));
                     break;
                 case FALHA_SQLEXCEPTION:

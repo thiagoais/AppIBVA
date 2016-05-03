@@ -109,11 +109,17 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
     }
 
     private void insereListeners() {
+        int permissaoUsuario = 0;
+        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+
         getListViewAviso().setOnItemClickListener(this);
-        //getListViewAviso().setAdapter(adapter);
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
         getListViewAviso().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        getListViewAviso().setSelected(true);
-        //TODO somente permitir caso o usuario tenha permissao
+            getListViewAviso().setSelected(true);
+        }
+
+
+
         getListViewAviso().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             int selectionCounter;
 
