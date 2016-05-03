@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -112,6 +113,49 @@ public class EscalaDAO {
             }
         }
         return inserido;
+    }
+
+    public boolean deletaEscalas(List<Escala> escalas) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean sucesso = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+
+            String delCommand = " DELETE FROM aviso WHERE id_aviso IN (";
+            for (int i = 0; i < escalas.size() - 1; i++) {
+                delCommand = delCommand.concat("?,");
+            }
+            delCommand = delCommand.concat("?)");
+
+            statement = conexao.prepareStatement(delCommand);
+
+            for (int i = 1; i <= escalas.size(); i++) {
+                statement.setInt(i, escalas.get(i-1).getId_escala());
+            }
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                sucesso = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return sucesso;
     }
 
 

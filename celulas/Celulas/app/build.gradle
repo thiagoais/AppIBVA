@@ -25,5 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
     compile files('library-1.2.1.jar')
+    compile'com.wdullaer:materialdatetimepicker:1.4.2'
 
 }
