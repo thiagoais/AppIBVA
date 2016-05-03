@@ -12,16 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
@@ -49,16 +45,17 @@ public class GEActivity extends ActionBarActivity{
 
 
         celula = Utils.retornaCelulaSharedPreferences(this);
-        new PopulaGruposEvangelisticosTask().execute(celula);
 
         if (savedInstanceState == null) {
-            new PopulaGruposEvangelisticosTask().execute(getSPCelula()); //TODO verificar necessidade de recarregar a lista ao girar a tela
+            new PopulaGruposEvangelisticosTask().execute(getSPCelula());
         } else {
             if (savedInstanceState.get(STATE_LISTA_GE) != null) {
+                //TODO arrumar problema quando existem itens selecionados e a tela gira (ActionMode)
                 mListaGE = (ArrayList<GrupoEvangelistico>) savedInstanceState.get(STATE_LISTA_GE);
-                getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(this, mListaGE));
+                getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(this, mListaGE, R.layout.custom_list_item));
             }
         }
+        insereListeners();
         mToolbar = (Toolbar) findViewById(R.id.th_ge);
         mToolbar.setTitle("Grupo Evangelístico");
         setSupportActionBar(mToolbar);
@@ -70,8 +67,9 @@ public class GEActivity extends ActionBarActivity{
     @Override
     public void onSaveInstanceState(Bundle estadoDeSaida) {
         super.onSaveInstanceState(estadoDeSaida);
-        if (getListViewGE().getAdapter() != null)
+        if (getListViewGE().getAdapter() != null) {
             estadoDeSaida.putSerializable(STATE_LISTA_GE, mListaGE);
+        }
     }
 
     @Override
@@ -112,7 +110,6 @@ public class GEActivity extends ActionBarActivity{
     }
 
     private void insereListeners() {
-        getListViewGE().setOnItemClickListener((AdapterView.OnItemClickListener) this);
         getListViewGE().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         getListViewGE().setSelected(true);
         //TODO somente permitir caso o usuario tenha permissao
@@ -132,6 +129,7 @@ public class GEActivity extends ActionBarActivity{
                 // TODO Auto-generated method stub
 
             }
+
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -248,7 +246,6 @@ public class GEActivity extends ActionBarActivity{
     }
 
     private class PopulaGruposEvangelisticosTask extends AsyncTask<Celula, Void, Integer> {
-        ArrayList<GrupoEvangelistico> grupoEvangelisticos;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
         private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
@@ -257,7 +254,7 @@ public class GEActivity extends ActionBarActivity{
         protected Integer doInBackground(Celula... celulas) {
             try {
                 if(celulas.length > 0){
-                    grupoEvangelisticos = new GrupoEvangelisticoDAO().retornaGruposEvangelisticos(celulas[0]);
+                    mListaGE = new GrupoEvangelisticoDAO().retornaGruposEvangelisticos(celulas[0]);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -270,7 +267,7 @@ public class GEActivity extends ActionBarActivity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            grupoEvangelisticos = new ArrayList<GrupoEvangelistico>();
+            mListaGE = new ArrayList<GrupoEvangelistico>();
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(GEActivity.this, "Carregando Grupos Evangelísticos", "Aguarde por favor...", true);
         }
@@ -283,7 +280,7 @@ public class GEActivity extends ActionBarActivity{
             switch (resultadoAviso) {
                 case RETORNO_SUCESSO:
                     //TODO colocar mensagem quando não houverem avisos
-                    getListViewGE().setAdapter(new ArrayAdapter<GrupoEvangelistico>(GEActivity.this, R.layout.custom_list_item, grupoEvangelisticos));
+                    getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(GEActivity.this, mListaGE, R.layout.custom_list_item));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar os ges, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

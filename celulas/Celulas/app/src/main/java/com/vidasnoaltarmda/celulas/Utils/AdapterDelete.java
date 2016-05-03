@@ -25,10 +25,20 @@ public class AdapterDelete<Object> extends BaseAdapter implements Serializable {
     HashMap<Integer,Integer> selectionValueMap = new HashMap<Integer,Integer>();
     Context vContext;
     ArrayList<Object> dataValueList = new ArrayList<Object>();
+    int itemLayoutId;
+
+    public AdapterDelete(Context context, ArrayList<Object> dataValueList, int itemLayoutId)
+    {
+        this.vContext = context;
+        this.dataValueList = dataValueList;
+        this.itemLayoutId = itemLayoutId;
+    }
+
     public AdapterDelete(Context context, ArrayList<Object> dataValueList)
     {
         this.vContext = context;
         this.dataValueList = dataValueList;
+        this.itemLayoutId = R.layout.custom_list_item_3;
     }
 
     public ArrayList<Object> getItensSelecionados() {
@@ -99,7 +109,7 @@ public class AdapterDelete<Object> extends BaseAdapter implements Serializable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater mInflater = (LayoutInflater)     vContext.getSystemService(vContext.LAYOUT_INFLATER_SERVICE);
-        convertView = mInflater.inflate(R.layout.custom_list_item_3, null);
+        convertView = mInflater.inflate(itemLayoutId, null);
         TextView tx = (TextView)convertView.findViewById(android.R.id.text1); //TODO verificar necessidade de viewHolder
         tx.setText(dataValueList.get(position).toString());
 

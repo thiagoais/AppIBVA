@@ -1,9 +1,11 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
+import java.io.Serializable;
+
 /**
  * Created by barque on 20/03/2016.
  */
-public class GrupoEvangelistico {
+public class GrupoEvangelistico implements Serializable{
 
     private int id_ge;
     private int id_celula;

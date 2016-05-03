@@ -48,7 +48,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_aviso);
 
         if (savedInstanceState == null) {
-            new PopulaAvisosTask().execute(getSPCelula()); //TODO verificar necessidade de recarregar a lista ao girar a tela
+            new PopulaAvisosTask().execute(getSPCelula());
         } else {
             if (savedInstanceState.get(STATE_LISTA_AVISOS) != null) {
                 mListaAvisos = (ArrayList<Aviso>) savedInstanceState.get(STATE_LISTA_AVISOS);
@@ -66,10 +66,11 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
     }
 
     @Override
-    public void onSaveInstanceState(Bundle estadoDeSaida) {
+    public void onSaveInstanceState(Bundle estadoDeSaida) { //TODO fazer tratamento de giro de tela nas outras telas
         super.onSaveInstanceState(estadoDeSaida);
-        if (getListViewAviso().getAdapter() != null)
+        if (getListViewAviso().getAdapter() != null) {
             estadoDeSaida.putSerializable(STATE_LISTA_AVISOS, mListaAvisos);
+        }
     }
 
     @Override
