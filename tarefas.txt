@@ -2,48 +2,23 @@ APLICATIVO CÉLULAS IBVA (VERSÃO 1.0)
 
 Tarefas a fazer:
 
-- Login
-   -Arrumar sessão
-
-
-- Avisos (FINALIZADA)
 
 
 	
 - Escala
  - *apagar do banco após a célula (banco)
- - tela de cadastro <CRUD Add Delete Edit> (por controle de usuario)
-
-
-
-
-- Roteiro (FINALIZADA)
-
+ - tela de cadastro <CRUD Add Delete> 
+ - Fazer upload de imagem pro banco de dados
 
 
 
 - Programação
-  - tela de cadastro <CRUD Add Delete Edit>
-
-
-
-
-- Aniversariante (FINALIZADA)
- 
-
-
-
-- GE (FINALIZADA)
-
-
-
-
-- Célula
-
- - tela de cadastro <CRUD Add Delete Edit> (SOMENTE PARA PERMISSÃO == PASTOR)
+  - tela de cadastro <CRUD Add Delete>
+  - Fazer upload de imagem pro banco de dados
 
 
 
 - GERAL 
-   -Setar as mensagens quando não tem dado cadastrado no banco, por exemplo: "Não existem avisos, GE, Escalas, Programações, Aniversariantes"
+   -Setar as mensagens quando não tem dado cadastrado no banco, por exemplo: 
+"Não existem avisos, GE, Escalas, Programações, Aniversariantes"
  
