@@ -13,16 +13,29 @@
         />
 
     <TextView
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="@string/programacao_selecionar_programacao"
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textAlignment="center"
+    android:textStyle="bold"
+    android:background="@color/programacoesPrimary" />
+    <TextView
+        android:id="@+id/nao_tem"
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/programacao_selecionar_programacao"
+        android:text="Não existe programações cadastradas"
         android:textColor="#000000"
         android:gravity="center"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:background="@color/programacoesPrimary" />
+        android:visibility="gone"
+         />
 
     <ListView
         android:layout_marginTop="10dp"

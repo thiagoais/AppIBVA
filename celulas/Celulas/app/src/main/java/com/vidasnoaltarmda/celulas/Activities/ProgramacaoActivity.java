@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
@@ -31,6 +32,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
 
     private Celula celula;
     private Toolbar mToolbar;
+    private TextView NaoExiste;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
-                //TODO LOG ERRO
+                //NaoExiste.setVisibility(View.VISIBLE);//TODO Fazer aparecer :( (Não consegui)
             }
             return RETORNO_SUCESSO;
         }
@@ -114,7 +116,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    //TODO colocar mensagem quando não houverem programacoes
+
                     getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, programacoes));
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -141,6 +143,12 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             listview_programacoes = (ListView) findViewById(R.id.listview_programacoes);
         }
         return listview_programacoes;
+    }
+    private TextView getNaoExiste() {
+        if (NaoExiste == null) {
+            NaoExiste = (TextView) findViewById(R.id.nao_tem);
+        }
+        return NaoExiste;
     }
 
     @Override

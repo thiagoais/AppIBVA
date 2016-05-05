@@ -1,6 +1,7 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
 import android.graphics.Bitmap;
+import android.widget.TextView;
 
 import java.io.Serializable;
 
@@ -21,6 +22,15 @@ public class Programacao implements Serializable {
     private String telefone;
     private String valor;
     private Bitmap imagem;
+    private TextView NaoExiste;
+
+    public TextView getNaoExiste() {
+        return NaoExiste;
+    }
+
+    public void setNaoExiste(TextView naoExiste) {
+        NaoExiste = naoExiste;
+    }
 
     public int getId_programacao() {
         return id_programacao;

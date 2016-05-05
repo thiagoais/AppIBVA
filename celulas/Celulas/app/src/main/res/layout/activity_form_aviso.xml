@@ -10,25 +10,34 @@
         android:text="Título:"
         android:layout_width="wrap_content"
         android:textColor="#000000"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="17dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_titulo"/>
+        android:id="@+id/edittext_titulo"
+        android:textSize="13dp" />
     <TextView
-        android:text="Conteudo:"
+        android:text="Conteúdo:"
         android:layout_width="wrap_content"
         android:textColor="#000000"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="17dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext_conteudo"/>
+        android:id="@+id/edittext_conteudo"
+        android:textSize="13dp" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
         android:id="@+id/button_salvar"
-        android:text="Salvar"/>
+        android:text="Salvar"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20dp" />
 
 </LinearLayout>
