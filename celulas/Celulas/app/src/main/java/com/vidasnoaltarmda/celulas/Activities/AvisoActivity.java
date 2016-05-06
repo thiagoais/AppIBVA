@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
     private static final String STATE_LISTA_AVISOS = "STATE_LISTA_AVISOS";
 
+    private ImageView imageViewListaVazia;
     private ListView listview_avisos;
     private Toolbar mToolbar;
 
@@ -194,6 +196,13 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         return listview_avisos;
     }
 
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
+    }
+
     private class PopulaAvisosTask extends AsyncTask<Celula, Void, Integer> {//desisto kkkk ja fiz bastante arruma ai pra nois //kkkkk blz
         private ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
@@ -231,7 +240,13 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             progressDialog.dismiss();
         switch (resultadoAviso) {
             case RETORNO_SUCESSO:
-                //TODO colocar mensagem quando não houverem avisos
+                if (mListaAvisos.size() > 0) {
+                    getImageViewListaVazia().setVisibility(View.GONE);
+                    getListViewAviso().setVisibility(View.VISIBLE);
+                } else {
+                    getImageViewListaVazia().setVisibility(View.VISIBLE);
+                    getListViewAviso().setVisibility(View.GONE);
+                }
                 getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), mListaAvisos));
                 break;
             case FALHA_SQLEXCEPTION:
