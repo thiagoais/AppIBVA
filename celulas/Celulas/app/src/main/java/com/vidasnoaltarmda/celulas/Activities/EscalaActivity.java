@@ -9,9 +9,11 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ public class EscalaActivity extends ActionBarActivity {
 
     private Celula celula;
     private ArrayList<Escala> mListaEscala;
+    private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class EscalaActivity extends ActionBarActivity {
         celula = Utils.retornaCelulaSharedPreferences(this);
 
         if (savedInstanceState == null) {
-            new MontaTelaEscalasTask().execute((Runnable) getSPCelula());
+            new MontaTelaEscalasTask().execute(getSPCelula());
         } else {
             if (savedInstanceState.get(STATE_LISTA_ESCALAS) != null) {
                 mListaEscala = (ArrayList<Escala>) savedInstanceState.get(STATE_LISTA_ESCALAS);
@@ -88,7 +91,7 @@ public class EscalaActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new MontaTelaEscalasTask().execute((Runnable) getSPCelula());
+            new MontaTelaEscalasTask().execute( getSPCelula());
         }
     }
 
@@ -235,12 +238,17 @@ public class EscalaActivity extends ActionBarActivity {
             switch (resultadoEscala) {
                 case RETORNO_SUCESSO:
                     if (celula != null && escala != null) {
-                        //preenche dados padrao da escala
+
+                        if (escala.getEscalacoes().size() > 0) {
+                            getImageViewListaVazia().setVisibility(View.GONE);
+                            getListViewEscala().setVisibility(View.VISIBLE);
+                        }else {
+                            getImageViewListaVazia().setVisibility(View.VISIBLE);
+                            getListViewEscala().setVisibility(View.GONE);
+                        }
                         getNome().setText(celula.getNome());
                         getData().setText(escala.getData_celula() + " - " + escala.getHora_celula());
                         getLocal().setText(escala.getLocal_celula());
-                        //--preenche dados padrao da escala
-                        //TODO colocar mensagem quando não houverem avisos
                         getListViewEscala().setAdapter(new ArrayAdapter<Escalacao>(EscalaActivity.this, R.layout.custom_list_item_3, escala.getEscalacoes()));
                     }
                     break;
@@ -332,6 +340,12 @@ public class EscalaActivity extends ActionBarActivity {
             local = (TextView) findViewById(R.id.local);
         }
         return local;
+    }
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
     }
 
 

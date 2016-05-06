@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Roteiro;
@@ -26,6 +27,7 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
 
     ListView listview_roteiros;
     private Toolbar mToolbar;
+    private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,13 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
+                    if (roteiros.size() > 0) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewRoteiros().setVisibility(View.VISIBLE);
+                    }else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewRoteiros().setVisibility(View.GONE);
+                    }
                     getListViewRoteiros().setAdapter(new ArrayAdapter<Roteiro>(RoteiroActivity.this, R.layout.custom_list_item_3, roteiros));
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -137,9 +146,10 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             switch (resultado) {
                 case RETORNO_SUCESSO:
                     Intent intent = new Intent(RoteiroActivity.this, ImagemAmpliadaActivity.class);
-                    intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
+                   intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
                     startActivity(intent);
                     break;
+
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar a imagem do roteiro, sendo assim uma mensagem de erro eh exibida
                     Utils.mostraMensagemDialog(RoteiroActivity.this, "Não foi possível carregar a imagem. Verifique sua conexão e tente novamente.");
@@ -158,6 +168,13 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             listview_roteiros = (ListView) findViewById(R.id.listview_roteiros);
         }
         return listview_roteiros;
+    }
+
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
     }
 
     @Override

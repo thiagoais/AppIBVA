@@ -12,7 +12,9 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class GEActivity extends ActionBarActivity{
     private Celula celula;
     private Toolbar mToolbar;
     private ArrayList<GrupoEvangelistico> mListaGE;
+    private ImageView imageViewListaVazia;
 
 
     @Override
@@ -51,6 +54,7 @@ public class GEActivity extends ActionBarActivity{
             new PopulaGruposEvangelisticosTask().execute(getSPCelula());
         } else {
             if (savedInstanceState.get(STATE_LISTA_GE) != null) {
+
                 //TODO arrumar problema quando existem itens selecionados e a tela gira (ActionMode)
                 mListaGE = (ArrayList<GrupoEvangelistico>) savedInstanceState.get(STATE_LISTA_GE);
                 getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(this, mListaGE, R.layout.custom_list_item));
@@ -289,7 +293,13 @@ public class GEActivity extends ActionBarActivity{
             progressDialog.dismiss();
             switch (resultadoAviso) {
                 case RETORNO_SUCESSO:
-                    //TODO colocar mensagem quando não houverem GE
+                    if (mListaGE.size() > 0) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewGE().setVisibility(View.VISIBLE);
+                    }else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewGE().setVisibility(View.GONE);
+                    }
                     getListViewGE().setAdapter(new AdapterDelete<GrupoEvangelistico>(GEActivity.this, mListaGE, R.layout.custom_list_item));
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -305,6 +315,12 @@ public class GEActivity extends ActionBarActivity{
             }
             super.onPostExecute(resultadoAviso);
         }
+    }
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
     }
 
 }

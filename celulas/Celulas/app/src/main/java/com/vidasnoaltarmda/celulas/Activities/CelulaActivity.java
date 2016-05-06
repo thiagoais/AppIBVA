@@ -37,6 +37,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
 
     private Celula celula;
     private Toolbar mToolbar;
+    private ImageView imageViewListaVazia;
 
 
     @Override
@@ -82,8 +83,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
 
     }
 
-    //método que vai buscar a imagem da célula
-    //TODO descobrir como mostra essa imagem ABENÇOADA <thiago - 24/04/2016> usando um cache preferencialmente
+
     private class mostraImagemCelulaTask extends AsyncTask<Void, Void,  Integer>{
         String caminhoImagem;
         ProgressDialog  progressDialog;
@@ -102,7 +102,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         protected  Integer doInBackground(Void... params){
             try {
                 if (celula != null)
-                    new CelulaDAO().retornaCelulaImagem(celula, caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA); //TODO corrigir diretorios e cache de imagens
+                    new CelulaDAO().retornaCelulaImagem(celula, caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA);
             } catch(SQLException e){
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -181,6 +181,12 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
             versiculo = (TextView) findViewById(R.id.versiculo);
         }
         return versiculo;
+    }
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
     }
 
 

@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
@@ -21,6 +23,7 @@ public class AniversariantesActivity extends ActionBarActivity {
 
     private ListView listview_aniversariantes;
     private Toolbar mToolbar;
+    private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,13 @@ public class AniversariantesActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultado) {
                 case RETORNO_SUCESSO:
-
+                    if (aniversariantes.size() > 0) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewAniversariantes().setVisibility(View.VISIBLE);
+                    }else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewAniversariantes().setVisibility(View.GONE);
+                    }
                     getListViewAniversariantes().setAdapter(new ArrayAdapter<Usuario>(AniversariantesActivity.this, R.layout.custom_list_item_3, aniversariantes));
 
                     break;
@@ -88,5 +97,11 @@ public class AniversariantesActivity extends ActionBarActivity {
             listview_aniversariantes = (ListView) findViewById(R.id.listview_aniversariantes);
         }
         return listview_aniversariantes;
+    }
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+        }
+        return imageViewListaVazia;
     }
 }

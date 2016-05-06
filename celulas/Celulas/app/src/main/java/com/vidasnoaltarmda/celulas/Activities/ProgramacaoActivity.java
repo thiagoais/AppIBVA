@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,8 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
 
     private Celula celula;
     private Toolbar mToolbar;
-    private TextView NaoExiste;
+
+    private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +118,13 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-
+                    if (programacoes.size() > 0) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewProgramacao().setVisibility(View.VISIBLE);
+                    }else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewProgramacao().setVisibility(View.GONE);
+                    }
                     getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, programacoes));
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -144,11 +152,11 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         }
         return listview_programacoes;
     }
-    private TextView getNaoExiste() {
-        if (NaoExiste == null) {
-            NaoExiste = (TextView) findViewById(R.id.nao_tem);
+    private ImageView getImageViewListaVazia() {
+        if (imageViewListaVazia == null) {
+            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
         }
-        return NaoExiste;
+        return imageViewListaVazia;
     }
 
     @Override
