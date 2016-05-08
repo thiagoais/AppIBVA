@@ -127,7 +127,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-
+                // TODO Auto-generated method stub
                 return false;
             }
 
@@ -135,13 +135,13 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete) getListViewAviso().getAdapter()).limpaItensSelecionados();
                 selectionCounter = 0;
-
+                // TODO Auto-generated method stub
 
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
+                // TODO Auto-generated method stub
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_delete, menu);
                 return true;
@@ -149,7 +149,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
-
+                // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
                         new RemoveAvisoTask(

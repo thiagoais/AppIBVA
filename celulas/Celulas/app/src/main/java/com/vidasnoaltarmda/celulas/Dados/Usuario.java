@@ -14,6 +14,7 @@ public class Usuario {
     private String sobrenome;
     private String dataNascimento;
     private Celula celula;
+    //private Escala escala; //TODO
     private String login;
     private int permissao;
 

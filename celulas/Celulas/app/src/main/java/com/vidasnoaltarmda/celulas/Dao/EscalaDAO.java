@@ -88,8 +88,8 @@ public class EscalaDAO {
            // statement = conexao.prepareStatement(
                   //  " INSERT INTO escala (id_celula, titulo, conteudo) values (?,?,?)");//TODO Arrumar esse select
            // statement.setInt   (1, escala.getId_celula());
-         //   statement.setString(2, escala.getTitulo());//
-         //   statement.setString(3, escala.getConteudo());//
+         //   statement.setString(2, escala.getTitulo());//TODO arrumar select la em cima pra ver como que vai salvar
+         //   statement.setString(3, escala.getConteudo());//TODO arrumar select la em cima pra ver como que vai salvar
 
             int row = statement.executeUpdate();
             if (row > 0) {

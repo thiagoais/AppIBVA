@@ -56,12 +56,12 @@ public class EscalaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escala);
 
-
+        //TODO verificar necessidade de entrar na tela caso não hajam escalas (ou mostrar mensagem que nao existem escalas)
         //TODO verificar se existe a necessidade de buscar a celula ao abrir cada tela ou se carregar ao abrir o programa é suficiente
         celula = Utils.retornaCelulaSharedPreferences(this);
 
         if (savedInstanceState == null) {
-            new MontaTelaEscalasTask().execute((Runnable) getSPCelula());
+            new MontaTelaEscalasTask().execute(getSPCelula());
         } else {
             if (savedInstanceState.get(STATE_LISTA_ESCALAS) != null) {
                 mListaEscala = (ArrayList<Escala>) savedInstanceState.get(STATE_LISTA_ESCALAS);
@@ -91,7 +91,7 @@ public class EscalaActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new MontaTelaEscalasTask().execute((Runnable) getSPCelula());
+            new MontaTelaEscalasTask().execute( getSPCelula());
         }
     }
 
@@ -126,13 +126,13 @@ public class EscalaActivity extends ActionBarActivity {
         getListViewEscala().setOnItemClickListener((AdapterView.OnItemClickListener) this);
         getListViewEscala().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         getListViewEscala().setSelected(true);
-
+        //TODO somente permitir caso o usuario tenha permissao
         getListViewEscala().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             int selectionCounter;
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-
+                // TODO Auto-generated method stub
                 return false;
             }
 
@@ -140,13 +140,13 @@ public class EscalaActivity extends ActionBarActivity {
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete) getListViewEscala().getAdapter()).limpaItensSelecionados();
                 selectionCounter = 0;
-
+                // TODO Auto-generated method stub
 
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
+                // TODO Auto-generated method stub
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_delete, menu);
                 return true;
@@ -154,7 +154,7 @@ public class EscalaActivity extends ActionBarActivity {
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
-
+                // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
                         new RemoveEscalaTask(

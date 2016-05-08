@@ -46,7 +46,7 @@ public class CelulaDAO {
                 celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
-                celula.setImagem(rs.getBlob(10));
+                celula.setImagem(rs.getBlob(10)); //TODO verificar necessidade e se consome tempo e uso de dados
             }
         } catch (Exception e) {
             //TODO LOG ERRO
@@ -98,7 +98,7 @@ public class CelulaDAO {
                 celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
-                celula.setImagem(rs.getBlob(10));
+                celula.setImagem(rs.getBlob(10)); //TODO verificar necessidade e se consome tempo e uso de dados
                 celulas.add(celula);
             }
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class CelulaDAO {
         return celulas;
     }
 
-
+    //metodo que retorna a imagem da celula passada por parametro e salva no caminho especificado
     //TODO verificar possibilidade de implementacao de um cache de imagens
     public boolean retornaCelulaImagem(Celula celula, String caminhoArquivo, String nomeArquivo) throws SQLException {
         InputStream isCelula = null;
