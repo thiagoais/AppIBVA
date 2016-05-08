@@ -72,8 +72,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
         }
     }
 
-    //metodo responsável por buscar imagem da programacao
-    //TODO problema mostrar imagem
+
     private class mostraImagemProgramacaoTask extends AsyncTask<Programacao, Void, Integer> {
         String caminhoImagem;
         ProgressDialog progressDialog;

@@ -106,7 +106,6 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
-                //NaoExiste.setVisibility(View.VISIBLE);//TODO Fazer aparecer :( (Não consegui)
             }
             return RETORNO_SUCESSO;
         }

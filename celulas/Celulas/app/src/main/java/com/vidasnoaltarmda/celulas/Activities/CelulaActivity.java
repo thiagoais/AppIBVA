@@ -65,7 +65,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.foto:
                 Intent intent = new Intent(this, ImagemAmpliadaActivity.class);
-                intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA); //TODO arrumar caminhos das imagens
+                intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA);
                 startActivity(intent);
                 break;
         }
@@ -77,7 +77,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         getDia().setText(celula.converteDiaCelula());
         getHorario().setText(celula.getHorario());
         getLocal().setText(celula.getLocal_celula());
-        getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo()); //TODO relacionar numeros com dias da semana
+        getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo());
         getVersiculo().setText("\"" + celula.getVersiculo() + "\"");
         new mostraImagemCelulaTask().execute();
 

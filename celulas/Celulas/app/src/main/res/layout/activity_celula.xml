@@ -193,6 +193,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:paddingTop="25dp"
+                android:paddingBottom="25dp"
                 android:text="(versículo base da célula)"
                 android:textAlignment="center"
                 android:textStyle="italic"

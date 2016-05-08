@@ -130,7 +130,7 @@ public class GEActivity extends ActionBarActivity{
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
+
                 return false;
             }
 
@@ -138,14 +138,14 @@ public class GEActivity extends ActionBarActivity{
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete) getListViewGE().getAdapter()).limpaItensSelecionados();
                 selectionCounter = 0;
-                // TODO Auto-generated method stub
+
 
             }
 
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
+
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_delete, menu);
                 return true;
@@ -153,7 +153,7 @@ public class GEActivity extends ActionBarActivity{
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
-                // TODO Auto-generated method stub
+
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
 

@@ -57,19 +57,19 @@ public class AdapterDelete<Object> extends BaseAdapter implements Serializable {
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
+
         return dataValueList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
+
         return dataValueList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
     public void selectedItem(int postion ,int flag)
