@@ -1,18 +1,26 @@
 package com.vidasnoaltarmda.celulas.Utils;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
+import com.vidasnoaltarmda.celulas.Dados.Usuario;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by thiago on 16/03/2016.
@@ -91,14 +99,27 @@ public class Utils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
         prefs.edit().putInt   (Celula.ID_CELULA_SP            , celula.getId_celula())
                     .putString(Celula.NOME_CELULA_SP          , celula.getNome())
-                    .putString(Celula.LIDER_CELULA_SP         , celula.getLider())
-                    .putString(Celula.DIA_CELULA_SP           , celula.getDia())
+                    .putString(Celula.LIDER_CELULA_SP, celula.getLider())
+                    .putString(Celula.DIA_CELULA_SP, celula.getDia())
                     .putString(Celula.HORARIO_CELULA_SP       , celula.getHorario())
                     .putString(Celula.LOCAL_CELULA_SP         , celula.getLocal_celula())
                     .putString(Celula.DIA_JEJUM_CELULA_SP     , celula.getDia_jejum())
                     .putString(Celula.PERIODO_CELULA_SP, celula.getPeriodo())
                     .putString(Celula.VERSICULO_CELULA_SP, celula.getVersiculo()).commit();
                     //.putString(Celula.CAMINHO_IMAGEM_CELULA_SP, data).commit(); TODO salvar caminho do cache da imagem
+    }
+
+    //Salva dados usuario nas Shared Preferences
+    public static void salvaUsuarioSharedPreference(Context con, Usuario usuario)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        prefs.edit().putInt(Usuario.ID_USUARIO_SP, usuario.getId())
+                    .putString(Usuario.NOME_SP                 , usuario.getNome())
+                    .putString(Usuario.SOBRENOME_SP            , usuario.getSobrenome())
+                    .putString(Usuario.DATA_NASCIMENTO_SP      , usuario.getDataNascimento())
+                    .putString(Usuario.LOGIN_SP                , usuario.getLogin())
+                    .putInt(Usuario.PERMISSAO_SP, usuario.getPermissao())
+                    .commit();
     }
 
     //Retorna dados celula nas Shared Preferences
@@ -119,6 +140,24 @@ public class Utils {
         return celula;
     }
 
+    //Retorna dados usuario nas Shared Preferences
+    public static Usuario retornaUsuarioSharedPreference(Context con)
+    {
+        Usuario usuario = null;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        if (prefs.getString(Usuario.LOGIN_SP, null) != null) {
+            usuario = new Usuario();
+            usuario.setId(prefs.getInt(Usuario.ID_USUARIO_SP, -1));
+            usuario.setNome(prefs.getString(Usuario.NOME_SP, null));
+            usuario.setSobrenome(prefs.getString(Usuario.SOBRENOME_SP, null));
+            usuario.setDataNascimento(prefs.getString(Usuario.DATA_NASCIMENTO_SP, null));
+            usuario.setLogin(prefs.getString(Usuario.LOGIN_SP, null));
+            usuario.setPermissao(prefs.getInt(Usuario.PERMISSAO_SP, -1));
+        }
+
+        return usuario;
+    }
+
     //Retorna string nas Shared Preferences com a chave "variable"
     public static String retornaSharedPreference(Context con, String variable, String defaultValue)
     {
@@ -131,5 +170,48 @@ public class Utils {
     public static void limpaSharedPreferences(Context con) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
         prefs.edit().clear().commit();
+    }
+
+    public static void mostraDatePickerDialog(Context context, final EditText campoTexto) {
+        final Calendar calendar;
+        //Prepara data anterior caso ja tenha sido selecionada
+        if (campoTexto.getTag() != null) {
+            calendar = ((Calendar) campoTexto.getTag());
+        } else {
+            calendar = Calendar.getInstance();
+        }
+        //----
+
+        new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                campoTexto.setText(new SimpleDateFormat("dd/MM/yyyy").format(newDate.getTime()));
+                campoTexto.setTag(newDate);
+            }
+
+        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    public static void mostraTimePickerDialog(Context context, final EditText campoTexto) {
+        final Calendar calendar;
+        //Prepara hora anterior caso ja tenha sido selecionada
+        if (campoTexto.getTag() != null) {
+            calendar = ((Calendar) campoTexto.getTag());
+        } else {
+            calendar = Calendar.getInstance();
+        }
+        //----
+
+        new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(Calendar.HOUR_OF_DAY, hour);
+                newDate.set(Calendar.MINUTE, minute);
+                campoTexto.setText(new SimpleDateFormat("HH:mm").format(newDate.getTime()));
+                campoTexto.setTag(newDate);
+            }
+        }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true).show();
     }
 }

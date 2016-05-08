@@ -8,6 +8,13 @@ public class Usuario {
     public static final int PERMISSAO_LIDER  = 1;
     public static final int PERMISSAO_PASTOR = 2;
 
+    public static final String ID_USUARIO_SP       = "ID_USUARIO";
+    public static final String NOME_SP             = "NOME";
+    public static final String SOBRENOME_SP        = "SOBRENOME";
+    public static final String DATA_NASCIMENTO_SP  = "DATA_NASCIMENTO";
+    public static final String LOGIN_SP            = "LOGIN";
+    public static final String PERMISSAO_SP        = "PERMISSAO;";
+
     private int id;
     private String nome;
     private String senha;
@@ -88,6 +95,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return getNome() +  " "+getSobrenome() + " - Dia " + getDataNascimento();
+        return getNome() +  " " + getSobrenome() + " - Dia " + getDataNascimento();
     }
 }

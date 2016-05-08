@@ -1,6 +1,5 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -9,7 +8,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,7 +20,6 @@ import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -65,30 +62,9 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                 //insere
                 break;
             case R.id.data_nascimento:
-                mostraDatePickerDialog(getDataNascimento());
+                Utils.mostraDatePickerDialog(this, getDataNascimento());
                 break;
         }
-    }
-
-    private void mostraDatePickerDialog(final EditText campoTexto) {
-        final Calendar calendar;
-        //Prepara data anterior caso ja tenha sido selecionada
-        if (campoTexto.getTag() != null) {
-            calendar = ((Calendar) campoTexto.getTag());
-        } else {
-            calendar = Calendar.getInstance();
-        }
-        //----
-
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                campoTexto.setText(new SimpleDateFormat("dd/MM/yyyy").format(newDate.getTime()));
-                campoTexto.setTag(newDate);
-            }
-
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private boolean verificaDadosUsuario() {
