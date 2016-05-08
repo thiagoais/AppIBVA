@@ -18,12 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.Escalacao;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
@@ -61,7 +59,7 @@ public class EscalaActivity extends ActionBarActivity {
         celula = Utils.retornaCelulaSharedPreferences(this);
 
         if (savedInstanceState == null) {
-            new MontaTelaEscalasTask().execute(getSPCelula());
+            new MontaTelaEscalasTask().execute();
         } else {
             if (savedInstanceState.get(STATE_LISTA_ESCALAS) != null) {
                 mListaEscala = (ArrayList<Escala>) savedInstanceState.get(STATE_LISTA_ESCALAS);
@@ -91,7 +89,7 @@ public class EscalaActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new MontaTelaEscalasTask().execute( getSPCelula());
+            new MontaTelaEscalasTask().execute();
         }
     }
 

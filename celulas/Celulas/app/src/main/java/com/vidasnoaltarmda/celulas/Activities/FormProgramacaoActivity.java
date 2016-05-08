@@ -9,17 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
-import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.concurrent.BlockingDeque;
 
 public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
 
@@ -45,6 +41,8 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
 
     private void insereListener() {
         getButtonSalvar().setOnClickListener(this);
+        getEditTextData().setOnClickListener(this);
+        getEditTextHorario().setOnClickListener(this);
     }
 
     @Override
@@ -64,6 +62,12 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
 
                     new InsereTask().execute(programacao);
                 }
+                break;
+            case R.id.data_programacao:
+                Utils.mostraDatePickerDialog(this, getEditTextData());
+                break;
+            case R.id.horario_programacao:
+                Utils.mostraTimePickerDialog(this, getEditTextHorario());
                 break;
         }
     }
