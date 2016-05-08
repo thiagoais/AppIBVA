@@ -1,24 +1,31 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.Escalacao;
+import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
+import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
+import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FormEscalaActivity extends ActionBarActivity implements View.OnClickListener{
 
@@ -27,13 +34,14 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
     private EditText editTextData;
     private EditText editTextHorario;
     private EditText editTextLocal;
-    private EditText editTextDinamica;
-    private EditText editTextOracao;
-    private EditText editTextLouvor;
-    private EditText editTextPalavra;
-    private EditText editTextOferta;
-    private EditText editTextLanche;
     private Button   buttonSalvar;
+    private Spinner SpinDinamica;
+    private Spinner SpinOracao;
+    private Spinner SpinLouvor;
+    private Spinner SpinPalavra;
+    private Spinner SpinOferta;
+    private Spinner SpinLanche;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,8 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
 
     private void insereListener() {
         getButtonSalvar().setOnClickListener(this);
+        getEditTextData().setOnClickListener(this);
+        getEditTextHorario().setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +73,12 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
 
                     new InsereTask().execute(escala);
                 }
+                break;
+            case R.id.data_escala:
+                Utils.mostraDatePickerDialog(this, getEditTextData());
+                break;
+            case R.id.horario_escala:
+                Utils.mostraTimePickerDialog(this, getEditTextHorario());
                 break;
         }
     }
@@ -126,26 +142,86 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
             getEditTextHorario().setError("Por favor, digite um horário");
             camposPreenchidos = false;
         }
+
+        if (getEditTextLocal().getText().length() <= 0) {
+            getEditTextLocal().setError("Por favor, digite um local");
+            camposPreenchidos = false;
+        }
+
+
             return camposPreenchidos;
         }
 
-    /*if (getEditT().getText().length() <= 0) {
-        getEditTextHorario().setError("Por favor, digite um horário");
-        camposPreenchidos = false;
+   private class PopulaEscalasTask extends AsyncTask<Usuario, Void, Integer> {
+        ArrayList<Usuario> usuarios;
+        ProgressDialog progressDialog;
+        private final int RETORNO_SUCESSO = 0; //
+        private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+
+        //metodo executado pela thread principal antes de qualquer outro processamento. Nesse caso utilizado para
+        // inicializar a lista de celulas e mostrar o dialog de progresso para o usuario
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            usuarios = new ArrayList<Usuario>();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(FormEscalaActivity.this, "Carregando", "Verificando dados...", true);
+        }
+
+        //metodo que executa as tarefas de acesso a banco e retorno das celulas em uma thread separada.
+        // Como o proprio nome do metodo diz em background (ou em segundo plano)
+        @Override
+        protected Integer doInBackground(Celula... celulas) {
+            try {
+                usuarios = new UsuarioDAO().retornaUsuarios();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return FALHA_SQLEXCEPTION;
+                //TODO LOG ERRO
+            }
+            return RETORNO_SUCESSO;
+        }
+
+        //metodo executado apos finalizacao do metodo doInBackground. Sendo assim ja e possivel usar a lista de celulas
+        // retornada
+        @Override
+        protected void onPostExecute(Integer resultadoLogin) {
+            progressDialog.dismiss();
+            switch (resultadoLogin) {
+                case RETORNO_SUCESSO:
+                    getSpinDinamica().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinOracao().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinLouvor().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinPalavra().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinOferta().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinLanche().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+
+                    break;
+                case FALHA_SQLEXCEPTION:
+                    //nao foi possivel carregar as celulas, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
+                    Utils.mostraMensagemDialog(FormEscalaActivity.this, "Não foi possível carregar os membros. Verifique sua conexão e tente novamente.",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
+                    break;
+            }
+            super.onPostExecute(resultadoLogin);
+        }
     }
-    return camposPreenchidos;
-}*/
 
     public EditText getEditTextData() {
         if (editTextData == null) {
-            editTextData = (EditText) findViewById(R.id.edittext_data);
+            editTextData = (EditText) findViewById(R.id.data_escala);
         }
         return editTextData;
     }
 
     public EditText getEditTextHorario() {
         if (editTextHorario == null) {
-            editTextHorario = (EditText) findViewById(R.id.edittext_hora);
+            editTextHorario = (EditText) findViewById(R.id.horario_escala);
         }
         return editTextHorario;
     }
@@ -157,11 +233,45 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
         return editTextLocal;
     }
 
-    public EditText getEditTextLanche() {
-        if (editTextLanche == null) {
-            editTextLanche = (EditText) findViewById(R.id.edittext_lanche);
+    private Spinner getSpinDinamica() {
+        if (SpinDinamica == null) {
+            SpinDinamica = (Spinner) findViewById(R.id.dinamica);
         }
-        return editTextLanche;
+        return SpinDinamica;
+    }
+
+    private Spinner getSpinOracao() {
+        if (SpinOracao == null) {
+            SpinOracao = (Spinner) findViewById(R.id.oracao);
+        }
+        return SpinOracao;
+    }
+
+    private Spinner getSpinLouvor() {
+        if (SpinLouvor == null) {
+            SpinLouvor = (Spinner) findViewById(R.id.louvor);
+        }
+        return SpinLouvor;
+    }
+
+    private Spinner getSpinPalavra() {
+        if (SpinPalavra == null) {
+            SpinPalavra = (Spinner) findViewById(R.id.palavra);
+        }
+        return SpinPalavra;
+    }
+
+    private Spinner getSpinOferta() {
+        if (SpinOferta == null) {
+            SpinOferta = (Spinner) findViewById(R.id.oferta);
+        }
+        return SpinOferta;
+    }
+    private Spinner getSpinLanche() {
+        if (SpinLanche == null) {
+            SpinLanche = (Spinner) findViewById(R.id.lanche);
+        }
+        return SpinLanche;
     }
 
 

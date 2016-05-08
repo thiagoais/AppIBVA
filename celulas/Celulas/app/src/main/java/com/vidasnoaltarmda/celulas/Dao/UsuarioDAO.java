@@ -189,4 +189,54 @@ public class UsuarioDAO {
         return inserido;
     }
 
+    public ArrayList<Usuario> retornaUsuarios() throws SQLException {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        Usuario usuario = null;
+        ResultSet rs = null;
+        PreparedStatement statement = null;
+        Connection conexao = null;
+
+        conexao = ConnectionManager.getConnection();
+        try {
+            //Garantir no banco que o login será único
+            statement = conexao.prepareStatement(
+                    " SELECT id_usuario, id_celula, nome, sobrenome, data_nascimento, login, senha, permissao " +
+                            "   FROM usuario                                                         ");
+
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(rs.getInt(1));
+            //    usuario.setCelula(rs.getInt(2)); TODO preciso pegar a celula (sei lá como faz)
+                usuario.setNome(rs.getString(3));
+                usuario.setSobrenome(rs.getString(4));
+                usuario.setDataNascimento(rs.getString(5));
+                usuario.setLogin(rs.getString(6));
+                usuario.setSenha(rs.getString(7));
+                usuario.setPermissao(rs.getInt(8));
+                usuarios.add(usuario);
+            }
+        } catch (Exception e) {
+            //TODO LOG ERRO
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                //TODO LOG ERRO
+                mysqlEx.printStackTrace();
+            }
+        }
+        return usuarios;
+    }
+
 }

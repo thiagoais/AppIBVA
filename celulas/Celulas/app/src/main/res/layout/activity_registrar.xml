@@ -157,7 +157,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Registrar" />
+
+                android:text="Registrar"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
