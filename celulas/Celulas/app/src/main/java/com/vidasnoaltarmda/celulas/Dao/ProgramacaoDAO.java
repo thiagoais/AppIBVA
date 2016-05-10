@@ -1,6 +1,5 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
@@ -42,8 +41,8 @@ public class ProgramacaoDAO {
                 programacao.setId_programacao(rs.getInt(1));
                 programacao.setId_celula(rs.getInt(2));
                 programacao.setNome(rs.getString(3));
-                programacao.setData_prog(Utils.coverteDataApp(rs.getString(4)));
-                programacao.setHorario(Utils.coverteHoraApp(rs.getString(5)));
+                programacao.setData_prog(Utils.converteDataApp(rs.getString(4)));
+                programacao.setHorario(Utils.converteHoraApp(rs.getString(5)));
                 programacao.setLocal_prog(rs.getString(6));
                 programacao.setTelefone(rs.getString(7));
                 programacao.setValor(rs.getString(8));

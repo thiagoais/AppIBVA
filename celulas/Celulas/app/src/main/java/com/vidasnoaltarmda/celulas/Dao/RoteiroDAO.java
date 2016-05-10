@@ -38,7 +38,7 @@ public class RoteiroDAO {
                 roteiro = new Roteiro();
                 roteiro.setId_roteiro(rs.getInt(1));
                 roteiro.setTitulo(rs.getString(2));
-                roteiro.setData_roteiro(Utils.coverteDataApp(rs.getString(3)));
+                roteiro.setData_roteiro(Utils.converteDataApp(rs.getString(3)));
                 roteiros.add(roteiro);
             }
         } catch (Exception e) {

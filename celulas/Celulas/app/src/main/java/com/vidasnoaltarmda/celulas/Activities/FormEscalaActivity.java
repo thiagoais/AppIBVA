@@ -12,13 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.Escalacao;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
-import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
@@ -49,6 +46,7 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
         setContentView(R.layout.activity_form_escala);
 
         celula = Utils.retornaCelulaSharedPreferences(this);
+        new PopulaEscalasTask(celula).execute();
         insereListener();
     }
 
@@ -64,12 +62,36 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
             case R.id.button_salvar:
                 if (verificaCampos()) {
                     Escala escala = new Escala();
-                    Escalacao escalacao = new Escalacao();
                     escala.setId_celula(celula.getId_celula());
                     escala.setData_celula(getEditTextData().getText().toString());
                     escala.setHora_celula(getEditTextHorario().getText().toString());
                     escala.setLocal_celula(getEditTextLocal().getText().toString());
-                  //  escalacao.setTarefa(get().getText().toString());
+
+                    Escalacao escalacaoDinamica = new Escalacao();
+                    escalacaoDinamica.setTarefa("Dinâmica");
+                    escalacaoDinamica.setMembro((getSpinDinamica().getSelectedItem() != null) ? ((Usuario) getSpinDinamica().getSelectedItem()).getNome() : null);
+                    Escalacao escalacaoOracao = new Escalacao();
+                    escalacaoOracao.setTarefa("Oração");
+                    escalacaoOracao.setMembro(((getSpinOracao().getSelectedItem() != null) ? ((Usuario) getSpinOracao().getSelectedItem()).getNome() : null));
+                    Escalacao escalacaoLouvor = new Escalacao();
+                    escalacaoDinamica.setTarefa("Louvor");
+                    escalacaoDinamica.setMembro(((getSpinLouvor().getSelectedItem() != null) ? ((Usuario) getSpinLouvor().getSelectedItem()).getNome() : null));
+                    Escalacao escalacaoPalavra = new Escalacao();
+                    escalacaoDinamica.setTarefa("Palavra");
+                    escalacaoDinamica.setMembro(((getSpinPalavra().getSelectedItem() != null) ? ((Usuario) getSpinPalavra().getSelectedItem()).getNome() : null));
+                    Escalacao escalacaoOferta = new Escalacao();
+                    escalacaoDinamica.setTarefa("Oferta");
+                    escalacaoDinamica.setMembro(((getSpinOferta().getSelectedItem() != null) ? ((Usuario) getSpinOferta().getSelectedItem()).getNome() : null));
+                    Escalacao escalacaoLanche = new Escalacao();
+                    escalacaoDinamica.setTarefa("Lanche");
+                    escalacaoDinamica.setMembro(((getSpinLanche().getSelectedItem() != null) ? ((Usuario) getSpinLanche().getSelectedItem()).getNome() : null));
+
+                    escala.getEscalacoes().add(escalacaoDinamica);
+                    escala.getEscalacoes().add(escalacaoOracao);
+                    escala.getEscalacoes().add(escalacaoLouvor);
+                    escala.getEscalacoes().add(escalacaoPalavra);
+                    escala.getEscalacoes().add(escalacaoOferta);
+                    escala.getEscalacoes().add(escalacaoLanche);
 
                     new InsereTask().execute(escala);
                 }
@@ -152,13 +174,18 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
             return camposPreenchidos;
         }
 
-   private class PopulaEscalasTask extends AsyncTask<Usuario, Void, Integer> {
-        ArrayList<Usuario> usuarios;
-        ProgressDialog progressDialog;
-        private final int RETORNO_SUCESSO = 0; //
-        private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+   private class PopulaEscalasTask extends AsyncTask<Void, Void, Integer> {
+       ArrayList<Usuario> usuarios;
+       ProgressDialog progressDialog;
+       private final int RETORNO_SUCESSO = 0; //
+       private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+       private Celula celula;
 
-        //metodo executado pela thread principal antes de qualquer outro processamento. Nesse caso utilizado para
+       public PopulaEscalasTask(Celula celula) {
+           this.celula = celula;
+       }
+
+       //metodo executado pela thread principal antes de qualquer outro processamento. Nesse caso utilizado para
         // inicializar a lista de celulas e mostrar o dialog de progresso para o usuario
         @Override
         protected void onPreExecute() {
@@ -171,9 +198,9 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
         //metodo que executa as tarefas de acesso a banco e retorno das celulas em uma thread separada.
         // Como o proprio nome do metodo diz em background (ou em segundo plano)
         @Override
-        protected Integer doInBackground(Celula... celulas) {
+        protected Integer doInBackground(Void... params) {
             try {
-                usuarios = new UsuarioDAO().retornaUsuarios();
+                usuarios = new UsuarioDAO().retornaUsuarios(celula);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;

@@ -1,6 +1,5 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Dados.Escalacao;
@@ -46,8 +45,8 @@ public class EscalaDAO {
                     escala = new Escala();
                     escala.setId_escala(rs.getInt(1));
                     escala.setId_escala(rs.getInt(2));
-                    escala.setData_celula(Utils.coverteDataApp(rs.getString(3)));
-                    escala.setHora_celula(Utils.coverteHoraApp(rs.getString(4)));
+                    escala.setData_celula(Utils.converteDataApp(rs.getString(3)));
+                    escala.setHora_celula(Utils.converteHoraApp(rs.getString(4)));
                     escala.setLocal_celula(rs.getString(5));
                 }
 
@@ -82,19 +81,56 @@ public class EscalaDAO {
     public boolean insereEscala(Escala escala) throws SQLException{
         Connection conexao = null;
         PreparedStatement statement = null;
-        boolean inserido = false;
+        boolean inserido = true;
+        ResultSet rs = null;
         conexao = ConnectionManager.getConnection();
         try {
-           // statement = conexao.prepareStatement(
-                  //  " INSERT INTO escala (id_celula, titulo, conteudo) values (?,?,?)");//TODO Arrumar esse select
-           // statement.setInt   (1, escala.getId_celula());
-         //   statement.setString(2, escala.getTitulo());//TODO arrumar select la em cima pra ver como que vai salvar
-         //   statement.setString(3, escala.getConteudo());//TODO arrumar select la em cima pra ver como que vai salvar
+            //TODO utilizar transacao no banco para manter integridade dos dados com previsao de rollback caso ocorra algum erro
+            //DELETE escala anterior - Nao eh necessario excluir escalacoes pois ja existe trigger no banco ondelete com essa funcionalidade
+            String delCommand = " DELETE FROM escala WHERE id_celula = ?";
+            statement = conexao.prepareStatement(delCommand);
+            statement.setInt(1, escala.getId_celula());
 
-            int row = statement.executeUpdate();
-            if (row > 0) {
-                inserido = true;
+            statement.executeUpdate();
+            //-- DELETE escala anterior
+
+            //INSERT escala
+            statement = conexao.prepareStatement(
+                    " INSERT INTO escala (id_celula, data_celula, hora_celula, local_celula) values (?,?,?,?)");
+            statement.setInt   (1, escala.getId_celula());
+            statement.setString(2, Utils.converteDataBanco(escala.getData_celula()));
+            statement.setString(3, escala.getHora_celula());
+            statement.setString(4, escala.getLocal_celula());
+
+            inserido &= statement.executeUpdate() > 0;
+            //INSERT escala
+
+            //RECUPERA codigo da escala inserida
+            statement = conexao.prepareStatement(
+                    " SELECT id_escala      " +
+                    "   FROM escala    " +
+                    "  WHERE id_celula = ?  ");
+
+            statement.setInt(1, escala.getId_celula());
+            rs = statement.executeQuery();
+            int idEscalaRecuperado = -1;
+            if (rs.next()) {
+                idEscalaRecuperado = rs.getInt(1);
             }
+            //--RECUPERA codigo da escala inserida
+
+            //INSERT escalacoes
+
+            for (Escalacao escalacao: escala.getEscalacoes()) {
+                statement = conexao.prepareStatement(
+                        " INSERT INTO escalacao (id_escala, membro, tarefa) values (?,?,?)");
+                statement.setInt(1, idEscalaRecuperado);
+                statement.setString(2, escalacao.getMembro());
+                statement.setString(3, escalacao.getTarefa());
+
+                inserido &= statement.executeUpdate() > 0;
+            }
+            //--INSERT escalacoes
 
         } catch (Exception e) {
             e.printStackTrace();

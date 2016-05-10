@@ -5,7 +5,7 @@ package com.vidasnoaltarmda.celulas.Dados;
  */
 public class Escalacao {
     private int idEscalacao;
-    private String membro;
+    private String membro; //TODO fazer correspondencia com a tabela de usuarios no banco
     private String tarefa;
 
     public int getIdEscalacao() {

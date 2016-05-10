@@ -69,7 +69,7 @@ public class UsuarioDAO {
                 celula.setNome(rs.getString(9));
                 celula.setLider(rs.getString(10));
                 celula.setDia(rs.getString(11));
-                celula.setHorario(Utils.coverteHoraApp(rs.getString(12)));
+                celula.setHorario(Utils.converteHoraApp(rs.getString(12)));
                 celula.setLocal_celula(rs.getString(13));
                 celula.setDia_jejum(rs.getString(14));
                 celula.setPeriodo(rs.getString(15));
@@ -122,7 +122,7 @@ public class UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(4));
                 usuario.setSobrenome(rs.getString(5));
-                usuario.setDataNascimento(Utils.coverteDataNiver(rs.getString(6)));
+                usuario.setDataNascimento(Utils.converteDataNiver(rs.getString(6)));
                 usuario.setLogin(rs.getString(7));
                 usuario.setPermissao(rs.getInt(8));
                 usuarios.add(usuario);
@@ -159,7 +159,7 @@ public class UsuarioDAO {
                     " INSERT INTO usuario (nome, sobrenome, data_nascimento, login, senha, id_celula, permissao) values (?,?,?,?,?,?,?)");
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSobrenome());
-            statement.setString(3, Utils.coverteDataBanco(usuario.getDataNascimento()));
+            statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
             statement.setString(4, usuario.getLogin());
             statement.setString(5, usuario.getSenha());
             statement.setInt(6, usuario.getId());
@@ -189,7 +189,8 @@ public class UsuarioDAO {
         return inserido;
     }
 
-    public ArrayList<Usuario> retornaUsuarios() throws SQLException {
+    // retorna os usuarios pertencentes a celula "celula"
+    public ArrayList<Usuario> retornaUsuarios(Celula celula) throws SQLException {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         Usuario usuario = null;
         ResultSet rs = null;
@@ -198,17 +199,19 @@ public class UsuarioDAO {
 
         conexao = ConnectionManager.getConnection();
         try {
-            //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
                     " SELECT id_usuario, id_celula, nome, sobrenome, data_nascimento, login, senha, permissao " +
-                            "   FROM usuario                                                         ");
+                    "   FROM usuario                                                                          " +
+                    "  WHERE id_celula = ?");
+
+            statement.setInt(1, celula.getId_celula());
 
             rs = statement.executeQuery();
 
             while (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt(1));
-            //    usuario.setCelula(rs.getInt(2)); TODO preciso pegar a celula (sei lá como faz)
+                usuario.setCelula(celula);
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
                 usuario.setDataNascimento(rs.getString(5));

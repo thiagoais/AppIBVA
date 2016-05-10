@@ -46,25 +46,25 @@ public class Utils {
     }
 
     //converte a data para enviar para o banco de dados
-    public static String coverteDataBanco(String data) {
+    public static String converteDataBanco(String data) {
         String[] campos = data.split("/");
         return campos[2] + "-" + campos[1] + "-" + campos[0];
     }
 
     //converte a data do banco para poder ser usada no programa
-    public static String coverteDataApp(String data) {
+    public static String converteDataApp(String data) {
         String[] campos = data.split("-");
         return campos[2] + "/" + campos[1] + "/" + campos[0];
     }
 
     //converte a hora do banco para poder ser usada no programa
-    public static String coverteHoraApp(String hora) {
+    public static String converteHoraApp(String hora) {
         String[] campos = hora.split(":");
         return campos[0] + ":" + campos[1];
     }
 
     //converte data aniversário, prevalecendo somente o dia
-    public static String coverteDataNiver(String dia) {
+    public static String converteDataNiver(String dia) {
         String[] campo = dia.split("-");
         return campo[2];
     }

@@ -3,131 +3,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vidasnoaltarmda.celulas.Activities.FormAvisoActivity"
+    android:orientation="vertical"
     android:padding="15dp"
-    android:orientation="vertical">
-    <TextView
-        android:text="Data da Célula:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
-    <EditText
-        android:id="@+id/data_escala"
+    tools:context="com.vidasnoaltarmda.celulas.Activities.FormAvisoActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date" />
-    <TextView
-        android:text="Horário da Célula:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/horario_escala"
-        android:inputType="time"
-        />
-    <TextView
-        android:text="Local/Endereço:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext_local"/>
-    <TextView
-        android:text="Dinâmica:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:enabled="false"
-        android:editable="false" />
+        android:layout_weight="1">
 
-    <Spinner
-        android:id="@+id/dinamica"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:text="Oração:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
-    <Spinner
-        android:id="@+id/oracao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data da Célula:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
-    <TextView
-        android:text="Louvor:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/data_escala"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="date" />
 
-    <Spinner
-        android:id="@+id/louvor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horário da Célula:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
-    <TextView
-        android:text="Palavra:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
+            <EditText
+                android:id="@+id/horario_escala"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="time" />
 
-    <Spinner
-        android:id="@+id/palavra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local/Endereço:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
-    <TextView
-        android:text="Oferta:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-       />
-    <Spinner
-        android:id="@+id/oferta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+            <EditText
+                android:id="@+id/edittext_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:text="Lanche:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:enabled="false"
+                android:text="Dinâmica:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/lanche"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+            <Spinner
+                android:id="@+id/dinamica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oração:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/oracao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Louvor:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/louvor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Palavra:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/palavra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oferta:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/oferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lanche:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/lanche"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
+        android:id="@+id/button_salvar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
-        android:id="@+id/button_salvar"
         android:text="Salvar"
-        android:textStyle="bold"
+        android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:textColor="#FFFFFF" />
+        android:textStyle="bold" />
 
 </LinearLayout>
