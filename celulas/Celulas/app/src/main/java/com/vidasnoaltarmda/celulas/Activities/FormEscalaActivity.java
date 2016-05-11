@@ -74,17 +74,17 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
                     escalacaoOracao.setTarefa("Oração");
                     escalacaoOracao.setMembro(((getSpinOracao().getSelectedItem() != null) ? ((Usuario) getSpinOracao().getSelectedItem()).getNome() : null));
                     Escalacao escalacaoLouvor = new Escalacao();
-                    escalacaoDinamica.setTarefa("Louvor");
-                    escalacaoDinamica.setMembro(((getSpinLouvor().getSelectedItem() != null) ? ((Usuario) getSpinLouvor().getSelectedItem()).getNome() : null));
+                    escalacaoLouvor.setTarefa("Louvor");
+                    escalacaoLouvor.setMembro(((getSpinLouvor().getSelectedItem() != null) ? ((Usuario) getSpinLouvor().getSelectedItem()).getNome() : null));
                     Escalacao escalacaoPalavra = new Escalacao();
-                    escalacaoDinamica.setTarefa("Palavra");
-                    escalacaoDinamica.setMembro(((getSpinPalavra().getSelectedItem() != null) ? ((Usuario) getSpinPalavra().getSelectedItem()).getNome() : null));
+                    escalacaoPalavra.setTarefa("Palavra");
+                    escalacaoPalavra.setMembro(((getSpinPalavra().getSelectedItem() != null) ? ((Usuario) getSpinPalavra().getSelectedItem()).getNome() : null));
                     Escalacao escalacaoOferta = new Escalacao();
-                    escalacaoDinamica.setTarefa("Oferta");
-                    escalacaoDinamica.setMembro(((getSpinOferta().getSelectedItem() != null) ? ((Usuario) getSpinOferta().getSelectedItem()).getNome() : null));
+                    escalacaoOferta.setTarefa("Oferta");
+                    escalacaoOferta.setMembro(((getSpinOferta().getSelectedItem() != null) ? ((Usuario) getSpinOferta().getSelectedItem()).getNome() : null));
                     Escalacao escalacaoLanche = new Escalacao();
-                    escalacaoDinamica.setTarefa("Lanche");
-                    escalacaoDinamica.setMembro(((getSpinLanche().getSelectedItem() != null) ? ((Usuario) getSpinLanche().getSelectedItem()).getNome() : null));
+                    escalacaoLanche.setTarefa("Lanche");
+                    escalacaoLanche.setMembro(((getSpinLanche().getSelectedItem() != null) ? ((Usuario) getSpinLanche().getSelectedItem()).getNome() : null));
 
                     escala.getEscalacoes().add(escalacaoDinamica);
                     escala.getEscalacoes().add(escalacaoOracao);
