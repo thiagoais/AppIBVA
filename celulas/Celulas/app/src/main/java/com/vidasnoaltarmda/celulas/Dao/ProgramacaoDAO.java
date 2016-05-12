@@ -119,15 +119,12 @@ public class ProgramacaoDAO {
         return false;
     }
 
-    public boolean insereProgramacao(Programacao programacao) throws SQLException{
+    public boolean insereProgramacao(Programacao programacao, String imagem) throws SQLException{
         Connection conexao = null;
         PreparedStatement statement = null;
         boolean inserido = false;
         conexao = ConnectionManager.getConnection();
         try {
-            String filePath = "C:\\Users\\thiago\\Desktop\\ibva.png";
-
-
             String sql =       " INSERT INTO programacao (id_celula, nome, data_prog, horario, local_prog, telefone, valor, imagem) " +
                             "values (?,?,?,?,?,?,?,?)";
             statement = conexao.prepareStatement(sql);
@@ -138,16 +135,13 @@ public class ProgramacaoDAO {
             statement.setString(5, programacao.getLocal_prog());
             statement.setString(6, programacao.getTelefone());
             statement.setString(7, programacao.getValor());
-            InputStream inputStream = new FileInputStream(new File(filePath));
+            InputStream inputStream = new FileInputStream(new File(imagem));
 
-            statement.setBlob(3, inputStream);
+            statement.setBlob(8, inputStream);
 
             int row = statement.executeUpdate();
             if (row > 0) {
                 System.out.println("O post foi inserido com a imagem.");
-            }
-            row = statement.executeUpdate();
-            if (row > 0) {
                 inserido = true;
             }
 
