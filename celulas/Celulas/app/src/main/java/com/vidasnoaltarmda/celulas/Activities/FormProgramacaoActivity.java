@@ -1,12 +1,16 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
@@ -15,12 +19,15 @@ import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
 
     private Celula celula;
-
+    private String RESULT_IMAGEM;
     private EditText editTextNome;
     private EditText editTextData;
     private EditText editTextHorario;
@@ -29,6 +36,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
     private EditText editTextValor;
    // private EditText editTextImagem;//TODO Receber Imagem
     private Button   buttonSalvar;
+    private ImageView ImagemProgramacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +110,40 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
             }
             return INSERCAO_FALHOU;
         }
+        private void selecionarImagem() {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, Integer.parseInt(RESULT_IMAGEM));
+        }
 
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            super.onActivityResult(requestCode, resultCode, data);
+            InputStream stream = null;
+            if (requestCode == Integer.parseInt(RESULT_IMAGEM) && resultCode == RESULT_OK) {
+                try {
+                    if (ImagemProgramacao != null) {
+                        ImagemProgramacao.recycle();
+                    }
+                    stream = getContentResolver().openInputStream(data.getData());
+                    ImagemProgramacao = BitmapFactory.decodeStream(stream);
+                    getImagemProgramacao().setImageBitmap(ImagemProgramacao);
+                }
+                catch(FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    if (stream != null)
+                        try {
+                            stream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                }
+
+            }
+        }
         @Override
         protected void onPostExecute(Integer resultadoInsercao) {
             progressDialog.dismiss();
@@ -197,14 +238,14 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
         }
         return editTextValor;
     }
-/*
-    public Blob getBlobImagem() {
-        if (getBlobImagem == null) {
-        //    getBlobImagem = (Blob) findViewById(R.id.edittext_endereco);//TODO pegar imagem
+
+    public ImageView getImagemProgramacao() {
+        if (ImagemProgramacao == null) {
+            ImagemProgramacao = (ImageView) findViewById(R.id.imageview_programacao);
         }
-        return getBlobImagem;
+        return ImagemProgramacao;
     }
-*/
+
     public Button getButtonSalvar() {
         if (buttonSalvar == null) {
             buttonSalvar = (Button) findViewById(R.id.button_salvar);
