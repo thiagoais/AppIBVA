@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Dao;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.ConnectionManager;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thiago on 24/03/2016.
@@ -162,6 +164,49 @@ public class ProgramacaoDAO {
             }
         }
         return inserido;
+    }
+
+    public boolean deletaProgramacoes(List<Programacao> programacoes) throws SQLException{
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        boolean sucesso = false;
+        conexao = ConnectionManager.getConnection();
+        try {
+
+            String delCommand = " DELETE FROM programacao WHERE id_programacao IN (";
+            for (int i = 0; i < programacoes.size() - 1; i++) {
+                delCommand = delCommand.concat("?,");
+            }
+            delCommand = delCommand.concat("?)");
+
+            statement = conexao.prepareStatement(delCommand);
+
+            for (int i = 1; i <= programacoes.size(); i++) {
+                statement.setInt(i, programacoes.get(i-1).getId_programacao());
+            }
+
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                sucesso = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO LOG ERRO
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (Exception mysqlEx) {
+                System.out.println(mysqlEx.toString());
+                //TODO LOG ERRO
+            }
+        }
+        return sucesso;
     }
 
 
