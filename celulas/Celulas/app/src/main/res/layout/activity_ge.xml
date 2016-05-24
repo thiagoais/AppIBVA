@@ -7,11 +7,12 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_ge"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?actionBarSize"
+        app:title="Grupo Evangelístico"
         android:background="@color/gePrimaryDark"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:subtitle="Alvos de oração"
+        style="@style/Avisos"
         />
 
     <LinearLayout

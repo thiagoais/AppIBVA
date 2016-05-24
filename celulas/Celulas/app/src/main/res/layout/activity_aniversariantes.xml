@@ -7,13 +7,15 @@
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.AniversariantesActivity"
     android:divider="#979797">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_aniversariante"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?actionBarSize"
+        app:title="Aniversariantes do mês"
         android:background="@color/aniversariantesPrimaryDark"
-
+        app:subtitle="Desejamos parabéns!"
+        style="@style/Avisos"
         />
 
 
@@ -25,16 +27,7 @@
 
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Parabéns!!!"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:background="@color/aniversariantesPrimary" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,6 +68,6 @@
         android:padding="5dp"
         android:text="Ganhar e Cuidar \né a Batida do Nosso Coração"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textStyle="bold" />
 </LinearLayout>

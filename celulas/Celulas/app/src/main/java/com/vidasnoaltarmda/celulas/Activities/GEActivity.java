@@ -64,6 +64,12 @@ public class GEActivity extends ActionBarActivity{
         mToolbar = (Toolbar) findViewById(R.id.th_ge);
         mToolbar.setTitle("Grupo Evangelístico");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     private Celula getSPCelula() {
         return Utils.retornaCelulaSharedPreferences(this);

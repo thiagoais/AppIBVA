@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
     private Spinner SpinPalavra;
     private Spinner SpinOferta;
     private Spinner SpinLanche;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -48,6 +50,15 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
         celula = Utils.retornaCelulaSharedPreferences(this);
         new PopulaEscalasTask(celula).execute();
         insereListener();
+        mToolbar = (Toolbar) findViewById(R.id.th_add_escala);
+        setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void insereListener() {

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class FormGEActivity extends ActionBarActivity implements View.OnClickLis
         private Celula celula;
         private EditText edittextNome;
         private Button buttonSalvar;
+        private Toolbar mToolbar;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,15 @@ public class FormGEActivity extends ActionBarActivity implements View.OnClickLis
 
             celula = Utils.retornaCelulaSharedPreferences(this);
             insereListener();
+            mToolbar = (Toolbar) findViewById(R.id.th_add_ge);
+            setSupportActionBar(mToolbar);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
 
         private void insereListener() {

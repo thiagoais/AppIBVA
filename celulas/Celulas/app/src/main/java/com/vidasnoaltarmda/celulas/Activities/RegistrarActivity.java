@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     private EditText senha; //TODO definir padrao de senha
     private EditText confirma_senha;
     private Button registrar;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,15 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         setContentView(R.layout.activity_registrar);
         new PopulaCelulasTask().execute();
         insereListeners();
+        mToolbar = (Toolbar) findViewById(R.id.th_add_registrar);
+        setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 

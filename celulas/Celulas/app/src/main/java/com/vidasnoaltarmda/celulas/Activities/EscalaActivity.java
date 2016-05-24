@@ -67,10 +67,18 @@ public class EscalaActivity extends ActionBarActivity {
             }
         }
 
+
+
         mToolbar = (Toolbar) findViewById(R.id.th_escala);
         mToolbar.setTitle("Escala");
         setSupportActionBar(mToolbar);
 
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private Celula getSPCelula() {
@@ -237,7 +245,7 @@ public class EscalaActivity extends ActionBarActivity {
                 case RETORNO_SUCESSO:
                     if (celula != null && escala != null) {
 
-                        if (escala.getEscalacoes().size() > 0) {
+                        if (mListaEscala.size() > 0) {
                             getImageViewListaVazia().setVisibility(View.GONE);
                             getListViewEscala().setVisibility(View.VISIBLE);
                         }else {
@@ -341,7 +349,7 @@ public class EscalaActivity extends ActionBarActivity {
     }
     private ImageView getImageViewListaVazia() {
         if (imageViewListaVazia == null) {
-            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+            imageViewListaVazia = (ImageView) findViewById(R.id.lista_vazia);
         }
         return imageViewListaVazia;
     }

@@ -63,6 +63,12 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         mToolbar = (Toolbar) findViewById(R.id.th_programacao);
         mToolbar.setTitle("Programações");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private Celula getSPCelula() {

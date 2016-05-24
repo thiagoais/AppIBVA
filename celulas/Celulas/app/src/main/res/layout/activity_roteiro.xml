@@ -8,25 +8,14 @@
     android:orientation="vertical"
     tools:context="com.vidasnoaltarmda.celulas.Activities.RoteiroActivity">
 
-    <android.support.v7.widget.Toolbar
+      <android.support.v7.widget.Toolbar
         android:id="@+id/th_roteiro"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?actionBarSize"
+        app:title="Escala"
         android:background="@color/roteirosPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/roteiroactivity_selecionar_roteiro"
-        android:gravity="center"
-        android:background="#92cf7b"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#071900"
-        android:textStyle="bold"
+        app:subtitle="Selecione o roteiro"
+        style="@style/Avisos"
         />
 
     <LinearLayout

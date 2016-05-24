@@ -40,6 +40,12 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
         mToolbar = (Toolbar) findViewById(R.id.th_roteiro);
         mToolbar.setTitle("Roteiros");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     //metodo responsável por buscar os dados dos Roteiros no banco (acesso remoto) e popular a lista de roteiros.

@@ -27,4 +27,8 @@
         <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
         <item name="android:background">?colorPrimary</item>
     </style>
+
+    <style name="MyFloatingButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/avisosPrimaryDark</item>
+    </style>
 </resources>
