@@ -6,7 +6,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -14,6 +17,7 @@ import android.widget.TimePicker;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -84,6 +88,26 @@ public class Utils {
         }
         outputStream.close();
         isImagem.close();
+    }
+
+    //recebe um inputStream e escreve no arquivo "arquivo" localizado em "caminhoArquivo"
+    //cria o diretorio "caminhoArquivo" caso nao exista
+    public static void escreveArquivo(InputStream isArquivo, String caminhoArquivo, String arquivo) throws IOException{
+        File dirImagem = new File(caminhoArquivo);
+        if (!dirImagem.exists()) {
+            dirImagem.mkdirs();
+        }
+
+        File targetFile = new File(caminhoArquivo + "/" + arquivo);
+        OutputStream outStream = new FileOutputStream(targetFile);
+
+        byte[] buffer = new byte[8 * 1024];
+        int bytesRead;
+        while ((bytesRead = isArquivo.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+        isArquivo.close();
+        outStream.close();
     }
 
     //Salva string "data" nas Shared Preferences com a chave "variable"
@@ -213,5 +237,36 @@ public class Utils {
                 campoTexto.setTag(newDate);
             }
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true).show();
+    }
+
+    //retorna arquivo de imagem como string para envio via json
+    public static String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    //retorna amostra de imagem de tamanho que não ultrapasse alturaDesejada e larguraDesejada
+    public static Bitmap getAmostraImagem(int alturaDesejada, int larguraDesejada, String filePath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        //new File(getApplicationContext().getFilesDir().getAbsolutePath() + Programacao.DIRETORIO_IMAGENS_PROGRAMACAO + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR).exists();
+        BitmapFactory.decodeFile(filePath, options);
+
+        final int altura = options.outHeight;
+        final int largura = options.outWidth;
+
+        if (altura > alturaDesejada || largura > larguraDesejada) {
+            final int taxaAltura = Math.round((float) altura / (float) /*alturaDesejada*/200);
+            final int taxaLargura = Math.round ((float) largura / (float) /*larguraDesejada*/200);
+
+            options.inSampleSize = taxaAltura < taxaLargura ? taxaAltura : taxaLargura;
+        }
+
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(filePath, options);
     }
 }

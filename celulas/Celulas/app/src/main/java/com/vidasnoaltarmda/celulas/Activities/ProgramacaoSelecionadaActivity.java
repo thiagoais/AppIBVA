@@ -3,6 +3,7 @@ package com.vidasnoaltarmda.celulas.Activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 
 public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements View.OnClickListener {
@@ -58,7 +62,8 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
         getTextview_telefone().setText(programacao.getTelefone());
         getTextview_valor().setText(programacao.getValor());
         getTextview_mapa().setText(programacao.getLocal_prog());
-        new mostraImagemProgramacaoTask().execute(programacao);
+        getImage(programacao.getId_programacao());
+        //new mostraImagemProgramacaoTask().execute(programacao);
     }
 
     @Override
@@ -73,7 +78,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
     }
 
     //metodo responsável por buscar imagem da programacao
-    //TODO problema mostrar imagem
+    //TODO verificar necessidade do metodo
     private class mostraImagemProgramacaoTask extends AsyncTask<Programacao, Void, Integer> {
         String caminhoImagem;
         ProgressDialog progressDialog;
@@ -114,6 +119,49 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
             }
             super.onPostExecute(resultadoLogin);
         }
+    }
+
+    private void getImage(int id) {
+        class GetImage extends AsyncTask<String,Void,Bitmap>{
+            ProgressDialog loading;
+            int idProgramacao;
+
+            public GetImage(int idProgramacao) {
+                this.idProgramacao = idProgramacao;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(ProgramacaoSelecionadaActivity.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap b) {
+                super.onPostExecute(b);
+                loading.dismiss();
+                getImageview_imagem().setImageBitmap(b);
+            }
+
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                String add = "http://vidasnoaltarmda.com/web_services/getImagem_programacao.php?id="+idProgramacao;
+                URL url = null;
+                Bitmap image = null;
+                try {
+                    url = new URL(add);
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return image;
+            }
+        }
+
+        GetImage gi = new GetImage(id);
+        gi.execute(); //TODO id como parametro
     }
 
     public TextView getTextview_nome_programacao() {

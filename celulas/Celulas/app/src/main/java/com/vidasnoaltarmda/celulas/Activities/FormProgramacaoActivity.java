@@ -2,8 +2,6 @@ package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,16 +13,26 @@ import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
-import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.RequestHandler;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
+import java.util.HashMap;
 
 public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
+    public static final String UPLOAD_URL = "http://vidasnoaltarmda.com/web_services/insert_programacao.php";
+    public static final String UPLOAD_KEY_ID_CELULA = "id_celula";
+    public static final String UPLOAD_KEY_NOME      = "nome";
+    public static final String UPLOAD_KEY_DATA      = "data";
+    public static final String UPLOAD_KEY_HORARIO   = "horario";
+    public static final String UPLOAD_KEY_LOCAL     = "local_prog";
+    public static final String UPLOAD_KEY_TELEFONE  = "telefone";
+    public static final String UPLOAD_KEY_VALOR     = "valor";
+    public static final String UPLOAD_KEY_IMAGEM    = "image";
+
     public static int REQUEST_IMAGEM = 1;
 
     private Celula celula;
@@ -38,7 +46,6 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
     private Button   buttonSalvar;
     private ImageView imagemProgramacao;
 
-    String caminhoImagem = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +75,6 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                     programacao.setLocal_prog(getEditTextEndereco().getText().toString());
                     programacao.setTelefone(getEditTextTelefone().getText().toString());
                     programacao.setValor(getEditTextValor().getText().toString());
-               //     programacao.setImagem(getBlobImagem());//TODO IMAGEM
 
                     new InsereTask().execute(programacao);
                 }
@@ -91,29 +97,42 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
         private final int INSERCAO_FALHOU = 1;
         private final int INSERCAO_FALHA_SQLEXCEPTION = 2;
 
+        private boolean insereImagem = false;
+        private RequestHandler rh = new RequestHandler();
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(FormProgramacaoActivity.this, "Aguarde por favor", "Verificando dados...", true);
+            insereImagem = (getImagemProgramacao().getTag() != null) && ((boolean)getImagemProgramacao().getTag() == true);
         }
 
         @Override
-        protected Integer doInBackground(Programacao... programacaos) {
-            if (programacaos.length > 0) {
-                try {
-                    if (new ProgramacaoDAO().insereProgramacao(programacaos[0], caminhoImagem)) {
-                        return INSERCAO_SUCESSO;
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return INSERCAO_FALHA_SQLEXCEPTION;
-                    //TODO LOG ERRO
+        protected Integer doInBackground(Programacao... programacoes) {
+            if (programacoes.length > 0) {
+
+                Programacao programacao = programacoes[0];
+
+                HashMap<String,String> data = new HashMap<>();
+                data.put(UPLOAD_KEY_ID_CELULA, Integer.toString(programacao.getId_celula()));
+                data.put(UPLOAD_KEY_NOME, programacao.getNome());
+                data.put(UPLOAD_KEY_DATA, Utils.converteDataBanco(programacao.getData_prog()));
+                data.put(UPLOAD_KEY_HORARIO, programacao.getHorario());
+                data.put(UPLOAD_KEY_LOCAL, programacao.getLocal_prog());
+                data.put(UPLOAD_KEY_TELEFONE, programacao.getTelefone());
+                data.put(UPLOAD_KEY_VALOR, programacao.getValor());
+                if (insereImagem) {
+                    String uploadImage = Utils.getStringImage(Utils.getAmostraImagem(200, 200, getApplicationContext().getFilesDir().getAbsolutePath() +
+                            Programacao.DIRETORIO_IMAGENS_PROGRAMACAO + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR));
+                    data.put(UPLOAD_KEY_IMAGEM, uploadImage);
                 }
+
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                return "0".equals(result) ? INSERCAO_SUCESSO : INSERCAO_FALHOU;
             } else {
                 return INSERCAO_FALHOU;
             }
-            return INSERCAO_FALHOU;
         }
 
         @Override
@@ -124,7 +143,9 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                     Toast.makeText(FormProgramacaoActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK, getIntent());
                     finish();
-                    //TODO terminar tela e voltar pra tela de login
+                    break;
+                case INSERCAO_FALHOU:
+                    Utils.mostraMensagemDialog(FormProgramacaoActivity.this, "Não foi possível finalizar o cadastro. Por favor, informe o erro ao administrador do sistema.");
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
                     Utils.mostraMensagemDialog(FormProgramacaoActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
@@ -138,7 +159,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, REQUEST_IMAGEM);
+        startActivityForResult(Intent.createChooser(intent, "Selecione a imagem"), REQUEST_IMAGEM);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,15 +168,19 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
         InputStream stream = null;
         if (requestCode == REQUEST_IMAGEM && resultCode == RESULT_OK) {
             try {
-                caminhoImagem = data.getData().getPath();
                 stream = getContentResolver().openInputStream(data.getData());
-                Bitmap imagemSelecionada = BitmapFactory.decodeStream(stream);
-                getImagemProgramacao().setImageBitmap(imagemSelecionada);
+
+                Utils.escreveArquivo(stream, getApplicationContext().getFilesDir().getAbsolutePath() + Programacao.DIRETORIO_IMAGENS_PROGRAMACAO, Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR);
+
+                getImagemProgramacao().setImageBitmap(Utils.getAmostraImagem(200, 200, getApplicationContext().getFilesDir().getAbsolutePath() + Programacao.DIRETORIO_IMAGENS_PROGRAMACAO + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR));
+                getImagemProgramacao().setTag(true);
+
             }
             catch(FileNotFoundException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
                 if (stream != null)
                     try {
                         stream.close();

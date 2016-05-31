@@ -53,7 +53,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new PopulaProgramacoesTask().execute((Runnable) celula);
+            new PopulaProgramacoesTask().execute();
         }
     }
 

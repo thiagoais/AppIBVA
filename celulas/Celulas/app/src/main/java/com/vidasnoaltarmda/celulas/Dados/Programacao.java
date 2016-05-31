@@ -12,6 +12,7 @@ public class Programacao implements Serializable {
 
     public static String DIRETORIO_IMAGENS_PROGRAMACAO = "/programacao";
     public static String NOME_PADRAO_IMAGEM_PROGRAMACAO = "progImg.png";
+    public static String NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR = "progImgEnv.png";
 
     private int id_programacao;
     private int id_celula;

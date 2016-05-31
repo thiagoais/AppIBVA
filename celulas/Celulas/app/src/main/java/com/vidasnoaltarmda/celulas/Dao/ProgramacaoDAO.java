@@ -135,9 +135,19 @@ public class ProgramacaoDAO {
             statement.setString(5, programacao.getLocal_prog());
             statement.setString(6, programacao.getTelefone());
             statement.setString(7, programacao.getValor());
-            InputStream inputStream = new FileInputStream(new File(imagem));
 
-            statement.setBlob(8, inputStream);
+            File arquivoImagem = new File(imagem);
+            InputStream inputStream = new FileInputStream(arquivoImagem);
+
+            statement.setBinaryStream(8, inputStream, (int) arquivoImagem.length());
+
+            /*
+            File arquivoImagem = new File(imagem);
+            byte[] byteArrayImagem = new byte[((int)arquivoImagem.length())];
+            //converte o arquivo em um array de bytes
+            FileInputStream fileInputStream = new FileInputStream(arquivoImagem);
+            fileInputStream.read(byteArrayImagem);
+            fileInputStream.close();*/
 
             int row = statement.executeUpdate();
             if (row > 0) {
