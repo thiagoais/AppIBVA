@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,10 +75,20 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
             startActivity(intent);
             finish();
             return true;
+        }else if (id == R.id.creditos) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Desenvolvimento")
+                    .setMessage("Thiago Salvador e Lucas Barque\n" +
+                            "Versão 1.0.1 ")
+                    .setPositiveButton("Ok", null);
+            AlertDialog alerta = builder.create();
+            alerta.show();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onClick(View view) {

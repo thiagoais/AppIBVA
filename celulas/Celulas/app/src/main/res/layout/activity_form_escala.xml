@@ -41,7 +41,8 @@
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="date"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:hint="Data realização célula"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,7 +58,8 @@
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="time"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:hint="Horário célula"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +72,8 @@
                 android:id="@+id/edittext_local"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:hint="Local da célula"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,18 +148,18 @@
                 android:id="@+id/lanche"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></Spinner>
-
+            <Button
+                android:id="@+id/button_salvar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:text="Salvar"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/button_salvar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:text="Salvar"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+
 
 </LinearLayout>

@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/edittext_nome"
         android:textSize="20dp"
-
+        android:hint="Nome do GE"
         />
 
     <Button

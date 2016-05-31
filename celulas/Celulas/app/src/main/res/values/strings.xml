@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Celulas IBVA</string>
+    <string name="app_name">Células IBVA</string>
     <string name="action_settings">Settings</string>
     <string name="action_sair">Sair</string>
     <string name="action_adicionar">Adicionar</string>
@@ -21,4 +21,5 @@
     <string name="title_activity_form_programacao">Formulário Programação</string>
     <string name="title_activity_form_escala">Formulário Escala</string>
     <string name="action_deletar">Deletar</string>
+    <string name="creditos">Créditos</string>
 </resources>
