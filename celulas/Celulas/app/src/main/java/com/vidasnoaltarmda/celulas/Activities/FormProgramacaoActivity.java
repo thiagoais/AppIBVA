@@ -24,6 +24,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
+    private static final int ALTURA_MAX_IMAGEM = 200;
+    private static final int LARGURA_MAX_IMAGEM = 200;
+
     public static final String UPLOAD_URL = "http://vidasnoaltarmda.com/web_services/insert_programacao.php";
     public static final String UPLOAD_KEY_ID_CELULA = "id_celula";
     public static final String UPLOAD_KEY_NOME      = "nome";
@@ -134,7 +137,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                 data.put(UPLOAD_KEY_TELEFONE, programacao.getTelefone());
                 data.put(UPLOAD_KEY_VALOR, programacao.getValor());
                 if (insereImagem) {
-                    String uploadImage = Utils.getStringImage(Utils.getAmostraImagem(200, 200, getApplicationContext().getFilesDir().getAbsolutePath() +
+                    String uploadImage = Utils.getStringImage(Utils.getAmostraImagem(ALTURA_MAX_IMAGEM, LARGURA_MAX_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() +
                             Programacao.DIRETORIO_IMAGENS_PROGRAMACAO + "/" + Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR));
                     data.put(UPLOAD_KEY_IMAGEM, uploadImage);
                 }

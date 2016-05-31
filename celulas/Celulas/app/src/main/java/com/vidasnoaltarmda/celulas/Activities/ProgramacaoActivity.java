@@ -14,16 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
-import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
@@ -237,7 +234,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
                         getImageViewListaVazia().setVisibility(View.VISIBLE);
                         getListViewProgramacao().setVisibility(View.GONE);
                     }
-                    getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, mListaProgramacoes));
+                    getListViewProgramacao().setAdapter(new AdapterDelete<Programacao>(getApplicationContext(), mListaProgramacoes));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as programacoes, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada

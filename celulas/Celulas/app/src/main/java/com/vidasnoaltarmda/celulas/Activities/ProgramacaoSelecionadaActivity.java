@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -135,7 +135,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(ProgramacaoSelecionadaActivity.this, "Uploading...", null,true,true);
+                loading = ProgressDialog.show(ProgramacaoSelecionadaActivity.this, "Buscando imagem...", null,true,true);
             }
 
             @Override
@@ -152,6 +152,8 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
                 Bitmap image = null;
                 try {
                     url = new URL(add);
+                    InputStream stream = url.openConnection().getInputStream();
+                    Utils.escreveArquivo(stream, getApplicationContext().getFilesDir().getAbsolutePath() + Programacao.DIRETORIO_IMAGENS_PROGRAMACAO, Programacao.NOME_PADRAO_IMAGEM_PROGRAMACAO);
                     image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -163,7 +165,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
         }
 
         GetImage gi = new GetImage(id);
-        gi.execute(); //TODO id como parametro
+        gi.execute();
     }
 
     public TextView getTextview_nome_programacao() {

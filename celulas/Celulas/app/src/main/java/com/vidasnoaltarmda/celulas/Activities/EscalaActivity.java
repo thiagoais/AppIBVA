@@ -37,16 +37,16 @@ import java.util.ArrayList;
 
 public class EscalaActivity extends ActionBarActivity {
     public static final int REQUEST_SALVAR = 1;
-    private static final String STATE_LISTA_ESCALAS = "STATE_LISTA_ESCALAS";
+    private static final String STATE_ESCALA = "STATE_ESCALA";
     private TextView nome;
     private TextView data;
     private TextView horario;
     private TextView local;
     private ListView listview_escala;
     private Toolbar mToolbar;
+    private Escala mEscalaAtual;
 
     private Celula celula;
-    private ArrayList<Escala> mListaEscala;
     private ImageView imageViewListaVazia;
 
     @Override
@@ -55,15 +55,14 @@ public class EscalaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_escala);
 
         //TODO verificar necessidade de entrar na tela caso não hajam escalas (ou mostrar mensagem que nao existem escalas)
-        //TODO verificar se existe a necessidade de buscar a celula ao abrir cada tela ou se carregar ao abrir o programa é suficiente
         celula = Utils.retornaCelulaSharedPreferences(this);
 
         if (savedInstanceState == null) {
             new MontaTelaEscalasTask().execute();
         } else {
-            if (savedInstanceState.get(STATE_LISTA_ESCALAS) != null) {
-                mListaEscala = (ArrayList<Escala>) savedInstanceState.get(STATE_LISTA_ESCALAS);
-                getListViewEscala().setAdapter(new AdapterDelete<Escala>(this, mListaEscala));
+            if (savedInstanceState.get(STATE_ESCALA) != null) {
+                mEscalaAtual = (Escala) savedInstanceState.get(STATE_ESCALA);
+                getListViewEscala().setAdapter(new AdapterDelete<Escalacao>(this, mEscalaAtual.getEscalacoes()));
             }
         }
 
@@ -89,7 +88,7 @@ public class EscalaActivity extends ActionBarActivity {
     public void onSaveInstanceState(Bundle estadoDeSaida) { //TODO fazer tratamento de giro de tela nas outras telas
         super.onSaveInstanceState(estadoDeSaida);
         if (getListViewEscala().getAdapter() != null) {
-            estadoDeSaida.putSerializable(STATE_LISTA_ESCALAS, mListaEscala);
+            estadoDeSaida.putSerializable(STATE_ESCALA, mEscalaAtual);
         }
     }
 
@@ -208,16 +207,14 @@ public class EscalaActivity extends ActionBarActivity {
     }
 
     private class  MontaTelaEscalasTask extends AsyncTask<Void, Void, Integer> {
-        Escala escala;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0;
         private final int FALHA_SQLEXCEPTION = 1;
 
-
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                escala = new EscalaDAO().retornaEscala(celula);
+                mEscalaAtual = new EscalaDAO().retornaEscala(celula);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -226,36 +223,30 @@ public class EscalaActivity extends ActionBarActivity {
             return RETORNO_SUCESSO;
         }
 
-
-
           @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            escala = new Escala();
+              mEscalaAtual = new Escala();
             //mostra janela de progresso
             progressDialog = ProgressDialog.show(EscalaActivity.this, "Carregando escala", "Aguarde por favor...", true);
         }
-
-
 
         @Override
         protected void onPostExecute(Integer resultadoEscala) {
             progressDialog.dismiss();
             switch (resultadoEscala) {
                 case RETORNO_SUCESSO:
-                    if (celula != null && escala != null) {
+                    if (celula != null && mEscalaAtual != null) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewEscala().setVisibility(View.VISIBLE);
 
-                        if (mListaEscala.size() > 0) {
-                            getImageViewListaVazia().setVisibility(View.GONE);
-                            getListViewEscala().setVisibility(View.VISIBLE);
-                        }else {
-                            getImageViewListaVazia().setVisibility(View.VISIBLE);
-                            getListViewEscala().setVisibility(View.GONE);
-                        }
                         getNome().setText(celula.getNome());
-                        getData().setText(escala.getData_celula() + " - " + escala.getHora_celula());
-                        getLocal().setText(escala.getLocal_celula());
-                        getListViewEscala().setAdapter(new ArrayAdapter<Escalacao>(EscalaActivity.this, R.layout.custom_list_item_3, escala.getEscalacoes()));
+                        getData().setText(mEscalaAtual.getData_celula() + " - " + mEscalaAtual.getHora_celula());
+                        getLocal().setText(mEscalaAtual.getLocal_celula());
+                        getListViewEscala().setAdapter(new ArrayAdapter<Escalacao>(EscalaActivity.this, R.layout.custom_list_item_3, mEscalaAtual.getEscalacoes()));
+                    } else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewEscala().setVisibility(View.GONE);
                     }
                     break;
                 case FALHA_SQLEXCEPTION:

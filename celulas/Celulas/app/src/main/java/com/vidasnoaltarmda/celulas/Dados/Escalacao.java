@@ -1,9 +1,11 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
+import java.io.Serializable;
+
 /**
  * Created by thiago on 25/04/2016.
  */
-public class Escalacao {
+public class Escalacao implements Serializable{
     private int idEscalacao;
     private String membro; //TODO fazer correspondencia com a tabela de usuarios no banco
     private String tarefa;

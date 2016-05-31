@@ -1,8 +1,9 @@
 package com.vidasnoaltarmda.celulas.Dados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Escala {
+public class Escala implements Serializable{
     private Integer id_escala;
     private Integer id_celula;
     private String data_celula;
