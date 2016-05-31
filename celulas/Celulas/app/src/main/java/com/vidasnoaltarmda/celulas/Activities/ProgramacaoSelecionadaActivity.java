@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
     private TextView textview_valor;
     private TextView textview_mapa;
     private ImageView imageview_imagem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,13 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+0
+    ,
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_celula"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?actionBarSize"
+        app:title="Célula"
         android:background="@color/celulaPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:subtitle="Seja Bem-Vindo!"
+        style="@style/Avisos"
         />
 
 
@@ -26,16 +29,7 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/bemVindo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Seja Bem-Vindo"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:gravity="center"
-                android:padding="15dp"
-                android:textColor="#FFFFFF"
-                android:background="#4fa7f4" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -192,7 +186,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingTop="25dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
                 android:text="(versículo base da célula)"
                 android:textAlignment="center"
                 android:textStyle="italic"

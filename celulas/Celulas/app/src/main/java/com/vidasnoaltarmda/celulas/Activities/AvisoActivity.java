@@ -61,6 +61,13 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         mToolbar = (Toolbar) findViewById(R.id.th_aviso);
         mToolbar.setTitle("Avisos");
         setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private Celula getSPCelula() {

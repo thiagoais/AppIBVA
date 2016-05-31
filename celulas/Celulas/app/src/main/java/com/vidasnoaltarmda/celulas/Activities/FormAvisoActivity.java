@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
     private EditText editTextTitulo;
     private EditText editTextConteudo;
     private Button   buttonSalvar;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,15 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
 
         celula = Utils.retornaCelulaSharedPreferences(this);
         insereListener();
+        mToolbar = (Toolbar) findViewById(R.id.th_add_aviso);
+        setSupportActionBar(mToolbar);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void insereListener() {

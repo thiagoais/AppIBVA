@@ -34,6 +34,12 @@ public class AniversariantesActivity extends ActionBarActivity {
         mToolbar = (Toolbar) findViewById(R.id.th_aniversariante);
         mToolbar.setTitle("Aniversariantes");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private class PopulaAniversariantesTask extends AsyncTask<Void, Void, Integer> {

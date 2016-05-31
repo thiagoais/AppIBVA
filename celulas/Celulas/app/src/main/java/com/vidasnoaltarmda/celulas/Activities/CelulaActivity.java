@@ -54,6 +54,12 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         mToolbar = (Toolbar) findViewById(R.id.th_celula);
         mToolbar.setTitle("Célula");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void insereListeners() {

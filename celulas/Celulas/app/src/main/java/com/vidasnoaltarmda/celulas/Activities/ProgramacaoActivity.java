@@ -7,19 +7,26 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
+import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -29,9 +36,10 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
     public static final int REQUEST_SALVAR = 1;
     public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;
-
+    private static final String STATE_LISTA_PROGRAMACOES = "STATE_LISTA_PROGRAMACOES";
     private Celula celula;
     private Toolbar mToolbar;
+    private ArrayList<Programacao> mListaProgramacoes;
 
     private ImageView imageViewListaVazia;
 
@@ -40,20 +48,46 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programacao);
 
-        celula = Utils.retornaCelulaSharedPreferences(this);
-        new PopulaProgramacoesTask().execute();
+
+        if (savedInstanceState == null) {
+            new PopulaProgramacoesTask().execute(getSPCelula());
+        } else {
+            if (savedInstanceState.get(STATE_LISTA_PROGRAMACOES) != null) {
+                mListaProgramacoes = (ArrayList<Programacao>) savedInstanceState.get(STATE_LISTA_PROGRAMACOES);
+                getListViewProgramacao().setAdapter(new AdapterDelete<Programacao>(this, mListaProgramacoes));
+            }
+        }
+
         insereListeners();
 
         mToolbar = (Toolbar) findViewById(R.id.th_programacao);
         mToolbar.setTitle("Programações");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    private Celula getSPCelula() {
+        return Utils.retornaCelulaSharedPreferences(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle estadoDeSaida) { //TODO fazer tratamento de giro de tela nas outras telas
+        super.onSaveInstanceState(estadoDeSaida);
+        if (getListViewProgramacao().getAdapter() != null) {
+            estadoDeSaida.putSerializable(STATE_LISTA_PROGRAMACOES, mListaProgramacoes);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SALVAR && resultCode == RESULT_OK) {
-            new PopulaProgramacoesTask().execute();
+            new PopulaProgramacoesTask().execute(getSPCelula());
         }
     }
 
@@ -82,9 +116,86 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
 
         return super.onOptionsItemSelected(item);
     }
+    private void insereListeners() {
+        int permissaoUsuario = 0;
+        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
 
+        getListViewProgramacao().setOnItemClickListener(this);
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            getListViewProgramacao().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            getListViewProgramacao().setSelected(true);
+        }
+
+
+
+        getListViewProgramacao().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            int selectionCounter;
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                ((AdapterDelete) getListViewProgramacao().getAdapter()).limpaItensSelecionados();
+                selectionCounter = 0;
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // TODO Auto-generated method stub
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu_delete, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
+                // TODO Auto-generated method stub
+                switch (item.getItemId()) {
+                    case R.id.action_deletar:
+                        new RemoveProgramacaoTask(
+                                ((AdapterDelete<Programacao>) getListViewProgramacao().getAdapter()).getItensSelecionados(),
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mode.finish();
+                                    }
+                                }
+                        ).execute();
+                        return true;
+                    default:
+                        return false;
+                }
+
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode,
+                                                  int position, long id, boolean checked) {
+                if (checked) {
+                    selectionCounter++;
+                    ((AdapterDelete) getListViewProgramacao().getAdapter()).selectedItem(position, position);
+
+                } else {
+                    selectionCounter--;
+                    ((AdapterDelete)getListViewProgramacao().getAdapter()).removeSelection(position);
+                }
+                if (selectionCounter > 1){
+                    mode.setTitle(selectionCounter + " Selecionados");
+                }else{
+                    mode.setTitle(selectionCounter + " Selecionado");
+                }
+
+            }
+        });
+    }
     //metodo responsável por buscar os dados das programacoes no banco (acesso remoto) e popular a lista de programacoes.
-    private class PopulaProgramacoesTask extends AsyncTask<Void, Void, Integer> {
+    private class PopulaProgramacoesTask extends AsyncTask<Celula, Void, Integer> {
         ArrayList<Programacao> programacoes;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
@@ -99,13 +210,15 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         }
 
         @Override
-        protected Integer doInBackground(Void... params) {
+        protected Integer doInBackground(Celula... celulas) {
             try {
-                programacoes = new ProgramacaoDAO().retornaProgramacoes(celula);
+
+                if( getSPCelula() != null){
+                    mListaProgramacoes = new ProgramacaoDAO().retornaProgramacoes(celulas[0]);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
-                //NaoExiste.setVisibility(View.VISIBLE);//TODO Fazer aparecer :( (Não consegui)
             }
             return RETORNO_SUCESSO;
         }
@@ -117,14 +230,14 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    if (programacoes.size() > 0) {
+                    if (mListaProgramacoes.size() > 0) {
                         getImageViewListaVazia().setVisibility(View.GONE);
                         getListViewProgramacao().setVisibility(View.VISIBLE);
                     }else {
                         getImageViewListaVazia().setVisibility(View.VISIBLE);
                         getListViewProgramacao().setVisibility(View.GONE);
                     }
-                    getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, programacoes));
+                    getListViewProgramacao().setAdapter(new ArrayAdapter<Programacao>(ProgramacaoActivity.this, R.layout.custom_list_item_3, mListaProgramacoes));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as programacoes, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
@@ -141,9 +254,62 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         }
     }
 
-    private void insereListeners() {
-        getListViewProgramacao().setOnItemClickListener(this);
+    private class RemoveProgramacaoTask extends AsyncTask<Void, Void, Integer> {
+        ProgressDialog progressDialog;
+        private final int DELETE_SUCESSO = 0;
+        private final int DELETE_FALHOU = 1;
+        private final int DELETE_FALHA_SQLEXCEPTION = 2;
+
+        private ArrayList<Programacao> programacaoRemover;
+        private Runnable tarefa;
+
+        public RemoveProgramacaoTask(ArrayList<Programacao> programacoesRemover, Runnable tarefa) {
+            this.programacaoRemover = programacoesRemover;
+            this.tarefa = tarefa;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(ProgramacaoActivity.this, "Aguarde por favor", "Removendo dados...", true);
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            if (programacaoRemover.size() > 0) {
+                try {
+                    if (new ProgramacaoDAO().deletaProgramacoes(programacaoRemover)) {
+                        return DELETE_SUCESSO;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return DELETE_FALHA_SQLEXCEPTION;
+                    //TODO LOG ERRO
+                }
+            } else {
+                return DELETE_FALHOU;
+            }
+            return DELETE_FALHOU;
+        }
+
+        @Override
+        protected void onPostExecute(Integer resultadoInsercao) {
+            progressDialog.dismiss();
+            switch (resultadoInsercao) {
+                case DELETE_SUCESSO:
+                    Toast.makeText(ProgramacaoActivity.this, "Programação(s) removida(s) com sucesso.", Toast.LENGTH_LONG).show();
+                    ((AdapterDelete)getListViewProgramacao().getAdapter()).removeItem();
+                    tarefa.run();
+                    break;
+                case DELETE_FALHA_SQLEXCEPTION:
+                    Utils.mostraMensagemDialog(ProgramacaoActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    break;
+            }
+            super.onPostExecute(resultadoInsercao);
+        }
     }
+
 
     private ListView getListViewProgramacao() {
         if (listview_programacoes == null) {
