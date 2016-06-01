@@ -1,16 +1,20 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
@@ -227,12 +231,12 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    getSpinDinamica().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
-                    getSpinOracao().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
-                    getSpinLouvor().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
-                    getSpinPalavra().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
-                    getSpinOferta().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
-                    getSpinLanche().setAdapter(new ArrayAdapter<Usuario>(FormEscalaActivity.this, android.R.layout.simple_list_item_1, usuarios));
+                    getSpinDinamica().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
+                    getSpinOracao().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
+                    getSpinLouvor().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
+                    getSpinPalavra().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
+                    getSpinOferta().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
+                    getSpinLanche().setAdapter(new EscalaUsuariosAdapter(FormEscalaActivity.this, usuarios));
 
                     break;
                 case FALHA_SQLEXCEPTION:
@@ -247,6 +251,54 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
                     break;
             }
             super.onPostExecute(resultadoLogin);
+        }
+    }
+
+    private class EscalaUsuariosAdapter extends BaseAdapter {
+        private Context vContext;
+        private ArrayList<Usuario> listaUsuarios;
+
+        public EscalaUsuariosAdapter(Context context, ArrayList<Usuario> listaUsuarios) {
+            this.listaUsuarios = listaUsuarios;
+            this.vContext = context;
+        }
+
+        @Override
+        public int getCount() {
+            return listaUsuarios.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listaUsuarios.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolderUsuario viewHolderUsuario;
+            if (convertView == null) {
+                LayoutInflater mInflater = (LayoutInflater)     vContext.getSystemService(vContext.LAYOUT_INFLATER_SERVICE);
+                convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
+
+                viewHolderUsuario = new ViewHolderUsuario();
+                viewHolderUsuario.nomeUsuario = (TextView) convertView.findViewById(android.R.id.text1);
+                convertView.setTag(viewHolderUsuario);
+            } else {
+                viewHolderUsuario = (ViewHolderUsuario) convertView.getTag();
+            }
+
+            Usuario usuario = (Usuario) getItem(position);
+            viewHolderUsuario.nomeUsuario.setText(usuario.getNome() + " " + usuario.getSobrenome());
+            return convertView;
+        }
+
+        private class ViewHolderUsuario {
+            public TextView nomeUsuario;
         }
     }
 
