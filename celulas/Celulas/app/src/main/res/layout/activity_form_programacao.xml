@@ -27,29 +27,21 @@
             android:padding="15dp"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome da Programação:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edittext_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:hint="Nome da programação"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/data_programacao"
                 android:layout_width="match_parent"
@@ -59,15 +51,12 @@
                 android:focusable="false"
                 android:inputType="date"
                 android:textSize="20dp"
-                android:hint="Data programação"/>
+                android:hint="Data da programação"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Horário:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/horario_programacao"
@@ -79,14 +68,12 @@
                 android:inputType="time"
                 android:textSize="20dp"
                 android:hint="Horário da programação"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Endereço/Local:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
 
             <EditText
                 android:id="@+id/edittext_endereco"
@@ -94,15 +81,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:hint="Local da programação"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telefone:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edittext_telefone"
                 android:layout_width="match_parent"
@@ -110,14 +94,11 @@
                 android:inputType="phone"
                 android:textSize="20dp"
                 android:hint="Telefone para contato"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Valor:"
-                android:textColor="#000000"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edittext_valor"
@@ -126,6 +107,7 @@
                 android:inputType="numberDecimal"
                 android:textSize="20dp"
                 android:hint="Valor a ser gasto em R$"/>
+            </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"

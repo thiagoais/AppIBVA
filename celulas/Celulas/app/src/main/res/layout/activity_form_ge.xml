@@ -22,13 +22,9 @@
         android:padding="15dp"
         android:orientation="vertical">
 
-    <TextView
-        android:text="Nome do GE:"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="17dp" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +32,7 @@
         android:textSize="20dp"
         android:hint="Nome do GE"
         />
+        </android.support.design.widget.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
