@@ -15,6 +15,7 @@ public class Celula {
     public static final String VERSICULO_CELULA_SP      = "VERSICULO_CELULA_SP";
     public static final String CAMINHO_IMAGEM_CELULA_SP = "CAMINHO_IMAGEM_CELULA_SP";
 
+    public static final int DIA_SEMANA_NENHUM = 0;
     public static final int DIA_SEMANA_DOMINGO = 1;
     public static final int DIA_SEMANA_SEGUNDA = 2;
     public static final int DIA_SEMANA_TERCA = 3;
@@ -146,6 +147,8 @@ public class Celula {
 
     private String converteDiaSemana(int diaSemana) {
         switch (diaSemana) {
+            case DIA_SEMANA_NENHUM:
+                return "";
             case DIA_SEMANA_DOMINGO:
                 return "Domingo";
             case DIA_SEMANA_SEGUNDA:

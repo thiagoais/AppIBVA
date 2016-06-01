@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
@@ -23,13 +24,14 @@ public class AniversariantesActivity extends ActionBarActivity {
 
     private ListView listview_aniversariantes;
     private Toolbar mToolbar;
+
     private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniversariantes);
-        new PopulaAniversariantesTask().execute();
+        new PopulaAniversariantesTask().execute(getSPCelula());
 
         mToolbar = (Toolbar) findViewById(R.id.th_aniversariante);
         mToolbar.setTitle("Aniversariantes");
@@ -41,8 +43,11 @@ public class AniversariantesActivity extends ActionBarActivity {
             }
         });
     }
+    private Celula getSPCelula() {
+        return Utils.retornaCelulaSharedPreferences(this);
+    }
 
-    private class PopulaAniversariantesTask extends AsyncTask<Void, Void, Integer> {
+    private class PopulaAniversariantesTask extends AsyncTask<Celula, Void, Integer> {
         ArrayList<Usuario> aniversariantes;
         ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
@@ -57,9 +62,10 @@ public class AniversariantesActivity extends ActionBarActivity {
         }
 
         @Override
-        protected Integer doInBackground(Void... params) {
-            try {
-                aniversariantes = new UsuarioDAO().retornaAniversariantes();
+        protected Integer doInBackground(Celula... celulas) {
+            try {if(celulas.length > 0){
+                aniversariantes = new UsuarioDAO().retornaAniversariantes(celulas[0]);
+            }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;

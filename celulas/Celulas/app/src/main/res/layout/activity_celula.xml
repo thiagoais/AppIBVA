@@ -62,23 +62,19 @@
                 android:layout_gravity="center_horizontal" />
 
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:stretchColumns="0,1">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:padding="25dp"
+        >
                     <TextView
                         android:id="@+id/lblLider"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Líder:"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000000" />
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/lider"
@@ -89,18 +85,14 @@
                         android:text="nome lider"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblDia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dia:"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
                         android:textColor="#000000" />
 
                     <TextView
@@ -112,18 +104,14 @@
                         android:text="dia"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblHorario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Horário:"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
                         android:textColor="#000000" />
 
                     <TextView
@@ -134,18 +122,15 @@
                         android:textColor="#000000"
                         android:text="horario"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
-                </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblLocal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Local:"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
                         android:textColor="#000000" />
 
                     <TextView
@@ -156,18 +141,14 @@
                         android:textColor="#000000"
                         android:text="Local"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblDiaJejum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dia do Jejum:"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
                         android:textColor="#000000" />
 
                     <TextView
@@ -179,17 +160,14 @@
                         android:text="quarta-feira"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </TableRow>
-            </TableLayout>
-
+    </LinearLayout>
             <TextView
                 android:id="@+id/versiculo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingTop="30dp"
-                android:paddingBottom="10dp"
+                android:padding="15dp"
                 android:text="(versículo base da célula)"
                 android:textAlignment="center"
                 android:textStyle="italic"

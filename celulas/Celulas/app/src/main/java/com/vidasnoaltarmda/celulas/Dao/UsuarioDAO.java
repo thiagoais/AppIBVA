@@ -99,7 +99,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public ArrayList<Usuario> retornaAniversariantes() throws SQLException{
+    public ArrayList<Usuario> retornaAniversariantes(Celula celula) throws SQLException{
         Usuario usuario = null;
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         ResultSet rs = null;
@@ -115,6 +115,7 @@ public class UsuarioDAO {
                     "   WHERE MONTH( data_nascimento ) = MONTH( NOW( ) )  " +
                             "   ORDER BY data_nascimento                     ");
 
+            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
