@@ -112,8 +112,9 @@ public class UsuarioDAO {
                     " SELECT   id_usuario, id_escala, id_celula, nome,      " +
                     "          sobrenome, data_nascimento, login, permissao " +
                     "   FROM usuario                                        " +
-                    "   WHERE MONTH( data_nascimento ) = MONTH( NOW( ) )  " +
-                            "   ORDER BY data_nascimento                     ");
+                    "   WHERE MONTH( data_nascimento ) = MONTH( NOW( ) )    " +
+                    "       AND id_celula = ?                               " +
+                    "   ORDER BY data_nascimento                            ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
