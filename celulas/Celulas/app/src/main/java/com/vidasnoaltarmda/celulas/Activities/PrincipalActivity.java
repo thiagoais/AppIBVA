@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.vidasnoaltarmda.celulas.R;
@@ -19,7 +21,7 @@ import com.vidasnoaltarmda.celulas.Utils.Utils;
  */
 
 
-public class PrincipalActivity extends ActionBarActivity implements View.OnClickListener {
+public class PrincipalActivity extends ActionBarActivity implements View.OnTouchListener {
 
     private LinearLayout aviso;
     private LinearLayout escala;
@@ -38,14 +40,14 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         //TODO implementar selector para efeito de click botoes tela principal
-        getAviso().setOnClickListener(this);
-        getEscala().setOnClickListener(this);
-        getSite().setOnClickListener(this);
-        getRoteiro().setOnClickListener(this);
-        getProgramacao().setOnClickListener(this);
-        getAniversariante().setOnClickListener(this);
-        getGe().setOnClickListener(this);
-        getCelula().setOnClickListener(this);
+        getAviso().setOnTouchListener(this);
+        getEscala().setOnTouchListener(this);
+        getSite().setOnTouchListener(this);
+        getRoteiro().setOnTouchListener(this);
+        getProgramacao().setOnTouchListener(this);
+        getAniversariante().setOnTouchListener(this);
+        getGe().setOnTouchListener(this);
+        getCelula().setOnTouchListener(this);
 
         mToolbar = (Toolbar) findViewById(R.id.th_main);
         mToolbar.setTitle("Células IBVA");
@@ -91,46 +93,71 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnClick
 
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.aviso:
-                Intent intentAviso = new Intent(this, AvisoActivity.class);
-                startActivity(intentAviso);
-                break;
-            case R.id.escala:
-                Intent intentEscala = new Intent(this, EscalaActivity.class);
-                startActivity(intentEscala);
-                break;
-            case R.id.roteiro:
-                Intent intentRoteiro = new Intent(this, RoteiroActivity.class);
-                startActivity(intentRoteiro);
-                break;
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            switch (view.getId()) {
+                case R.id.aviso:
+                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso_pressed);
+                    break;
+                case R.id.aniversariante:
+                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante_pressed);
+                    break;
+            }
+            return true;
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            switch (view.getId()) {
+                case R.id.aviso:
+                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso);
+                    Intent intentAviso = new Intent(this, AvisoActivity.class);
+                    startActivity(intentAviso);
+                    break;
+                case R.id.escala:
+                    Intent intentEscala = new Intent(this, EscalaActivity.class);
+                    startActivity(intentEscala);
+                    break;
+                case R.id.roteiro:
+                    Intent intentRoteiro = new Intent(this, RoteiroActivity.class);
+                    startActivity(intentRoteiro);
+                    break;
 
-            case R.id.programacao:
-                Intent intentProgramacao = new Intent(this, ProgramacaoActivity.class);
-                startActivity(intentProgramacao);
-                break;
+                case R.id.programacao:
+                    Intent intentProgramacao = new Intent(this, ProgramacaoActivity.class);
+                    startActivity(intentProgramacao);
+                    break;
 
-            case R.id.aniversariante:
-                Intent intentAniversariante = new Intent(this, AniversariantesActivity.class);
-                startActivity(intentAniversariante);
-                break;
+                case R.id.aniversariante:
+                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante);
+                    Intent intentAniversariante = new Intent(this, AniversariantesActivity.class);
+                    startActivity(intentAniversariante);
+                    break;
 
-            case R.id.ge:
-                Intent intentGE = new Intent(this, GEActivity.class);
-                startActivity(intentGE);
-                break;
+                case R.id.ge:
+                    Intent intentGE = new Intent(this, GEActivity.class);
+                    startActivity(intentGE);
+                    break;
 
-            case R.id.celula:
-                Intent intentCelula = new Intent(this, CelulaActivity.class);
-                startActivity(intentCelula);
-                break;
+                case R.id.celula:
+                    Intent intentCelula = new Intent(this, CelulaActivity.class);
+                    startActivity(intentCelula);
+                    break;
 
-            case R.id.site:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltarmda.com/"));
-                startActivity(browserIntent);
-                break;
+                case R.id.site:
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltarmda.com/"));
+                    startActivity(browserIntent);
+                    break;
+            }
+            return true;
+        } else {
+            switch (view.getId()) {
+                case R.id.aviso:
+                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso);
+                    break;
+                case R.id.aniversariante:
+                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante);
+                    break;
+            }
         }
+        return false;
     }
 
     private LinearLayout getAviso() {

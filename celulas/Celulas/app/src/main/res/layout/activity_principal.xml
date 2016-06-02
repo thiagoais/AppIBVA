@@ -43,6 +43,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/imageview_aviso"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/aviso" />
@@ -153,6 +154,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/imageview_aniversariantes"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/aniversariante" />
