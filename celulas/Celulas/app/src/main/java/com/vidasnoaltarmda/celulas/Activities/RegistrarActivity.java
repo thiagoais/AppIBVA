@@ -171,7 +171,8 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             switch (resultadoLogin) {
                 case INSERCAO_SUCESSO:
                     Toast.makeText(RegistrarActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
-                    //TODO terminar tela e voltar pra tela de login
+                    setResult(RESULT_OK, getIntent());
+                    finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
                     Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
