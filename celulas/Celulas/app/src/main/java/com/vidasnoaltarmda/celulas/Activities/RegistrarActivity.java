@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
@@ -170,7 +169,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(RegistrarActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistrarActivity.this, "Cadastrado com sucesso.", Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;
@@ -181,6 +180,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             super.onPostExecute(resultadoLogin);
         }
     }
+
 
     //metodo responsável por buscar os dados das celulas no banco (acesso remoto) e popular o spinner de celulas.
     //seguindo a boa pratica de separar a interecao externa da thread principal

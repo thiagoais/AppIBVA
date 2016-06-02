@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
@@ -101,7 +99,7 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(FormAvisoActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;

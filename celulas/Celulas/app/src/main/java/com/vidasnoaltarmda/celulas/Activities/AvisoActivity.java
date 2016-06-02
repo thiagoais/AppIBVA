@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,8 +18,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
+import com.github.johnpersano.supertoasts.SuperActivityToast;
+import com.github.johnpersano.supertoasts.SuperToast;
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
@@ -26,7 +27,6 @@ import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -316,7 +316,15 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
-                    Toast.makeText(AvisoActivity.this, "Aviso(s) removido(s) com sucesso.", Toast.LENGTH_LONG).show();
+
+                    SuperActivityToast superActivityToast = new SuperActivityToast(AvisoActivity.this);
+                    superActivityToast.setText("Aviso(s) removido(s) com sucesso.");
+                    superActivityToast.setDuration(SuperToast.Duration.LONG);
+                    superActivityToast.setBackground(SuperToast.Background.ORANGE);
+                    superActivityToast.setTextColor(Color.WHITE);
+                    superActivityToast.setTouchToDismiss(true);
+                    superActivityToast.show();
+
                     ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
                     tarefa.run();
                     break;
