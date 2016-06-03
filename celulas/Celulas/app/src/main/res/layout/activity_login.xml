@@ -25,13 +25,13 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.xwray.passwordview.PasswordView
-            android:id="@+id/edittext_senha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="Senha" />
+    <EditText
+        android:id="@+id/edittext_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:password="true"
+        android:hint="Senha"/>
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
