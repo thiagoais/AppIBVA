@@ -94,45 +94,27 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-           <!-- <EditText
+            <EditText
                 android:id="@+id/senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Digite sua senha"/>-->
-
-                <com.xwray.passwordview.PasswordView
-                    android:id="@+id/senha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:ems="10"
-                    android:hint="Digite sua senha" />
-
+                android:hint="Digite sua senha"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-          <!--  <EditText
+            <EditText
                 android:id="@+id/confirma_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Digite novamente senha"/>-->
-
-
-                <com.xwray.passwordview.PasswordView
-                    android:id="@+id/confirma_senha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:ems="10"
-                    android:hint="Digite novamente senha" />
+                android:hint="Digite novamente senha"/>
             </android.support.design.widget.TextInputLayout>
             <Button
                 android:background="@drawable/button_background"

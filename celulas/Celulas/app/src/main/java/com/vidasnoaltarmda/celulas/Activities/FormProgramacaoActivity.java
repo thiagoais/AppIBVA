@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.R;
@@ -25,7 +26,6 @@ import java.util.HashMap;
 public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
     private static final int ALTURA_MAX_IMAGEM = 200;
     private static final int LARGURA_MAX_IMAGEM = 200;
-
 
     public static final String UPLOAD_URL = "http://vidasnoaltarmda.com/web_services/insert_programacao.php";
     public static final String UPLOAD_KEY_ID_CELULA = "id_celula";
@@ -51,8 +51,6 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
     private ImageView imagemProgramacao;
     private Toolbar mToolbar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +67,6 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                 onBackPressed();
             }
         });
-
-
     }
 
     private void insereListener() {
