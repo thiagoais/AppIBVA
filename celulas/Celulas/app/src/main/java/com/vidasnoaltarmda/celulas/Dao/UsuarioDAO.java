@@ -164,7 +164,7 @@ public class UsuarioDAO {
             statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
             statement.setString(4, usuario.getLogin());
             statement.setString(5, usuario.getSenha());
-            statement.setInt(6, usuario.getId());
+            statement.setInt(6, (usuario.getCelula() != null) ? usuario.getCelula().getId_celula() : -1);
             statement.setInt(7, usuario.getPermissao());
 
             int row = statement.executeUpdate();
