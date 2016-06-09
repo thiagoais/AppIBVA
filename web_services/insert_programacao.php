@@ -4,12 +4,12 @@ error_reporting(E_ALL | E_STRICT);
 	if($_SERVER['REQUEST_METHOD']=='POST'){
 
                 $id_celula = $_POST['id_celula'];
-                $nome = $_POST['nome'];
-                $data= $_POST['data'];
-                $horario= $_POST['horario'];
-                $local_prog= $_POST['local_prog'];
-                $telefone= $_POST['telefone'];
-                $valor= $_POST['valor'];
+                $nome = utf8_decode($_POST['nome']);
+                $data= utf8_decode($_POST['data']);
+                $horario= utf8_decode($_POST['horario']);
+                $local_prog= utf8_decode($_POST['local_prog']);
+                $telefone= utf8_decode($_POST['telefone']);
+                $valor= utf8_decode($_POST['valor']);
                 
                 if (isset($_POST['image'])) {
 		    $image = $_POST['image'];
