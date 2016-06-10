@@ -1,0 +1,46 @@
+			   VERSÃO 2.0 APP CÉLULAS IBVA
+==================================== VISUAL ===================================
+
+> Colocar confirmação de delete em todas telas.
+
+> Colocar Float Button para fazer os insert's.
+
+> Colocar opção editar no LongClick.
+
+> Quando deslogar, trazer o login no campo login.
+
+> Tratar mensagem Login UNIQUE.
+
+> Na tela GE, colocar de quem é o GE.
+
+================================== NOTIFICAÇÃO ================================
+
+> Notificação avisando dia do Jejum.
+
+> Notificação avisando início da Célula.
+
+> Notificação avisando nova inserção (aviso, escala, prog, etc...).
+
+> Notificação 1 vez por semana ("Não se esqueça de orar pelos GE's").
+
+==================================== PASTOR ===================================
+
+> Permissão pastor (Cadastrar Aviso 1- Só pra Líderes 2- Todas as células).
+
+===================================== API =====================================
+
+> Fazer integração com o canal no You Tube.
+
+================================= GOOGLE PLAY =================================
+
+> Fazer um check version, para forçar o usuário a atualizar o app.
+
+============================= SUGESTÃO USUÁRIOS ===============================
+
+> Tirar telefone da tela de programações (Eu não concordo - barque).
+
+> Colocar um campo "observações" na tela programações.
+
+> Fazer backup dos avisos (Não concordo - barque).
+
+===============================================================================
