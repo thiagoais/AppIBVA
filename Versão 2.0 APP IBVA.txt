@@ -18,6 +18,8 @@ não precisa necessariamente ter baixado o app para que ele possa aparecer na
 escala. Tem usuários que usam iphone e não podem baixar o app, por isso é 
 necessário não amarrar esse recurso a quem somente está registrado no app.
 
+> Colocar opção Editar na Célula para o Líder
+
 ================================== NOTIFICAÇÃO ================================
 
 > Notificação avisando dia do Jejum.
