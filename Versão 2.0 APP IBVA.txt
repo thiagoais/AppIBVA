@@ -13,6 +13,11 @@
 
 > Na tela GE, colocar de quem é o GE.
 
+> Tela Escalas Tirar Spiner do Cadastro e deixar Edit Text, porque o usuário 
+não precisa necessariamente ter baixado o app para que ele possa aparecer na
+escala. Tem usuários que usam iphone e não podem baixar o app, por isso é 
+necessário não amarrar esse recurso a quem somente está registrado no app.
+
 ================================== NOTIFICAÇÃO ================================
 
 > Notificação avisando dia do Jejum.
