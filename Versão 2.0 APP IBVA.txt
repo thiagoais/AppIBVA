@@ -50,4 +50,7 @@ necessário não amarrar esse recurso a quem somente está registrado no app.
 
 > Fazer backup dos avisos (Não concordo - barque).
 
+> Em alguma parte do app tem que colocar os dados da igreja, como endereço
+dias de culto, etc...
+
 ===============================================================================
