@@ -20,6 +20,9 @@ necessário não amarrar esse recurso a quem somente está registrado no app.
 
 > Colocar opção Editar na Célula para o Líder
 
+> Limitar a quantidade de caracteres do login para 20 caracteres na tela de
+registro.
+
 ================================== NOTIFICAÇÃO ================================
 
 > Notificação avisando dia do Jejum.
