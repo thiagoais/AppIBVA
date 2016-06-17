@@ -56,4 +56,6 @@ registro.
 > Em alguma parte do app tem que colocar os dados da igreja, como endereço
 dias de culto, etc...
 
+> Compartilhar localização da igreja externamente (whats, facebook etc...)
+
 ===============================================================================
