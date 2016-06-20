@@ -1,8 +1,11 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +16,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.vidasnoaltarmda.celulas.BuildConfig;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.RequestHandler;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
+
+import java.util.HashMap;
 
 /**
  * Created by barque on 14/03/2016.
@@ -23,6 +30,7 @@ import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 public class PrincipalActivity extends ActionBarActivity implements View.OnTouchListener {
 
+    public static final String UPLOAD_URL = "http://vidasnoaltarmda.com/web_services/getVersao.php";
     private LinearLayout aviso;
     private LinearLayout escala;
     private LinearLayout roteiro;
@@ -52,6 +60,8 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         mToolbar = (Toolbar) findViewById(R.id.th_main);
         mToolbar.setTitle("Células IBVA");
         setSupportActionBar(mToolbar);
+
+        new CheckVersao().execute();
     }
 
     //Cria o menu da actionbar (barra no topo da tela)
@@ -91,6 +101,55 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         return super.onOptionsItemSelected(item);
     }
 
+    private class CheckVersao extends AsyncTask<Void, Void, String> {
+        private final int RETORNO_SUCESSO = 0;
+        private final int RETORNO_FALHOU = 1;
+
+        ProgressDialog progressDialog;
+
+        private RequestHandler rh = new RequestHandler();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(PrincipalActivity.this, "Aguarde por favor", "Verificando dados...", true);
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            HashMap<String,String> data = new HashMap<>();
+
+            String result = rh.sendGetRequest(UPLOAD_URL);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String ultimaVersao) {
+            progressDialog.dismiss();
+            if (ultimaVersao != null) {
+                int versao = BuildConfig.VERSION_CODE;
+                if (!Integer.toString(versao).equals(ultimaVersao)) {
+                    Utils.mostraMensagemDialog(PrincipalActivity.this, "Por favor, atualize a versão do seu App para a mais recente.", "Atualizar",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                                    try {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                                    } catch (android.content.ActivityNotFoundException anfe) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                                    }
+                                }
+                    });
+                }
+            }
+
+            super.onPostExecute(ultimaVersao);
+        }
+    }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {

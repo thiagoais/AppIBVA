@@ -50,6 +50,16 @@ public class Utils {
         alerta.show();
     }
 
+    // caso nao seja necessaria uma acao de click para o botao passar acao = null
+    public static void mostraMensagemDialog(Context contexto, String mensagem, String textoBotao, DialogInterface.OnClickListener acao) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(contexto)
+                .setTitle("Aviso")
+                .setMessage(mensagem)
+                .setPositiveButton(textoBotao, acao);
+        AlertDialog alerta = builder.create();
+        alerta.show();
+    }
+
     //converte a data para enviar para o banco de dados
     public static String converteDataBanco(String data) {
         String[] campos = data.split("/");
