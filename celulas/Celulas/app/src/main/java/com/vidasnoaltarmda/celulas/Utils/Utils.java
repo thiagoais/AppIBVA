@@ -48,6 +48,7 @@ public class Utils {
                 .setPositiveButton("Ok", acao);
         AlertDialog alerta = builder.create();
         alerta.show();
+
     }
 
     // caso nao seja necessaria uma acao de click para o botao passar acao = null
@@ -55,6 +56,7 @@ public class Utils {
         AlertDialog.Builder builder = new AlertDialog.Builder(contexto)
                 .setTitle("Aviso")
                 .setMessage(mensagem)
+                .setCancelable(false)
                 .setPositiveButton(textoBotao, acao);
         AlertDialog alerta = builder.create();
         alerta.show();

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
@@ -18,6 +19,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
@@ -41,6 +44,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
     private ImageView imageViewListaVazia;
     private ListView listview_avisos;
     private Toolbar mToolbar;
+    private FloatingActionButton addAviso;
 
     private ArrayList<Aviso> mListaAvisos;
 
@@ -68,6 +72,37 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                 onBackPressed();
             }
         });
+
+
+
+
+        int permissaoUsuario = 0;
+        try {
+            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (permissaoUsuario == 0) {
+            getAddAviso().setVisibility(View.GONE);
+        } else {
+            getAddAviso().setVisibility(View.VISIBLE);
+
+        }
+
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_aviso);
+            assert fab != null;
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(AvisoActivity.this, FormAvisoActivity.class);
+                    startActivityForResult(i, REQUEST_SALVAR);
+                    getListViewAviso().setChoiceMode(getListViewAviso().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de avisos
+                }
+            });
+        }
+
+
     }
 
     private Celula getSPCelula() {
@@ -89,8 +124,8 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             new PopulaAvisosTask().execute(getSPCelula());
         }
     }
-
-    @Override
+  
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         int permissaoUsuario = 0;
         try {
@@ -103,7 +138,9 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             getMenuInflater().inflate(R.menu.menu_avisos, menu);
         }
         return true;
-    }
+    }*/
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,7 +196,9 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                 // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
+                        //TODO fazer um if com alert deseja realmente deletar?
                         new RemoveAvisoTask(
+
                                 ((AdapterDelete<Aviso>) getListViewAviso().getAdapter()).getItensSelecionados(),
                                 new Runnable() {
                                     @Override
@@ -201,6 +240,13 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             listview_avisos = (ListView) findViewById(R.id.avisoslist);
         }
         return listview_avisos;
+    }
+
+    private FloatingActionButton getAddAviso() {
+        if (addAviso == null) {
+            addAviso = (FloatingActionButton) findViewById(R.id.add_aviso);
+        }
+        return addAviso;
     }
 
     private ImageView getImageViewListaVazia() {
@@ -282,6 +328,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         private Runnable tarefa;
 
         public RemoveAvisoTask(ArrayList<Aviso> avisosRemover, Runnable tarefa) {
+
             this.avisosRemover = avisosRemover;
             this.tarefa = tarefa;
         }
