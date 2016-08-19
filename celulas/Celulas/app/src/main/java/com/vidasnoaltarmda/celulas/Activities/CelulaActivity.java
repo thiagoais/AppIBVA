@@ -7,11 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
+import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
@@ -24,6 +27,7 @@ import java.sql.SQLException;
 
 
 public class CelulaActivity extends ActionBarActivity implements View.OnClickListener {
+    public static int RQ_EDITAR_CELULA = 1;
 
     private TextView nome;
     private TextView lider;
@@ -64,6 +68,39 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
 
     private void insereListeners() {
         getFoto().setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        int permissaoUsuario = 0;
+        try {
+            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
+            getMenuInflater().inflate(R.menu.menu_celula, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_editar) {
+            Intent intent = new Intent(this, CelulaEditarActivity.class);
+            startActivityForResult(intent, RQ_EDITAR_CELULA);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
