@@ -73,6 +73,10 @@
             android:name=".Activities.FormEscalaActivity"
             android:label="@string/title_activity_form_escala" >
         </activity>
+        <activity
+            android:name=".Activities.CelulaEditarActivity"
+            android:label="@string/title_activity_form_celula_editar" >
+        </activity>
     </application>
 
 </manifest>
