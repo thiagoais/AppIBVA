@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by thiago on 06/03/2016.
  */
 public class UsuarioDAO {
-    private final String TABELA = "usuario";
+    private final String TABELA = "usuarios";
 
     // retorna o usuario correspondente ao login
     public Usuario retornaUsuarioLogin(String login) throws SQLException{
@@ -33,11 +33,11 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             String stmt =
-                    " SELECT  u.id_usuario, u.id_escala, u.id_celula, u.nome,           " +
-                    "         u.sobrenome, u.data_nascimento, u.login, u.permissao,     " +
-                    "         c.nome, c.lider, c.dia, c.horario, c.local_celula,        " +
-                    "         c.dia_jejum, c.periodo, c.versiculo, c.imagem             " +
-                    "  FROM usuario u left join celula c on (u.id_celula = c.id_celula) " +
+                    " SELECT  u.id, u.id_celula, u.nome,           " +
+                    "         u.sobrenome, u.nascimento, u.login, u.permissao,     " +
+                    "         c.nome, c.lider, c.dia, c.horario, c.local,        " +
+                    "         c.jejum, c.periodo, c.versiculo, c.imagem             " +
+                    "  FROM usuarios u left join celulas c on (u.id_celula = c.id_celula) " +
                     "  WHERE login = ?                                                  ";
 
             if (senha != null) {
@@ -109,12 +109,12 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT   id_usuario, id_escala, id_celula, nome,      " +
-                    "          sobrenome, data_nascimento, login, permissao " +
-                    "   FROM usuario                                        " +
-                    "   WHERE MONTH( data_nascimento ) = MONTH( NOW( ) )    " +
+                    " SELECT   id, id, id_celula, nome,      " +
+                    "          sobrenome, nascimento, login, permissao " +
+                    "   FROM usuarios                                        " +
+                    "   WHERE MONTH( nascimento ) = MONTH( NOW( ) )    " +
                     "       AND id_celula = ?                               " +
-                    "   ORDER BY data_nascimento                            ");
+                    "   ORDER BY nascimento                            ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -158,7 +158,7 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " INSERT INTO usuario (nome, sobrenome, data_nascimento, login, senha, id_celula, permissao) values (?,?,?,?,?,?,?)");
+                    " INSERT INTO usuarios (nome, sobrenome, nascimento, login, senha, id_celula, permissao) values (?,?,?,?,?,?,?)");
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSobrenome());
             statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
@@ -202,8 +202,8 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id_usuario, id_celula, nome, sobrenome, data_nascimento, login, senha, permissao " +
-                    "   FROM usuario                                                                          " +
+                    " SELECT id, id_celula, nome, sobrenome, nascimento, login, senha, permissao " +
+                    "   FROM usuarios                                                                          " +
                     "  WHERE id_celula = ?");
 
             statement.setInt(1, celula.getId_celula());

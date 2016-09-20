@@ -31,11 +31,11 @@ public class ProgramacaoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id_programacao, id_celula, nome, data_prog, horario, " +
-                    "        local_prog, telefone, valor, imagem                  " +
-                    "   FROM programacao                                          " +
+                    " SELECT id, id_celula, nome, data, horario, " +
+                    "        local, telefone, valor, imagem                  " +
+                    "   FROM programacoes                                          " +
                     "  WHERE id_celula = ?                                        " +
-                    " ORDER BY data_prog desc;                                    ");
+                    " ORDER BY data desc;                                    ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -86,8 +86,8 @@ public class ProgramacaoDAO {
         try {
             statement = conexao.prepareStatement(
                     " SELECT imagem            " +
-                    "   FROM programacao       " +
-                    "  WHERE id_programacao = ? ");
+                    "   FROM programacoes       " +
+                    "  WHERE id = ? ");
 
             statement.setInt(1, programacao.getId_programacao());
             rs = statement.executeQuery();
@@ -127,7 +127,7 @@ public class ProgramacaoDAO {
         boolean inserido = false;
         conexao = ConnectionManager.getConnection();
         try {
-            String sql =       " INSERT INTO programacao (id_celula, nome, data_prog, horario, local_prog, telefone, valor, imagem) " +
+            String sql =       " INSERT INTO programacoes (id_celula, nome, data, horario, local, telefone, valor, imagem) " +
                             "values (?,?,?,?,?,?,?,?)";
             statement = conexao.prepareStatement(sql);
             statement.setInt(1, programacao.getId_celula());
@@ -183,7 +183,7 @@ public class ProgramacaoDAO {
         conexao = ConnectionManager.getConnection();
         try {
 
-            String delCommand = " DELETE FROM programacao WHERE id_programacao IN (";
+            String delCommand = " DELETE FROM programacoes WHERE id IN (";
             for (int i = 0; i < programacoes.size() - 1; i++) {
                 delCommand = delCommand.concat("?,");
             }

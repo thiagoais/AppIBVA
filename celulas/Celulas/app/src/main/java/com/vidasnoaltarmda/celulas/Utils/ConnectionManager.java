@@ -9,10 +9,10 @@ import java.util.Properties;
  * Created by thiago on 06/03/2016.
  */
 public class ConnectionManager {
-    private static String url = "jdbc:mysql://a2plcpnl0304.prod.iad2.secureserver.net/celulas";
+    private static String url = "jdbc:mysql://a2plcpnl0778.prod.iad2.secureserver.net/celulas";
     private static String driverName = "com.mysql.jdbc.Driver";
-    private static String username = "barque";
-    private static String password = "1z2x3c4v";
+    private static String username = "celulas";
+    private static String password = "1G*yT,owB-sn";
     private static Connection con;
 
     public static Connection getConnection() throws SQLException {

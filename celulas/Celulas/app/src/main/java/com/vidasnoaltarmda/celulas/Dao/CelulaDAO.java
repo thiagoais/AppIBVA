@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by thiago on 19/03/2016.
  */
 public class CelulaDAO {
-    private final String TABELA = "celula";
+    private final String TABELA = "celulas";
 
     //retorna celula por meio do id
     public Celula retornaCelulaPorId(int idCelula) throws SQLException {
@@ -28,9 +28,9 @@ public class CelulaDAO {
         try {
             //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
-                    " SELECT id_celula, nome, lider, dia, horario, local_celula, dia_jejum, periodo, versiculo, imagem  " +
+                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo, imagem  " +
                             "   FROM celula                                                                             " +
-                            " WHERE id_celula = ?                                                                       ");
+                            " WHERE id = ?                                                                       ");
 
             statement.setInt(1, idCelula);
             rs = statement.executeQuery();
@@ -81,7 +81,7 @@ public class CelulaDAO {
         try {
             //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
-                    " SELECT id_celula, nome, lider, dia, horario, local_celula, dia_jejum, periodo, versiculo, imagem  " +
+                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo, imagem  " +
                     "   FROM celula                                                                    " +
                     "  ORDER BY nome                                                                   ");
 
@@ -135,8 +135,8 @@ public class CelulaDAO {
         try {
             statement = conexao.prepareStatement(
                     " SELECT imagem            " +
-                            "   FROM celula       " +
-                            "  WHERE id_celula = ? ");
+                            "   FROM celulas       " +
+                            "  WHERE id = ? ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();

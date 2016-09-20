@@ -18,7 +18,7 @@ import java.util.List;
  * Created by barque on 21/04/2016.
  */
 public class EscalaDAO {
-    private final String TABELA = "escala";
+    private final String TABELA = "escalas";
         public Escala retornaEscala(Celula celula) throws SQLException {
             boolean escalaPreenchida = false;
             Escala escala = null;
@@ -32,9 +32,9 @@ public class EscalaDAO {
         try {
 
             statement = conexao.prepareStatement(
-                    " SELECT e.id_escala, e.id_celula, e.data_celula, e.hora_celula, e.local_celula, " +
-                    "        ec.id_escalacao, ec.membro, ec.tarefa                                   " +
-                    "   FROM escala e INNER JOIN escalacao ec on (e.id_escala = ec.id_escala)        " +
+                    " SELECT e.id, e.id_celula, e.data, e.horario, e.local, " +
+                    "        ec.id, ec.membro, ec.tarefa                                   " +
+                    "   FROM escalas e INNER JOIN escalacoes ec on (e.id = ec.id)        " +
                     "  WHERE id_celula = ?                                                           ");
 
             statement.setInt(1, celula.getId_celula());

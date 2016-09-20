@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class GrupoEvangelisticoDAO {
 
-    private final String TABELA = "grupo_evangelistico"; //Nome da tabela do banco dados que a classe vai trabalhar
+    private final String TABELA = "grupos_evangelisticos"; //Nome da tabela do banco dados que a classe vai trabalhar
 
     public ArrayList<GrupoEvangelistico> retornaGruposEvangelisticos(Celula celula) throws SQLException {
         ArrayList<GrupoEvangelistico> gruposEvangelisticos = new ArrayList<>();
@@ -30,9 +30,9 @@ public class GrupoEvangelisticoDAO {
 
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id_ge, id_celula, nome, datediff(now(), data_cadastro) as dias "+
-                    "   FROM grupo_evangelistico                                            " +
-                    " WHERE id_celula = ?  ORDER BY data_cadastro DESC ;                           ");
+                    " SELECT id, id_celula, nome, datediff(now(), data) as dias "+
+                    "   FROM grupos_evangelisticos                                            " +
+                    " WHERE id_celula = ?  ORDER BY data DESC ;                           ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -73,7 +73,7 @@ public class GrupoEvangelisticoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " INSERT INTO grupo_evangelistico (id_celula, nome, data_cadastro) values (?,?,NOW())");
+                    " INSERT INTO grupos_evangelisticos (id_celula, nome, data) values (?,?,NOW())");
             statement.setInt   (1, grupoEvangelistico.getId_celula());
             statement.setString(2, grupoEvangelistico.getNome());
 
@@ -108,7 +108,7 @@ public class GrupoEvangelisticoDAO {
         conexao = ConnectionManager.getConnection();
         try {
 
-            String delCommand = " DELETE FROM grupo_evangelistico WHERE id_ge IN (";
+            String delCommand = " DELETE FROM grupos_evangelisticos WHERE id IN (";
             for (int i = 0; i < grupoEvangelisticos.size() - 1; i++) {
                 delCommand = delCommand.concat("?,");
             }

@@ -28,9 +28,9 @@ public class RoteiroDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id_roteiro, titulo, data_roteiro " +
+                    " SELECT id, titulo, data " +
                     "   FROM roteiros                         " +
-                    "  ORDER BY data_roteiro desc             ");
+                    "  ORDER BY data desc             ");
 
             rs = statement.executeQuery();
 
@@ -74,9 +74,9 @@ public class RoteiroDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT roteiro        " +
+                    " SELECT roteiros        " +
                     "   FROM roteiros       " +
-                    "  WHERE id_roteiro = ? ");
+                    "  WHERE id = ? ");
 
             statement.setInt(1, roteiro.getId_roteiro());
             rs = statement.executeQuery();

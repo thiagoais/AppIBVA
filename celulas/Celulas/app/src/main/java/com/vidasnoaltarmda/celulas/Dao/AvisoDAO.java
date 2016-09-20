@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class AvisoDAO {
 
-    private final String TABELA = "aviso"; //Nome da tabela do banco dados que a classe vai trabalhar
+    private final String TABELA = "avisos"; //Nome da tabela do banco dados que a classe vai trabalhar
 
     public ArrayList<Aviso> retornaAvisos(Celula celula) throws SQLException {
         ArrayList<Aviso> avisos = new ArrayList<>();
@@ -28,9 +28,9 @@ public class AvisoDAO {
 
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id_aviso, id_celula, titulo, conteudo "+
-                            "   FROM aviso                                          " +
-                            " WHERE id_celula = ? ORDER BY id_aviso desc;            ");
+                    " SELECT id, id_celula, titulo, conteudo "+
+                            "   FROM avisos                                          " +
+                            " WHERE id_celula = ? ORDER BY id desc;            ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -71,7 +71,7 @@ public class AvisoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " INSERT INTO aviso (id_celula, titulo, conteudo) values (?,?,?)");
+                    " INSERT INTO avisos (id_celula, titulo, conteudo) values (?,?,?)");
             statement.setInt   (1, aviso.getId_celula());
             statement.setString(2, aviso.getTitulo());
             statement.setString(3, aviso.getConteudo());
@@ -107,7 +107,7 @@ public class AvisoDAO {
         conexao = ConnectionManager.getConnection();
         try {
 
-            String delCommand = " DELETE FROM aviso WHERE id_aviso IN (";
+            String delCommand = " DELETE FROM avisos WHERE id IN (";
             for (int i = 0; i < avisos.size() - 1; i++) {
                 delCommand = delCommand.concat("?,");
             }
