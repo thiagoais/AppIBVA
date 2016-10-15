@@ -28,8 +28,8 @@ public class CelulaDAO {
         try {
             //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
-                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo, imagem  " +
-                            "   FROM celula                                                                             " +
+                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo  " +
+                            "   FROM celulas                                                                             " +
                             " WHERE id = ?                                                                       ");
 
             statement.setInt(1, idCelula);
@@ -46,7 +46,6 @@ public class CelulaDAO {
                 celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
-                celula.setImagem(rs.getBlob(10)); //TODO verificar necessidade e se consome tempo e uso de dados
             }
         } catch (Exception e) {
             //TODO LOG ERRO
@@ -81,8 +80,8 @@ public class CelulaDAO {
         try {
             //Garantir no banco que o login será único
             statement = conexao.prepareStatement(
-                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo, imagem  " +
-                    "   FROM celula                                                                    " +
+                    " SELECT id, nome, lider, dia, horario, local, jejum, periodo, versiculo  " +
+                    "   FROM celulas                                                                    " +
                     "  ORDER BY nome                                                                   ");
 
             rs = statement.executeQuery();
@@ -98,7 +97,6 @@ public class CelulaDAO {
                 celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
-                celula.setImagem(rs.getBlob(10)); //TODO verificar necessidade e se consome tempo e uso de dados
                 celulas.add(celula);
             }
         } catch (Exception e) {
@@ -125,48 +123,48 @@ public class CelulaDAO {
 
     //metodo que retorna a imagem da celula passada por parametro e salva no caminho especificado
     //TODO verificar possibilidade de implementacao de um cache de imagens
-    public boolean retornaCelulaImagem(Celula celula, String caminhoArquivo, String nomeArquivo) throws SQLException {
-        InputStream isCelula = null;
-        ResultSet rs = null;
-        PreparedStatement statement = null;
-        Connection conexao = null;
-
-        conexao = ConnectionManager.getConnection();
-        try {
-            statement = conexao.prepareStatement(
-                    " SELECT imagem            " +
-                            "   FROM celulas       " +
-                            "  WHERE id = ? ");
-
-            statement.setInt(1, celula.getId_celula());
-            rs = statement.executeQuery();
-
-            if (rs.next()) {
-                isCelula = rs.getBinaryStream(1);
-            }
-
-            Utils.downloadImagemBanco(caminhoArquivo, isCelula, nomeArquivo);
-
-            return true;
-        } catch (Exception e) {
-            //TODO LOG ERRO
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (Exception mysqlEx) {
-                //TODO LOG ERRO
-                mysqlEx.printStackTrace();
-            }
-        }
-        return false;
-    }
+//    public boolean retornaCelulaImagem(Celula celula, String caminhoArquivo, String nomeArquivo) throws SQLException {
+//        InputStream isCelula = null;
+//        ResultSet rs = null;
+//        PreparedStatement statement = null;
+//        Connection conexao = null;
+//
+//        conexao = ConnectionManager.getConnection();
+//        try {
+//            statement = conexao.prepareStatement(
+//                    " SELECT imagem            " +
+//                            "   FROM celulas       " +
+//                            "  WHERE id = ? ");
+//
+//            statement.setInt(1, celula.getId_celula());
+//            rs = statement.executeQuery();
+//
+//            if (rs.next()) {
+//                isCelula = rs.getBinaryStream(1);
+//            }
+//
+//            Utils.downloadImagemBanco(caminhoArquivo, isCelula, nomeArquivo);
+//
+//            return true;
+//        } catch (Exception e) {
+//            //TODO LOG ERRO
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (statement != null) {
+//                    statement.close();
+//                }
+//                if (conexao != null) {
+//                    conexao.close();
+//                }
+//            } catch (Exception mysqlEx) {
+//                //TODO LOG ERRO
+//                mysqlEx.printStackTrace();
+//            }
+//        }
+//        return false;
+//    }
 }

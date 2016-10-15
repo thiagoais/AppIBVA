@@ -41,7 +41,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
 
     private Celula celula;
     private Toolbar mToolbar;
-    private ImageView imageViewListaVazia;
+//    private ImageView imageViewListaVazia;
 
 
     @Override
@@ -105,13 +105,13 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.foto:
-                Intent intent = new Intent(this, ImagemAmpliadaActivity.class);
-                intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA); //TODO arrumar caminhos das imagens
-                startActivity(intent);
-                break;
-        }
+//        switch (view.getId()) {
+//            case R.id.foto:
+//                Intent intent = new Intent(this, ImagemAmpliadaActivity.class);
+//                intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA); //TODO arrumar caminhos das imagens
+//                startActivity(intent);
+//                break;
+//        }
     }
 
     private void montaTelaCelula(Celula celula){
@@ -122,53 +122,53 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         getLocal().setText(celula.getLocal_celula());
         getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo()); //TODO relacionar numeros com dias da semana
         getVersiculo().setText("\"" + celula.getVersiculo() + "\"");
-        new mostraImagemCelulaTask().execute();
+//        new mostraImagemCelulaTask().execute();
 
     }
 
 
-    private class mostraImagemCelulaTask extends AsyncTask<Void, Void,  Integer>{
-        String caminhoImagem;
-        ProgressDialog  progressDialog;
-        private final int RETORNO_SUCESSO = 0;
-        private final int FALHA_SQLEXCEPTION = 1;
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;
-            //mostra janela de progresso
-            progressDialog = ProgressDialog.show(CelulaActivity.this, "Carregando", "Aguarde por favor...", true);
-        }
-
-        @Override
-        protected  Integer doInBackground(Void... params){
-            try {
-                if (celula != null)
-                    new CelulaDAO().retornaCelulaImagem(celula, caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA);
-            } catch(SQLException e){
-                e.printStackTrace();
-                return FALHA_SQLEXCEPTION;
-
-            }
-            return RETORNO_SUCESSO;
-        }
-
-
-        @Override
-        protected void onPostExecute(Integer resultadoLogin) {
-            progressDialog.dismiss();
-            switch (resultadoLogin) {
-                case RETORNO_SUCESSO:
-                    getFoto().setImageBitmap(BitmapFactory.decodeFile(caminhoImagem + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA));
-                    break;
-                case FALHA_SQLEXCEPTION:
-                    break;
-            }
-            super.onPostExecute(resultadoLogin);
-        }
-
-    }
+//    private class mostraImagemCelulaTask extends AsyncTask<Void, Void,  Integer>{
+//        String caminhoImagem;
+//        ProgressDialog  progressDialog;
+//        private final int RETORNO_SUCESSO = 0;
+//        private final int FALHA_SQLEXCEPTION = 1;
+//
+//        @Override
+//        protected void onPreExecute(){
+//            super.onPreExecute();
+//            caminhoImagem = getApplicationContext().getFilesDir().getAbsolutePath() + Celula.DIRETORIO_IMAGENS_CELULA;
+//            //mostra janela de progresso
+//            progressDialog = ProgressDialog.show(CelulaActivity.this, "Carregando", "Aguarde por favor...", true);
+//        }
+//
+////        @Override
+////        protected  Integer doInBackground(Void... params){
+////            try {
+////                //if (celula != null)
+////                 //   new CelulaDAO().retornaCelulaImagem(celula, caminhoImagem, Celula.NOME_PADRAO_IMAGEM_CELULA);
+////            } catch(SQLException e){
+////                e.printStackTrace();
+////                return FALHA_SQLEXCEPTION;
+////
+////            }
+////            return RETORNO_SUCESSO;
+////        }
+//
+//
+//        @Override
+//        protected void onPostExecute(Integer resultadoLogin) {
+//            progressDialog.dismiss();
+//            switch (resultadoLogin) {
+//                case RETORNO_SUCESSO:
+//                    getFoto().setImageBitmap(BitmapFactory.decodeFile(caminhoImagem + "/" + Celula.NOME_PADRAO_IMAGEM_CELULA));
+//                    break;
+//                case FALHA_SQLEXCEPTION:
+//                    break;
+//            }
+//            super.onPostExecute(resultadoLogin);
+//        }
+//
+//    }
 
     private ImageView getFoto() {
         if (foto == null) {
@@ -225,12 +225,12 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         }
         return versiculo;
     }
-    private ImageView getImageViewListaVazia() {
-        if (imageViewListaVazia == null) {
-            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
-        }
-        return imageViewListaVazia;
-    }
+//    private ImageView getImageViewListaVazia() {
+//        if (imageViewListaVazia == null) {
+//            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+//        }
+//        return imageViewListaVazia;
+//    }
 
 
 }

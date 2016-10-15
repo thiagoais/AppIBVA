@@ -36,8 +36,8 @@ public class UsuarioDAO {
                     " SELECT  u.id, u.id_celula, u.nome,           " +
                     "         u.sobrenome, u.nascimento, u.login, u.permissao,     " +
                     "         c.nome, c.lider, c.dia, c.horario, c.local,        " +
-                    "         c.jejum, c.periodo, c.versiculo, c.imagem             " +
-                    "  FROM usuarios u left join celulas c on (u.id_celula = c.id_celula) " +
+                    "         c.jejum, c.periodo, c.versiculo            " +
+                    "  FROM usuarios u left join celulas c on (u.id_celula = c.id) " +
                     "  WHERE login = ?                                                  ";
 
             if (senha != null) {
@@ -74,7 +74,7 @@ public class UsuarioDAO {
                 celula.setDia_jejum(rs.getString(14));
                 celula.setPeriodo(rs.getString(15));
                 celula.setVersiculo(rs.getString(16));
-                celula.setImagem(rs.getBlob(17));
+//                celula.setImagem(rs.getBlob(17));
                 usuario.setCelula(celula);
             }
         } catch (Exception e) {
@@ -109,7 +109,7 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT   id, id, id_celula, nome,      " +
+                    " SELECT   id, id_celula, nome,      " +
                     "          sobrenome, nascimento, login, permissao " +
                     "   FROM usuarios                                        " +
                     "   WHERE MONTH( nascimento ) = MONTH( NOW( ) )    " +

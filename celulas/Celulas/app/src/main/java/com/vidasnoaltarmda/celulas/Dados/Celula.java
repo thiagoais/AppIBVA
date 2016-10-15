@@ -13,7 +13,7 @@ public class Celula {
     public static final String DIA_JEJUM_CELULA_SP      = "DIA_JEJUM_CELULA_SP";
     public static final String PERIODO_CELULA_SP        = "PERIODO_CELULA_SP";
     public static final String VERSICULO_CELULA_SP      = "VERSICULO_CELULA_SP";
-    public static final String CAMINHO_IMAGEM_CELULA_SP = "CAMINHO_IMAGEM_CELULA_SP";
+//    public static final String CAMINHO_IMAGEM_CELULA_SP = "CAMINHO_IMAGEM_CELULA_SP";
 
     public static final int DIA_SEMANA_NENHUM = 0;
     public static final int DIA_SEMANA_DOMINGO = 1;
@@ -24,8 +24,8 @@ public class Celula {
     public static final int DIA_SEMANA_SEXTA = 6;
     public static final int DIA_SEMANA_SABADO = 7;
 
-    public static String DIRETORIO_IMAGENS_CELULA = "/celula";
-    public static String NOME_PADRAO_IMAGEM_CELULA = "celImg.png";
+//    public static String DIRETORIO_IMAGENS_CELULA = "/celula";
+//    public static String NOME_PADRAO_IMAGEM_CELULA = "celImg.png";
 
     private int id_celula;
     private String nome;
@@ -36,7 +36,7 @@ public class Celula {
     private String dia_jejum;
     private String periodo;
     private String versiculo;
-    private Blob imagem;
+//    private Blob imagem;
 
     public int getId_celula() {
         return id_celula;
@@ -110,13 +110,13 @@ public class Celula {
         this.versiculo = versiculo;
     }
 
-    public Blob getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Blob imagem) {
-        this.imagem = imagem;
-    }
+//    public Blob getImagem() {
+//        return imagem;
+//    }
+//
+//    public void setImagem(Blob imagem) {
+//        this.imagem = imagem;
+//    }
 
     @Override
     public String toString() {
