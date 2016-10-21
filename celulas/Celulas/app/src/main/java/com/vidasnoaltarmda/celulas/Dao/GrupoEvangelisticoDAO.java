@@ -30,9 +30,9 @@ public class GrupoEvangelisticoDAO {
 
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id, id_celula, nome, datediff(now(), data) as dias "+
+                    " SELECT id, ges_celula_id, nome, datediff(now(), data) as dias "+
                     "   FROM grupos_evangelisticos                                            " +
-                    " WHERE id_celula = ?  ORDER BY data DESC ;                           ");
+                    " WHERE ges_celula_id = ?  ORDER BY data DESC ;                           ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -73,7 +73,7 @@ public class GrupoEvangelisticoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " INSERT INTO grupos_evangelisticos (id_celula, nome, data) values (?,?,NOW())");
+                    " INSERT INTO grupos_evangelisticos (ges_celula_id, nome, data) values (?,?,NOW())");
             statement.setInt   (1, grupoEvangelistico.getId_celula());
             statement.setString(2, grupoEvangelistico.getNome());
 

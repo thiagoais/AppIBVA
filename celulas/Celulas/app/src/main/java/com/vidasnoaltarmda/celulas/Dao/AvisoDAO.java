@@ -28,9 +28,9 @@ public class AvisoDAO {
 
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id, id_celula, titulo, conteudo "+
+                    " SELECT id, avisos_celula_id, titulo, conteudo "+
                             "   FROM avisos                                          " +
-                            " WHERE id_celula = ? ORDER BY id desc;            ");
+                            " WHERE avisos_celula_id = ? ORDER BY id desc;            ");
 
             statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
@@ -71,7 +71,7 @@ public class AvisoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " INSERT INTO avisos (id_celula, titulo, conteudo) values (?,?,?)");
+                    " INSERT INTO avisos (avisos_celula_id, titulo, conteudo) values (?,?,?)");
             statement.setInt   (1, aviso.getId_celula());
             statement.setString(2, aviso.getTitulo());
             statement.setString(3, aviso.getConteudo());

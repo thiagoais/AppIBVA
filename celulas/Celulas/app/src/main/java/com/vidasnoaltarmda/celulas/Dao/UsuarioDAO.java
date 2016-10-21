@@ -33,11 +33,11 @@ public class UsuarioDAO {
         conexao = ConnectionManager.getConnection();
         try {
             String stmt =
-                    " SELECT  u.id, u.id_celula, u.nome,           " +
-                    "         u.sobrenome, u.nascimento, u.login, u.permissao,     " +
+                    " SELECT  u.id, u.usuarios_celula_id, u.nome,           " +
+                    "         u.sobrenome, u.nascimento, u.login, u.perfil,     " +
                     "         c.nome, c.lider, c.dia, c.horario, c.local,        " +
                     "         c.jejum, c.periodo, c.versiculo            " +
-                    "  FROM usuarios u left join celulas c on (u.id_celula = c.id) " +
+                    "  FROM usuarios u left join celulas c on (u.usuarios_celula_id = c.id) " +
                     "  WHERE login = ?                                                  ";
 
             if (senha != null) {
@@ -58,22 +58,22 @@ public class UsuarioDAO {
             if (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt(1));
-                usuario.setNome(rs.getString(4));
-                usuario.setSobrenome(rs.getString(5));
-                usuario.setDataNascimento(rs.getString(6));
-                usuario.setLogin(rs.getString(7));
-                usuario.setPermissao(rs.getInt(8));
+                usuario.setNome(rs.getString(3));
+                usuario.setSobrenome(rs.getString(4));
+                usuario.setDataNascimento(rs.getString(5));
+                usuario.setLogin(rs.getString(6));
+                usuario.setPermissao(rs.getInt(7));
 
                 celula = new Celula();
-                celula.setId_celula(rs.getInt(3));
-                celula.setNome(rs.getString(9));
-                celula.setLider(rs.getString(10));
-                celula.setDia(rs.getString(11));
-                celula.setHorario(Utils.converteHoraApp(rs.getString(12)));
-                celula.setLocal_celula(rs.getString(13));
-                celula.setDia_jejum(rs.getString(14));
-                celula.setPeriodo(rs.getString(15));
-                celula.setVersiculo(rs.getString(16));
+                celula.setId_celula(rs.getInt(2));
+                celula.setNome(rs.getString(8));
+                celula.setLider(rs.getString(9));
+                celula.setDia(rs.getString(10));
+                celula.setHorario(Utils.converteHoraApp(rs.getString(11)));
+                celula.setLocal_celula(rs.getString(12));
+                celula.setDia_jejum(rs.getString(13));
+                celula.setPeriodo(rs.getString(14));
+                celula.setVersiculo(rs.getString(15));
 //                celula.setImagem(rs.getBlob(17));
                 usuario.setCelula(celula);
             }

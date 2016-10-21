@@ -31,10 +31,10 @@ public class ProgramacaoDAO {
         conexao = ConnectionManager.getConnection();
         try {
             statement = conexao.prepareStatement(
-                    " SELECT id, id_celula, nome, data, horario, " +
+                    " SELECT id, programacoes_celula_id, nome, data, horario, " +
                     "        local, telefone, valor, imagem                  " +
                     "   FROM programacoes                                          " +
-                    "  WHERE id_celula = ?                                        " +
+                    "  WHERE programacoes_celula_id = ?                                        " +
                     " ORDER BY data desc;                                    ");
 
             statement.setInt(1, celula.getId_celula());
@@ -127,7 +127,7 @@ public class ProgramacaoDAO {
         boolean inserido = false;
         conexao = ConnectionManager.getConnection();
         try {
-            String sql =       " INSERT INTO programacoes (id_celula, nome, data, horario, local, telefone, valor, imagem) " +
+            String sql =       " INSERT INTO programacoes (programacoes_celula_id, nome, data, horario, local, telefone, valor, imagem) " +
                             "values (?,?,?,?,?,?,?,?)";
             statement = conexao.prepareStatement(sql);
             statement.setInt(1, programacao.getId_celula());
