@@ -18,12 +18,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -162,16 +164,20 @@ public class GEActivity extends ActionBarActivity{
                 // TODO Auto-generated method stub
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
-
-                        new RemoveGETask(
-                                ((AdapterDelete<GrupoEvangelistico>) getListViewGE().getAdapter()).getItensSelecionados(),
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mode.finish();
-                                    }
-                                }
-                        ).execute();
+                        Utils.showMessageConfirm(GEActivity.this, "Remover GE", "Deseja realmente remover esse Alvo de Oração?", TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new RemoveGETask(
+                                        ((AdapterDelete<GrupoEvangelistico>) getListViewGE().getAdapter()).getItensSelecionados(),
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mode.finish();
+                                            }
+                                        }
+                                ).execute();
+                            }
+                        });
                         return true;
                     default:
                         return false;
@@ -253,12 +259,12 @@ public class GEActivity extends ActionBarActivity{
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
-                    Toast.makeText(GEActivity.this, "GE(s) removido(s) com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(GEActivity.this, "GE(s) removido(s) com sucesso!");
                     ((AdapterDelete)getListViewGE().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(GEActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(GEActivity.this, "Erro", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

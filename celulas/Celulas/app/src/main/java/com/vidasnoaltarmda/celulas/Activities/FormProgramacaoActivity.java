@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.Mask;
 import com.vidasnoaltarmda.celulas.Utils.RequestHandler;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
@@ -27,7 +29,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
     private static final int ALTURA_MAX_IMAGEM = 200;
     private static final int LARGURA_MAX_IMAGEM = 200;
 
-    public static final String UPLOAD_URL = "http://vidasnoaltarmda.com/web_services/insert_programacao.php";
+    public static final String UPLOAD_URL = "http://vidasnoaltar.com/web_services/insert_programacao.php";
     public static final String UPLOAD_KEY_ID_CELULA = "id_celula";
     public static final String UPLOAD_KEY_NOME      = "nome";
     public static final String UPLOAD_KEY_DATA      = "data";
@@ -50,6 +52,8 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
     private Button   buttonSalvar;
     private ImageView imagemProgramacao;
     private Toolbar mToolbar;
+    private TextWatcher telefone;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,13 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                 onBackPressed();
             }
         });
+
+//TODO fazer funcionar
+//        if(editTexTelefone.length() < 14){
+//            telefone = Mask.insert("(##)####-####", editTexTelefone);
+//        } else{
+//            telefone = Mask.insert("(##)#####-####", editTexTelefone);
+//        }
     }
 
     private void insereListener() {

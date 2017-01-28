@@ -1,10 +1,9 @@
 package com.vidasnoaltarmda.celulas.Activities;
 
-import android.app.AlertDialog;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,33 +18,25 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * Created by barque on 24/03/2016.
- */
 public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
     public static final int REQUEST_SALVAR = 1;
-
     private static final String STATE_LISTA_AVISOS = "STATE_LISTA_AVISOS";
 
     private ImageView imageViewListaVazia;
     private ListView listview_avisos;
     private Toolbar mToolbar;
     private FloatingActionButton addAviso;
-
     private ArrayList<Aviso> mListaAvisos;
 
     @Override
@@ -72,9 +63,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                 onBackPressed();
             }
         });
-
-
-
 
         int permissaoUsuario = 0;
         try {
@@ -197,16 +185,23 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
                 switch (item.getItemId()) {
                     case R.id.action_deletar:
                         //TODO fazer um if com alert deseja realmente deletar?
-                        new RemoveAvisoTask(
 
-                                ((AdapterDelete<Aviso>) getListViewAviso().getAdapter()).getItensSelecionados(),
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mode.finish();
-                                    }
-                                }
-                        ).execute();
+                        Utils.showMessageConfirm(AvisoActivity.this, "Remover aviso", "Deseja realmente remover esse aviso?", TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new RemoveAvisoTask(
+
+                                        ((AdapterDelete<Aviso>) getListViewAviso().getAdapter()).getItensSelecionados(),
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mode.finish();
+                                            }
+                                        }
+                                ).execute();
+                            }
+                        });
+
                         return true;
                     default:
                         return false;
@@ -363,20 +358,12 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
-
-                    SuperActivityToast superActivityToast = new SuperActivityToast(AvisoActivity.this);
-                    superActivityToast.setText("Aviso(s) removido(s) com sucesso.");
-                    superActivityToast.setDuration(SuperToast.Duration.LONG);
-                    superActivityToast.setBackground(SuperToast.Background.ORANGE);
-                    superActivityToast.setTextColor(Color.WHITE);
-                    superActivityToast.setTouchToDismiss(true);
-                    superActivityToast.show();
-
+                    Utils.showMessageToast(AvisoActivity.this, "Aviso removido com sucesso!");
                     ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(AvisoActivity.this, "Erro", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);
@@ -388,12 +375,7 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
         Aviso avisoSelecionado = (Aviso) adapterView.getItemAtPosition(pos);
         switch (adapterView.getId()) {
             case R.id.avisoslist:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                        .setTitle(avisoSelecionado.getTitulo())
-                        .setMessage(avisoSelecionado.getConteudo())
-                        .setPositiveButton("OK", null);
-                AlertDialog alerta = builder.create();
-                alerta.show();
+                Utils.showMsgAlertOK(AvisoActivity.this,avisoSelecionado.getTitulo(), avisoSelecionado.getConteudo(),TipoMsg.INFO);
                 break;
         }
     }

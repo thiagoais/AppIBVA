@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class PrincipalActivity extends ActionBarActivity implements View.OnTouchListener {
 
-    public static final String UPLOAD_URL = "http://www.lucasbarque.com.br/web_services/getVersao.php";
+    public static final String UPLOAD_URL = "http://www.vidasnoaltar.com/web_services/getVersao.php";
     private LinearLayout aviso;
     private LinearLayout escala;
     private LinearLayout roteiro;

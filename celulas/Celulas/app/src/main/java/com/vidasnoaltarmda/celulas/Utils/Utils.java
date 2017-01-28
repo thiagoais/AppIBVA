@@ -1,5 +1,6 @@
 package com.vidasnoaltarmda.celulas.Utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -10,12 +11,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
+import com.vidasnoaltarmda.celulas.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,6 +45,98 @@ public class Utils {
                 .setPositiveButton("Ok", null);
         AlertDialog alerta = builder.create();
         alerta.show();
+    }
+
+    public static void showMessageConfirm(final Activity activity, String titulo, String texto, TipoMsg tipoMsg, DialogInterface.OnClickListener listener){
+        int theme = 0, icone = 0;
+
+        switch (tipoMsg){
+            case INFO:
+                theme = R.style.AppTheme_Dark_Dialog_Info;
+                icone = R.drawable.info;
+                break;
+            case ERRO:
+                theme = R.style.AppTheme_Dark_Dialog_Error;
+                icone = R.drawable.error;
+                break;
+            case ALERTA:
+                theme = R.style.AppTheme_Dark_Dialog_Alert;
+                icone = R.drawable.alert;
+                break;
+            case SUCESSO:
+                theme = R.style.AppTheme_Dark_Dialog_Success;
+                icone = R.drawable.success;
+                break;
+        }
+
+        final android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(activity, theme).create();
+        alertDialog.setTitle(titulo);
+        alertDialog.setMessage(texto);
+        alertDialog.setIcon(icone);
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", listener);
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    public static void showMsgAlertOK(final Activity activity, String titulo, String texto, TipoMsg tipoMsg){
+        int theme = 0, icone = 0;
+
+        switch (tipoMsg){
+            case INFO:
+                theme = R.style.AppTheme_Dark_Dialog_Info;
+                icone = R.drawable.info_toast;
+                break;
+            case ERRO:
+                theme = R.style.AppTheme_Dark_Dialog_Error;
+                icone = R.drawable.erro;
+                break;
+            case ALERTA:
+                theme = R.style.AppTheme_Dark_Dialog_Alert;
+                icone = R.drawable.alert;
+                break;
+            case SUCESSO:
+                theme = R.style.AppTheme_Dark_Dialog_Success;
+                icone = R.drawable.success;
+                break;
+        }
+
+        final android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(activity, theme).create();
+        alertDialog.setTitle(titulo);
+        alertDialog.setMessage(texto);
+        alertDialog.setIcon(icone);
+
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
+    }
+
+    public static void showMessageToast(Activity activity, String texto) {
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View lytToast = inflater.inflate(R.layout.meu_toast, (ViewGroup) activity.findViewById(R.id.layoutToast));
+
+        TextView txtToast = (TextView) lytToast.findViewById(R.id.txtToast);
+        txtToast.setText(texto);
+
+        Toast toast = new Toast(activity);
+        toast.setView(lytToast);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
 
