@@ -20,6 +20,7 @@ public class Usuario {
     private String senha;
     private String sobrenome;
     private String dataNascimento;
+    private String email;
     private Celula celula;
     //private Escala escala; //TODO
     private String login;
@@ -39,6 +40,12 @@ public class Usuario {
 
     public String getNome() {
         return nome;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setNome(String nome) {
@@ -60,6 +67,8 @@ public class Usuario {
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
     }
+
+
 
     public String getDataNascimento() {
         return dataNascimento;
