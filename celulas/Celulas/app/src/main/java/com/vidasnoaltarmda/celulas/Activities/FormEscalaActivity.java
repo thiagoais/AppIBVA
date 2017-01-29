@@ -24,6 +24,7 @@ import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -156,12 +157,12 @@ public class FormEscalaActivity extends ActionBarActivity implements View.OnClic
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(FormEscalaActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(FormEscalaActivity.this, "Inserido com sucesso.");
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(FormEscalaActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(FormEscalaActivity.this,"Erro", "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import com.vidasnoaltarmda.celulas.BuildConfig;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.RequestHandler;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.util.HashMap;
@@ -88,13 +89,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
             finish();
             return true;
         }else if (id == R.id.creditos) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle("Desenvolvimento")
-                    .setMessage("Thiago Salvador e Lucas Barque\n" +
-                            "Versão 1.0.1 ")
-                    .setPositiveButton("Ok", null);
-            AlertDialog alerta = builder.create();
-            alerta.show();
+            Utils.showMsgAlertOK(PrincipalActivity.this,"Créditos de Desenvolvimento", "Thiago Salvador e Lucas Barque\n Versão 1.1.1", TipoMsg.INFO);
             return true;
         }
 
@@ -201,7 +196,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
                     break;
 
                 case R.id.site:
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltarmda.com/"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://vidasnoaltar.com/"));
                     startActivity(browserIntent);
                     break;
             }
@@ -273,8 +268,6 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
             if (site == null) {
                 site = (LinearLayout) findViewById(R.id.site);
             }
-
-
         return site;
     }
 

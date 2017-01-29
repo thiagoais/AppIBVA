@@ -24,6 +24,7 @@ import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.ProgramacaoDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -295,12 +296,12 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
-                    Toast.makeText(ProgramacaoActivity.this, "Programação(s) removida(s) com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(ProgramacaoActivity.this, "Programação(s) removida(s) com sucesso.");
                     ((AdapterDelete)getListViewProgramacao().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(ProgramacaoActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(ProgramacaoActivity.this,"Erro de Conexão", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

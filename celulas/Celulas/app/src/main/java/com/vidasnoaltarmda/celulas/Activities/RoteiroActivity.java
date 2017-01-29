@@ -18,6 +18,7 @@ import com.vidasnoaltarmda.celulas.Dados.Roteiro;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.RoteiroDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -152,13 +153,13 @@ public class RoteiroActivity extends ActionBarActivity implements AdapterView.On
             switch (resultado) {
                 case RETORNO_SUCESSO:
                     Intent intent = new Intent(RoteiroActivity.this, ImagemAmpliadaActivity.class);
-                   intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
+                    intent.putExtra(ImagemAmpliadaActivity.EXTRA_CAMINHO_IMAGEM, caminhoImagem + "/teste.jpg");
                     startActivity(intent);
                     break;
 
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar a imagem do roteiro, sendo assim uma mensagem de erro eh exibida
-                    Utils.mostraMensagemDialog(RoteiroActivity.this, "Não foi possível carregar a imagem. Verifique sua conexão e tente novamente.");
+                    Utils.showMsgAlertOK(RoteiroActivity.this,"Erro de Conexão", "Não foi possível carregar a imagem. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultado);

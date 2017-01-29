@@ -15,6 +15,7 @@ import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -24,7 +25,6 @@ public class AniversariantesActivity extends ActionBarActivity {
 
     private ListView listview_aniversariantes;
     private Toolbar mToolbar;
-
     private ImageView imageViewListaVazia;
 
     @Override
@@ -90,14 +90,9 @@ public class AniversariantesActivity extends ActionBarActivity {
 
                     break;
                 case FALHA_SQLEXCEPTION:
-                    //nao foi possivel carregar os aniversariantes, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.mostraMensagemDialog(AniversariantesActivity.this, "Não foi possível carregar os aniversariantes. Verifique sua conexão e tente novamente.",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
+                    //nao foi possivel carregar os aniversariantes, sendo assim uma
+                    // mensagem de erro eh exibida e a tela eh encerrada
+                    Utils.showMsgAlertOK(AniversariantesActivity.this,"ERRO", "Não foi possível carregar os aniversariantes. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultado);

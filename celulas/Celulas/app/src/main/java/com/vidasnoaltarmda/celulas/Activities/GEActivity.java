@@ -316,13 +316,7 @@ public class GEActivity extends ActionBarActivity{
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar os ges, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.mostraMensagemDialog(GEActivity.this, "Não foi possível carregar os Grupos Evangelísticos. Verifique sua conexão e tente novamente.",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
+                    Utils.showMsgAlertOK(GEActivity.this,"Erro", "Não foi possível carregar os Grupos Evangelísticos. Verifique sua conexão e tente novamente.",TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoAviso);

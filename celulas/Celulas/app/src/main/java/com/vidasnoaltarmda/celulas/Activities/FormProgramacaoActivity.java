@@ -18,6 +18,7 @@ import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.Mask;
 import com.vidasnoaltarmda.celulas.Utils.RequestHandler;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.io.FileNotFoundException;
@@ -165,15 +166,15 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(FormProgramacaoActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(FormProgramacaoActivity.this, "Inserido com sucesso.");
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;
                 case INSERCAO_FALHOU:
-                    Utils.mostraMensagemDialog(FormProgramacaoActivity.this, "Não foi possível finalizar o cadastro. Por favor, informe o erro ao administrador do sistema.");
+                    Utils.showMsgAlertOK(FormProgramacaoActivity.this,"Erro", "Não foi possível finalizar o cadastro. Por favor, informe o erro ao administrador do sistema.", TipoMsg.ERRO);
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(FormProgramacaoActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(FormProgramacaoActivity.this,"Erro de Conexão", "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

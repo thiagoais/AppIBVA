@@ -12,6 +12,7 @@ import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dao.AvisoDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -104,7 +105,7 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
                     finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(FormAvisoActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(FormAvisoActivity.this, "Erro", "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

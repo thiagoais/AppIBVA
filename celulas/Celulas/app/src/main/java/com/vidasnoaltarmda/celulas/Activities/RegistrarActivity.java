@@ -17,6 +17,7 @@ import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.CelulaDAO;
 import com.vidasnoaltarmda.celulas.Dao.UsuarioDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -169,12 +170,12 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(RegistrarActivity.this, "Cadastrado com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(RegistrarActivity.this, "Cadastrado com sucesso.");
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(RegistrarActivity.this, "Erro de Conexão","Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);
@@ -225,13 +226,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as celulas, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.mostraMensagemDialog(RegistrarActivity.this, "Não foi possível carregar as células. Verifique sua conexão e tente novamente.",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
+                    Utils.showMsgAlertOK(RegistrarActivity.this,"Erro de Conexão", "Não foi possível carregar as células. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);

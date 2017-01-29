@@ -25,6 +25,7 @@ import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Dao.EscalaDAO;
 import com.vidasnoaltarmda.celulas.R;
 import com.vidasnoaltarmda.celulas.Utils.AdapterDelete;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -306,12 +307,12 @@ public class EscalaActivity extends ActionBarActivity {
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
-                    Toast.makeText(EscalaActivity.this, "Escala(s) removido(s) com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(EscalaActivity.this, "Escala removida com sucesso.");
                     ((AdapterDelete)getListViewEscala().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(EscalaActivity.this, "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(EscalaActivity.this, "Erro", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);

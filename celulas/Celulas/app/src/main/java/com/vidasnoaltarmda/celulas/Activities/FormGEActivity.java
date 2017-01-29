@@ -13,6 +13,7 @@ import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.GrupoEvangelistico;
 import com.vidasnoaltarmda.celulas.Dao.GrupoEvangelisticoDAO;
 import com.vidasnoaltarmda.celulas.R;
+import com.vidasnoaltarmda.celulas.Utils.TipoMsg;
 import com.vidasnoaltarmda.celulas.Utils.Utils;
 
 import java.sql.SQLException;
@@ -99,13 +100,13 @@ public class FormGEActivity extends ActionBarActivity implements View.OnClickLis
             progressDialog.dismiss();
             switch (resultadoInsercao) {
                 case INSERCAO_SUCESSO:
-                    Toast.makeText(FormGEActivity.this, "Inserido com sucesso.", Toast.LENGTH_LONG).show();
+                    Utils.showMessageToast(FormGEActivity.this, "Inserido com sucesso.");
                     setResult(RESULT_OK, getIntent());
                     finish();
                     //TODO terminar tela e voltar pra tela de login
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.mostraMensagemDialog(FormGEActivity.this, "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.");
+                    Utils.showMsgAlertOK(FormGEActivity.this,"Erro", "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);
