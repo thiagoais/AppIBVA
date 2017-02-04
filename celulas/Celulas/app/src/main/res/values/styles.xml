@@ -1,27 +1,18 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="Theme.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">@color/principalPrimary</item>
-
-
-        <!-- colorPrimaryDark is used for the status bar -->
         <item name="colorPrimaryDark">@color/principalPrimaryDark</item>
-
-        <!-- colorAccent is used as the default value for colorControlActivated,
-             which is used to tint widgets -->
         <item name="colorAccent">@color/principalPrimaryAccent</item>
 
-
-        <!-- You can also set colorControlNormal, colorControlActivated
-             colorControlHighlight, and colorSwitchThumbNormal. -->
 
 
 
 
     </style>
-
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
     <style name="Avisos">
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
