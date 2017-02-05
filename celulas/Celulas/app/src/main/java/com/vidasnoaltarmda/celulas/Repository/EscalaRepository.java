@@ -7,15 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-import com.vidasnoaltarmda.celulas.Dados.Aviso;
 import com.vidasnoaltarmda.celulas.Dados.Escala;
 import com.vidasnoaltarmda.celulas.Utils.Constantes;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Barque on 28/01/2017.
@@ -99,7 +95,7 @@ public class EscalaRepository extends SQLiteOpenHelper{
      ContentValues contentValues = getContentValuesEscala(escala);
      db.update("tb_escalas", contentValues, "id = ?", new String[]{String.valueOf(escala.getId_escala())});
  }
- public removerEscalaPorId(int Id_escala){
+ public void removerEscalaPorId(int Id_escala){
      SQLiteDatabase db = this.getWritableDatabase();
 
      db.delete("tb_escalas", "id = ?", new String[]{String.valueOf(Id_escala)});

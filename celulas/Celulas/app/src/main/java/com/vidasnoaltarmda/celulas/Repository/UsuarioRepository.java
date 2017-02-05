@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-import com.vidasnoaltarmda.celulas.Dados.Usuario;
+import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Usuario;
 import com.vidasnoaltarmda.celulas.Utils.Constantes;
 
@@ -58,7 +58,7 @@ public class UsuarioRepository extends SQLiteOpenHelper {
     @NonNull
     private ContentValues getContentValuesUsuario(Usuario usuario){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("usuarios_celula_id", usuario.getCelula());
+        contentValues.put("usuarios_celula_id", usuario.getCelula().getId_celula());
         contentValues.put("nome", usuario.getNome());
         contentValues.put("sobrenome", usuario.getSobrenome());
         contentValues.put("login", usuario.getLogin());
@@ -107,7 +107,11 @@ public class UsuarioRepository extends SQLiteOpenHelper {
 
     public void setUsuarioFromCursor(Cursor cursor, Usuario usuario){
         usuario.setId(cursor.getInt(cursor.getColumnIndex("id")));
-        usuario.setCelula(cursor.getInt(cursor.getColumnIndex("usuarios_celula_id")));
+
+        Celula celula = new Celula();
+        celula.setId_celula(cursor.getInt(cursor.getColumnIndex("usuarios_celula_id")));
+        usuario.setCelula(celula);
+
         usuario.setNome(cursor.getString(cursor.getColumnIndex("nome")));
         usuario.setSobrenome(cursor.getString(cursor.getColumnIndex("sobrenome")));
         usuario.setLogin(cursor.getString(cursor.getColumnIndex("login")));
@@ -122,7 +126,7 @@ public class UsuarioRepository extends SQLiteOpenHelper {
         ContentValues contentValues = getContentValuesUsuario(usuario);
         db.update("tb_usuarios", contentValues, "id = ?", new String[]{String.valueOf(usuario.getId())});
     }
-    public removerUsuarioPorId(int Id_usuario){
+    public void removerUsuarioPorId(int Id_usuario){
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete("tb_usuarios", "id = ?", new String[]{String.valueOf(Id_usuario)});

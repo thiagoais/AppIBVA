@@ -99,7 +99,7 @@ public class GERepository extends SQLiteOpenHelper{
         ContentValues contentValues = getContentValuesGE(ge);
         db.update("tb_ges", contentValues, "id = ?", new String[]{String.valueOf(ge.getId_ge())});
     }
-    public removerGEPorId(int idGE){
+    public void removerGEPorId(int idGE){
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete("tb_ges", "id = ?", new String[]{String.valueOf(idGE)});

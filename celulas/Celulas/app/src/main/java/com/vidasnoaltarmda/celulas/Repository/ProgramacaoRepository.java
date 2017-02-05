@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-import com.vidasnoaltarmda.celulas.Dados.Celula;
 import com.vidasnoaltarmda.celulas.Dados.Programacao;
 import com.vidasnoaltarmda.celulas.Utils.Constantes;
 
@@ -93,7 +92,7 @@ public class ProgramacaoRepository extends SQLiteOpenHelper {
         ContentValues contentValues = getContentValuesProgramacao(programacao);
         db.update("tb_programacoes", contentValues, "id = ?", new String[]{String.valueOf(programacao.getId_programacao())});
     }
-    public removerProgramacaoPorId(int Id_programacao){
+    public void removerProgramacaoPorId(int Id_programacao){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tb_programacoes", "id = ?", new String[]{String.valueOf(Id_programacao)});
     }

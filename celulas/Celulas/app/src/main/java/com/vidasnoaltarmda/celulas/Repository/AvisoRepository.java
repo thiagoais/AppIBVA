@@ -16,8 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.vidasnoaltarmda.celulas.R.style.Avisos;
-
 /**
  * Created by Barque on 28/01/2017.
  */
@@ -106,7 +104,7 @@ public class AvisoRepository extends SQLiteOpenHelper{
      ContentValues contentValues = getContentValuesAviso(aviso);
      db.update("tb_avisos", contentValues, "id = ?", new String[]{String.valueOf(aviso.getId_aviso())});
  }
- public removerAvisoPorId(int Id_aviso){
+ public void removerAvisoPorId(int Id_aviso){
      SQLiteDatabase db = this.getWritableDatabase();
 
      db.delete("tb_avisos", "id = ?", new String[]{String.valueOf(Id_aviso)});

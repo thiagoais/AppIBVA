@@ -93,7 +93,7 @@ public class CelulaRepository extends SQLiteOpenHelper {
         ContentValues contentValues = getContentValuesCelula(celula);
         db.update("tb_celulas", contentValues, "id = ?", new String[]{String.valueOf(celula.getId_celula())});
     }
-    public removerCelulaPorId(int Id_celula){
+    public void removerCelulaPorId(int Id_celula){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tb_celulas", "id = ?", new String[]{String.valueOf(Id_celula)});
     }

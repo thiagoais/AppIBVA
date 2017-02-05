@@ -47,7 +47,7 @@ public class EscalacaoRepository extends SQLiteOpenHelper{
     @NonNull
     private ContentValues getContentValuesEscalacao(Escalacao escalacao){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id_escala", escalacao.getIdEscala());
+        //contentValues.put("id_escala", escalacao.getIdEscala());
         contentValues.put("membro", escalacao.getMembro());
         contentValues.put("tarefa", escalacao.getTarefa());
         return contentValues;
@@ -81,7 +81,7 @@ public class EscalacaoRepository extends SQLiteOpenHelper{
 
  public void setEscalacaoFromCursor(Cursor cursor, Escalacao escalacao){
     escalacao.setIdEscalacao(cursor.getInt(cursor.getColumnIndex("id")));
-    escalacao.setIdEscala(cursor.getInt(cursor.getColumnIndex("id_escala")));
+    //escalacao.setIdEscala(cursor.getInt(cursor.getColumnIndex("id_escala")));
     escalacao.setMembro(cursor.getString(cursor.getColumnIndex("membro")));
     escalacao.setTarefa(cursor.getString(cursor.getColumnIndex("tarefa")));
  }
@@ -90,7 +90,7 @@ public class EscalacaoRepository extends SQLiteOpenHelper{
      ContentValues contentValues = getContentValuesEscalacao(escalacao);
      db.update("tb_escalacoes", contentValues, "id = ?", new String[]{String.valueOf(escalacao.getIdEscalacao())});
  }
- public removerEscalacaoPorId(int Id_escalacao){
+ public void removerEscalacaoPorId(int Id_escalacao){
      SQLiteDatabase db = this.getWritableDatabase();
 
      db.delete("tb_escalacoes", "id = ?", new String[]{String.valueOf(Id_escalacao)});
