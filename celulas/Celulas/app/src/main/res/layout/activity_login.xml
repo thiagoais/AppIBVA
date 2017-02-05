@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="5dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/top_azul"
-        android:layout_weight="1"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/top_verde"
-        android:layout_weight="1"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/top_amarelo"
-        android:layout_weight="1"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/top_vermelho"
-        android:layout_weight="1"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/top_azul"
-        android:layout_weight="1"
-        />
-</LinearLayout>
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_azul" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_verde" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_amarelo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_vermelho" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_azul" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
+        android:layout_centerInParent="true"
         android:gravity="center"
-        >
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,11 +59,11 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/edittext_login"
-            style="@style/EditTextPadrao"
-            android:hint="Login"
-            />
+
+            <EditText
+                android:id="@+id/edittext_login"
+                style="@style/EditTextPadrao"
+                android:hint="Login" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -72,11 +72,10 @@
 
             <EditText
                 android:id="@+id/edittext_senha"
-                android:password="true"
-                android:hint="Senha"
-                android:layout_marginBottom="50dp"
                 style="@style/EditTextPadrao"
-                />
+                android:layout_marginBottom="50dp"
+                android:hint="Senha"
+                android:password="true" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
@@ -84,63 +83,64 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="#4f88bf"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
                 android:id="@+id/button_registrar"
-                android:text="Registrar"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false" />
-            <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="#73c233"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:id="@+id/button_entrar"
-                android:text="Entrar"
-                android:textColor="#FFFFFF"
+                android:background="#4f88bf"
+                android:text="Registrar"
                 android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button_entrar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#73c233"
+                android:text="Entrar"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
+        android:layout_alignParentBottom="true">
 
-        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/top_verde"
             android:layout_weight="1"
-            />
+            android:background="@color/top_verde" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/top_azul"
             android:layout_weight="1"
-            />
+            android:background="@color/top_azul" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/top_vermelho"
             android:layout_weight="1"
-            />
+            android:background="@color/top_vermelho" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/top_amarelo"
             android:layout_weight="1"
-            />
+            android:background="@color/top_amarelo" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/top_verde"
             android:layout_weight="1"
-            />
+            android:background="@color/top_verde" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
