@@ -32,9 +32,7 @@
                 android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edittext_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Nome da programação"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -44,13 +42,11 @@
                 android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/data_programacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:inputType="date"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Data da programação"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -60,26 +56,20 @@
 
             <EditText
                 android:id="@+id/horario_programacao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:ems="10"
                 android:focusable="false"
                 android:inputType="time"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Horário da programação"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
             <EditText
                 android:id="@+id/edittext_endereco"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Local da programação"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -89,10 +79,8 @@
                 android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edittext_telefone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:inputType="phone"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Telefone para contato"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -102,10 +90,8 @@
 
             <EditText
                 android:id="@+id/edittext_valor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Valor a ser gasto em R$"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -127,14 +113,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/selecionar_imagem" />
             <Button
-                android:id="@+id/button_salvar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
                 android:text="Salvar"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/ButtonBlue" />
         </LinearLayout>
     </ScrollView>
 

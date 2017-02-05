@@ -26,22 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/edittext_nome"
-        android:textSize="20dp"
+        style="@style/EditTextPadrao"
         android:hint="Nome do GE"
         />
         </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
         android:id="@+id/button_salvar"
         android:text="Salvar"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="#FFFFFF" />
+        style="@style/ButtonBlue" />
     </LinearLayout>
 </LinearLayout>

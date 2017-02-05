@@ -28,10 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/edittext_nome_lider"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Nome do Líder"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -41,12 +39,10 @@
 
             <EditText
                 android:id="@+id/data_celula"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="date"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Dia da Célula"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -55,67 +51,48 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/horario_celula"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="time"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Horário da Célula"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/edittext_local"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Local"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/edittext_dia_jejum"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Dia Jejum"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/edittext_dia_semana"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Dia Semana Jejum"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edittext_versiculo"
-            android:textSize="20dp"
-            android:hint="Versículo"/>
+            <EditText
+                android:id="@+id/edittext_versiculo"
+                style="@style/EditTextPadrao"
+                android:hint="Versículo"/>
 
-    </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/button_salvar"
+            android:text="Salvar"
+            style="@style/ButtonBlue" />
 
-
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:id="@+id/button_salvar"
-        android:text="Salvar"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="20dp" />
-
-</LinearLayout></LinearLayout>
+    </LinearLayout></LinearLayout>

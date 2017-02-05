@@ -33,12 +33,10 @@
 
             <EditText
                 android:id="@+id/data_escala"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="date"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Data da célula"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -46,12 +44,10 @@
                 android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/horario_escala"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="time"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Horário da célula"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -60,9 +56,7 @@
 
             <EditText
                 android:id="@+id/edittext_local"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/EditTextPadrao"
                 android:hint="Local da célula"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -78,8 +72,7 @@
 
             <Spinner
                 android:id="@+id/dinamica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,8 +83,7 @@
 
             <Spinner
                 android:id="@+id/oracao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,8 +94,7 @@
 
             <Spinner
                 android:id="@+id/louvor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,8 +105,7 @@
 
             <Spinner
                 android:id="@+id/palavra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,8 +116,7 @@
 
             <Spinner
                 android:id="@+id/oferta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,17 +128,11 @@
 
             <Spinner
                 android:id="@+id/lanche"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Spinner>
+                style="@style/SpinnerPadrao"></Spinner>
             <Button
                 android:id="@+id/button_salvar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
                 android:text="Salvar"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/ButtonBlue" />
         </LinearLayout>
     </ScrollView>
 

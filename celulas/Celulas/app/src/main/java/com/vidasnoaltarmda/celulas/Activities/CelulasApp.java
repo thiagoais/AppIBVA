@@ -15,6 +15,6 @@ public class CelulasApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        SystemClock.sleep(TimeUnit.SECONDS.toMillis(3));
+        SystemClock.sleep(TimeUnit.SECONDS.toMillis(1));
     }
 }

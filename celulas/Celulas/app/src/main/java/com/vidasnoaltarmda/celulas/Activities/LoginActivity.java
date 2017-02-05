@@ -2,6 +2,7 @@ package com.vidasnoaltarmda.celulas.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -30,6 +31,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private EditText edittext_senha;
     private Button button_registrar;
     private Button button_entrar;
+//    private Typeface font = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private EditText getEditTextLogin() {
         if (edittext_login == null) {
             edittext_login = (EditText) findViewById(R.id.edittext_login);
+//            edittext_login.setTypeface(font.SERIF);
         }
         return edittext_login;
     }
